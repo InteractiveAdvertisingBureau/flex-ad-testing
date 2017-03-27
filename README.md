@@ -1,2 +1,3 @@
-# flex-ad-testing
-Helper code and samples for testing and using the new IAB Flexible ad formats
+# IAB Flex Ad Testing
+
+This project supplies samples and test helpers for the coming Flexible Ad formats.
