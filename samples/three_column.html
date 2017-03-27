@@ -76,9 +76,14 @@ html, body{
 
 .footer{
 	position: fixed;
+	border-top-right-radius: 1em;
 	bottom: 0;
 	padding: 15px;
 	font-size: 0.8rem;
+	background: white;
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-radius-
 }
 
 .content-wrap{
@@ -87,8 +92,15 @@ html, body{
 	margin-right: auto;
 }
 
+.main-content{
+	margin-bottom: 50px;
+
+}
+
 .content-flexrow{
 	display: flex;
+	flex-direction: row;
+	justify-content: center;
 	margin-top: 10px;
 }
 
@@ -96,6 +108,19 @@ html, body{
 	padding: 10px;
 	position: relative;
 }
+
+.content-flexrow > .item.sidebar {
+	flex: 0.5;
+}
+.content-flexrow > .item.highlighted {
+	flex: 2;
+}
+
+.content-flexrow > .item.normal {
+	flex: 1;
+}
+
+
 
 img.scalewidth{
 	width: 100%;
@@ -113,6 +138,21 @@ img.scalewidth{
 	font-size: 1.2em;
 }
 
+
+@media (max-width: 800px){
+
+.content-flexrow {
+	flex-direction: column;
+}
+
+}
+
+
+
+
+
+
+
 /* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
 
 .flex-ad-unit{
@@ -121,7 +161,7 @@ img.scalewidth{
 
 .flex-units-visible .flex-ad-unit{
 	background: #eee;
-	border: 1px solid red;
+	border: 1px solid orange;
 }
 
 
@@ -141,6 +181,40 @@ img.scalewidth{
 }
 
 </style>
+
+
+
+<!-- ===================== DFP ADS ========================== -->
+
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex8:1', [1,1], 'div-gpt-ad-1490307722661-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex1:1', [1,1], 'div-gpt-ad-1490307785754-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex4:1', [1, 1], 'div-gpt-ad-1490375754525-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
 
 <script>
 </script>
@@ -184,29 +258,43 @@ img.scalewidth{
 			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
 			 class="flex-spacer-image" />
 			
-			<div class="flex-ad-content" id="topBillboardAd">			
+			<div class="flex-ad-content" id="topBillboardAd">
+<!-- /3790/Flex8:1 -->
+<div id='div-gpt-ad-1490307722661-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490307722661-0'); });
+</script>
+</div>
+
 			</div>
 		</div>
 	</div>
 	
-	<div class="content-wrap" role="main">
+	<div class="content-wrap main-content" role="main">
 	
 		<div class="content-flexrow">
 			
-			<div class="item" style="flex: 2;">
+			<div class="item highlighted" >
 				<img src="./images/kiwifruit-400143_640.jpg" class="scalewidth" />
 				<div class="teaserTitle">
 					Kiwi declared to be delicious
 				</div>
 			</div>
-			<div class="item" style="flex: 1;">
+			<div class="item sidebar">
 				
 				<div class="ad-block" style="margin-bottom: 5px;">
 					<div class="flex-ad-unit flexad-1x1 " >
 						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12P4//8/AwAI/AL+XJ/P2gAAAABJRU5ErkJggg=="
 						 class="flex-spacer-image" />
 						
-						<div class="flex-ad-content" id="column-adblock">			
+						<div class="flex-ad-content" id="column-adblock">
+<!-- /3790/Flex1:1 -->
+<div id='div-gpt-ad-1490307785754-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490307785754-0'); });
+</script>
+</div>
+
 						</div>
 					</div>					
 				</div>
@@ -221,6 +309,67 @@ img.scalewidth{
 			</div>
 			
 		</div>
+		
+		<div class="content-flexrow">
+			<div class="item normal" >
+				<div class="article">
+					<p>
+The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack.
+</p>
+
+					<p>
+Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack! " my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box. Quick brown dogs jump over the lazy fox. The jay, pig,
+
+</p>
+				</div>
+			</div>
+			
+			<div class="item normal" >
+				<div class="article">
+					<p>
+						Red ensign bilge water me topmast fire in the hole crimp ahoy wherry parley belay. 
+						Scurvy strike colors Davy Jones' Locker Yellow Jack gun flogging lateen sail gibbet rutters hands. 
+						Bowsprit square-rigged belay Buccaneer log gibbet tender long boat lugsail take a caulk.
+					</p>
+<p>
+Draught Nelsons folly spanker gally jury mast flogging barkadeer pressgang boatswain to go on account. 
+Chase guns pillage flogging reef sails Brethren of the Coast heave down Plate Fleet Arr marooned Sea Legs. 
+Schooner lass lad measured fer yer chains red ensign spike lugger pinnace fire in the hole jury mast.
+</p>
+				</div>
+			</div>
+
+			<div class="item normal" >
+				
+		<div class="flex-ad-unit flexad-4x1 " >
+	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAEElEQVQI12P4//8/KwMQAAAVDQMDEwgEHAAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" id="topBillboardAd">			
+<!-- /3790/Flex4:1 -->
+<div id='div-gpt-ad-1490375754525-0' >
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490375754525-0'); });
+</script>
+</div>
+			</div>
+		</div>
+
+				
+				<div class="article">
+<p>
+Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent. Electromagnetic and subspace wave fronts approaching synchronization. What is the strength of the ship's deflector shields at maximum output? The wormhole's size and short period would make this a local phenomenon. Do you have sufficient data to compile a holographic simulation?
+</p>
+
+<p>
+It indicates a synchronic distortion in the areas emanating triolic waves. The cerebellum, the cerebral cortex, the brain stem,  the entire nervous system has been depleted of electrochemical energy. Any device like that would produce high levels of triolic waves. These walls have undergone some kind of selective molecular polarization. I haven't determined if our phaser energy can generate a stable field. We could alter the photons with phase discriminators.
+</p>
+
+				</div>
+			</div>
+
+		</div>
+		
 	</div>
 
 
