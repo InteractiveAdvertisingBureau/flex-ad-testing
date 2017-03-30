@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+<!-- ============================================================================
+# /*
+# * Copyright (c) 2017, Interactive Advertising Bureau
+# * All rights reserved.
+# Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+# Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# */
+# ============================================================================ -->
+	
+<title>IAB: Slot definition techniques for Flex Ads</title>
+
+	<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+
+<style type="text/css">
+
+html, body{
+	margin: 0;
+	min-height: 100v;
+	font-family: Verdana, Arial;
+}
+
+em{
+	font-weight: bold;
+	font-style: italic;
+}
+
+.articleDate{
+	font-size: 0.9em;
+	font-style: italic;
+}
+
+.teaserBar{
+	width: 100%;
+	margin-top:0;
+	margin-bottom: 10px;
+	background: black;
+	color: white;	
+}
+
+.teaserBar>div.content{
+	display: flex;
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px 20px;
+	font-size: .9rem;	
+}
+
+.teaserBar>div.content > .item {
+	flex: 1 1 auto;
+	margin-right: 5px;
+}
+
+.top-header{
+	height: 85px;
+	margin-bottom: 10px;
+	color: blue;
+	font-size: 1.25rem;
+}
+.top-header .content{
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	display: flex;
+}
+.top-header .content .item {
+	padding: 10px;
+	flex: 1 1 auto;
+}
+
+.top-header img.logo{
+	width: auto;
+	height: 80px;
+	display: inline-block;
+	margin-top: -10px;
+}
+
+.footer{
+	position: fixed;
+	border-top-right-radius: 1em;
+	bottom: 0;
+	padding: 15px;
+	font-size: 0.8rem;
+	background: white;
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-radius-
+}
+
+.content-wrap{
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.main-content{
+	margin-bottom: 50px;
+
+}
+
+.content-flexrow{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.content-flexrow > .item{
+	padding: 10px;
+	position: relative;
+}
+
+.content-flexrow > .item.sidebar {
+	flex: 0.5;
+}
+.content-flexrow > .item.highlighted {
+	flex: 2;
+}
+
+.content-flexrow > .item.normal {
+	flex: 1;
+}
+
+
+
+img.scalewidth{
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+
+.content-flexrow > .item .teaserTitle {
+	position: relative;
+	top: -55px;
+	min-height: 65px;
+	padding: 10px;
+	width: 75%;
+	background: white;
+	font-size: 1.2em;
+}
+
+
+@media (max-width: 800px){
+
+.content-flexrow {
+	flex-direction: column;
+}
+
+}
+
+
+pre.code{
+	margin: 20px 5px;
+	padding: 20px;
+	border: 1px solid #4c0;
+	background-color: #eee;
+}
+
+
+.intro{
+	font-size: 0.85em;
+}
+
+.imageScaleSample{
+	margin: 20px;
+}
+
+.imageScaleSample img{
+	display: block;
+	margin-top: 10px;
+}
+
+.imageScaleSample img.scale50{
+	width: 50%;
+	height: auto;
+}
+.imageScaleSample img.scale25{
+	width: 25%;
+	height: auto;
+}
+
+.stepHeading{
+	font-weight: bold;
+}
+
+label{
+	font-weight: bold;
+	font-size: 0.75em;
+}
+
+label.diagramLabel{
+	display: block;
+	margin-top: -10px;
+	margin-bottom: 20px;
+	color: #888;
+	margin-left: 25px;
+	font-style: italic;
+}
+
+/* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
+
+.flex-ad-unit{
+	position:relative;
+}
+
+.flex-units-visible .flex-ad-unit{
+	background: #eee;
+	border: 1px solid orange;
+}
+
+
+.flex-ad-unit>.flex-spacer-image{
+	width:100%;
+	height:auto;
+	z-index:-1;
+	display:block;
+}
+.flex-ad-unit>div.flex-ad-content{
+	position:absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+}
+
+</style>
+
+<script>
+</script>
+</head>
+
+<body class="flex-units-visible">
+
+	<div class="teaserBar">
+		<div class="content">
+			<div class="item">
+				Slot Definition Techniques for Flex Ads
+			</div>
+			<div class="item">
+				IAB
+			</div>
+			<div class="item">
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="top-header">
+		<div class="content">
+			<div class="item">
+				Flex Ads
+			</div>
+			
+			<div class="item">
+				<img src="./images/iab-techlab-logo.png" class="logo" />
+			</div>
+			
+			<div class="item">
+				Eliminate Page Stutter
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="content-wrap" >
+		<h1>Defining Flex Ad Containers</h1>
+		<div class="articleDate" role="date">March 30, 2017</div>
+		
+		<div class="intro" role="introduction">
+		<p>
+			Previous ad element targeting techniques focused on making it easy for publishers to drop
+			ad units in their content to gain revenue. A particular DIV is targeted and taken over
+			by the ad unit when it arrived, or a piece of synchronous Javascript code is placed in the page
+			at the location where the ad unit will be served. While this makes the inclusion of ads simple,
+			the user experience suffers. There is a discernable <em>stutter</em> in the page, making
+			content shift on the end user while they are attempting to read the page.
+		</p>
+		
+		<p>
+			Flexible ad units pre-define an aspect ratio for the ad instead of using fixed pixel units.
+			The ad then fills the available space allocated to it, maintaining its aspect ratio.
+			This is more in line with modern web page authoring techniques that use media queries and 
+			CSS breakpoints to adjust page layout for an optimal user experience based on the device
+			the content is being viewed on.
+		</p>
+		
+		<p>
+			One question becomes where responsibility lies for enforcing the aspect ratios: with the Publish, 
+			with the Ad Creative vendor, or both. If the responsibility is solely with the Publisher
+			page stutter is eliminated and the creative unit can simply fill all available space.
+			The downside is that if the publisher makes a mistake in setup of the container, the ad
+			unit may not render correctly. Placing responsibility solely with the Creative vendor does not
+			address the issue of page layout stutter. The responsibility should lie with both parties.
+		</p>
+		</div>
+		
+		<h2>Publisher Slot definition - CSS</h2>
+		
+		<p>
+			At the time of writing there is no perfect technique available using CSS only to define a
+			container that holds fixed aspect ratios. Multiple techniques were evaluated to create a 
+			container that maintained a scaleable aspect ratio and none were perfect. 
+		</p>
+		
+		<h3>Scaled Image Technique</h3>
+		
+		<p>
+			The most reliable technique at time of writing is to utilize an image of the desired aspect ratio 
+			and to scale the image to size, then overlay another element into the scaled container to hold
+			the ad unit. Scaled images are supported in all modern browsers.
+		</p>
+		
+		<div class="stepHeading">Image Setup</div>
+		<div class="imageScaleSample">
+			<img class="Normal" src="./images/flex-sample-8x1.png" title="Unscaled" />
+			Unscaled
+			<img class="scale50" src="./images/flex-sample-8x1.png" title="Scaled 50%" />
+			Scaled 50%
+			<img class="scale25" src="./images/flex-sample-8x1.png" title="Scaled 25%" />
+			Scaled 25%
+			
+		</div>
+		
+		
+		<p>
+			The image can be minimally defined to the correct aspect ratio and be simple, transparent pixels.
+			For purposes of illustration, above is an 8x1 image scaled into different container sizes.
+			It will retain it's scale size as the container or the browser resizes. The top image has no
+			scaling applied.
+		</p>
+		
+		<div class="stepHeading">DOM Element Setup</div>
+		<p>
+			The first step is to create an enclosing block or inline-block level wrapping element.
+			This element declares <em>relative</em> positioning to establish a new coordinate placement
+			system internally for the flex scaled content. The second step is the add the image as a 
+			block level element that has a <em>width of 100%</em> and a <em>height of auto</em>.
+			These style settings direct the browser to fill available width and linearly scale the image height.
+			The final part is to create the ad targeting container. This should be an absolutely positioned
+			element with all four of <em>top, bottom, left, and right set to zero</em>. The effect of
+			doing this tells the element to stretch to the edges of its container while being
+			absolutely positioned over the top of other elements.
+		</p>
+		
+		<pre class="code" id="adContainerSample" >
+&lt;div style=&quot;display:block;position:relative;&gt; 
+	&lt;img src=&quot;adsize_8x1.png&quot; style=&quot;display:block;width:100%;height:auto;&quot; /&gt;
+	
+	&lt;div id=&quot;ad_target_element&quot; style=&quot;display:absolute;left:0;top:0;right:0;bottom:0;&quot; &gt; 
+	&lt;/div&gt;
+&lt;/div&gt;
+		</pre>
+		<label for="adContainerSample" class="diagramLabel">Markup for CSS Flex ad container</label>
+		
+		<div class="stepHeading">Image Optimization</div>
+		<p>
+			One obvious concern with this technique is the additional request for the image and if any
+			weight is being added to the page. The size of the image can be made very minimal.
+			By reducing to the minimum pixels for the aspect ration (for 8x1 this is one pixel high and 8 pixels wide)
+			and making them all transparent, the image is about 170 bytes. We can further optimize by
+			running the image through <em>pngcrush</em>, yielding a 70 byte image.
+		</p>
+		
+		<p>
+			Image file optimization doesn't address the issue of an additional network request. A claim can be
+			made that browser caching will handle this issue, but this will only be partially true.
+			Instead we can directly embed the image by creating a data URL and base64 encoding the image.
+			The end result is an image tag where the embedded data is shorter than most tracking pixel paths.
+			Below is our full tag for the 8x1 flex sizing image as a data embed.
+		</p>
+		
+		<pre class="code" id="flexAdimageSpacerEmbed" >
+&lt;img src=&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg==&quot; 
+	style=&quot;display:block;width:100%;height:auto;&quot; /&gt;
+		</pre>
+		<label for="flexAdimageSpacerEmbed" class="diagramLabel">Flex ad spacer image embedded with data URL</label>
+		
+		<h4>Examples in Action - CSS Scaled Image Containers</h4>
+		
+		<div class="flex-ad-unit flexad-8x1 " >
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" >Full page width
+			</div>
+		</div>
+		
+		<div style="margin-top: 10px;display: flex;padding: 5px;justify-content: space-between;">
+			<div style="flex:2;margin:2px;">
+		<div class="flex-ad-unit flexad-8x1 " >
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" >Two thirds
+			</div>
+		</div>
+			</div>
+			
+			<div style="flex:1;margin:2px;">
+		<div class="flex-ad-unit flexad-8x1 " >
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" >One third
+			</div>
+		</div>
+			</div>
+		</div>
+		
+		
+		<br/>
+		
+		
+		<h3>Other CSS Techniques</h3>
+		
+		<p>
+			The above technique is simply one we found to work today. It will no doubt be superceeded in the future
+			as CSS continues to evolve. In certain narrower scenarios you may find other techniques that are superior 
+			for your given situation. Consider working with CSS <em>calc()</em> or experimenting with CSS <em>grid display</em>.
+		</p>
+		
+		
+		
+		<ul>
+			<li>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc">MDN - CSS Calc</a>
+			</li>
+			
+			<li>
+				<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout">MDN - Guide to CSS Grids</a>
+			</li>
+			<li>
+				<a href="http://caniuse.com/#feat=css-grid" >Support for CSS Grids</a>
+			</li>
+		</ul>
+		
+		
+		
+		
+		
+		
+		
+		<hr style="margin-top:45px;" />
+		
+		<div class="flex-ad-unit flexad-8x1 " >
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" id="topBillboardAd">			
+			</div>
+		</div>
+	</div>
+	
+	<div class="content-wrap main-content" role="main">
+	
+		<div class="content-flexrow">
+			
+			<div class="item highlighted" >
+				<img src="./images/kiwifruit-400143_640.jpg" class="scalewidth" />
+				<div class="teaserTitle">
+					Kiwi declared to be delicious
+				</div>
+			</div>
+			<div class="item sidebar">
+				
+				<div class="ad-block" style="margin-bottom: 5px;">
+					<div class="flex-ad-unit flexad-1x1 " >
+						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12P4//8/AwAI/AL+XJ/P2gAAAABJRU5ErkJggg=="
+						 class="flex-spacer-image" />
+						
+						<div class="flex-ad-content" id="column-adblock">			
+						</div>
+					</div>					
+				</div>
+
+				<div class="article">
+				<img src="./images/tulips-2091615_640.jpg" class="scalewidth" />
+				<div class="teaserTitle">
+					Tulips come in the spring
+				</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		<div class="content-flexrow">
+			<div class="item normal" >
+				<div class="article">
+					<p>
+The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack.
+</p>
+
+					<p>
+Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack! " my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box. Quick brown dogs jump over the lazy fox. The jay, pig,
+
+</p>
+				</div>
+			</div>
+			
+			<div class="item normal" >
+				<div class="article">
+					<p>
+						Red ensign bilge water me topmast fire in the hole crimp ahoy wherry parley belay. 
+						Scurvy strike colors Davy Jones' Locker Yellow Jack gun flogging lateen sail gibbet rutters hands. 
+						Bowsprit square-rigged belay Buccaneer log gibbet tender long boat lugsail take a caulk.
+					</p>
+<p>
+Draught Nelsons folly spanker gally jury mast flogging barkadeer pressgang boatswain to go on account. 
+Chase guns pillage flogging reef sails Brethren of the Coast heave down Plate Fleet Arr marooned Sea Legs. 
+Schooner lass lad measured fer yer chains red ensign spike lugger pinnace fire in the hole jury mast.
+</p>
+				</div>
+			</div>
+
+			<div class="item normal" >
+				
+		<div class="flex-ad-unit flexad-4x1 " >
+	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAEElEQVQI12P4//8/KwMQAAAVDQMDEwgEHAAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" id="topBillboardAd">			
+			</div>
+		</div>
+
+				
+				<div class="article">
+<p>
+Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent. Electromagnetic and subspace wave fronts approaching synchronization. What is the strength of the ship's deflector shields at maximum output? The wormhole's size and short period would make this a local phenomenon. Do you have sufficient data to compile a holographic simulation?
+</p>
+
+<p>
+It indicates a synchronic distortion in the areas emanating triolic waves. The cerebellum, the cerebral cortex, the brain stem,  the entire nervous system has been depleted of electrochemical energy. Any device like that would produce high levels of triolic waves. These walls have undergone some kind of selective molecular polarization. I haven't determined if our phaser energy can generate a stable field. We could alter the photons with phase discriminators.
+</p>
+
+				</div>
+			</div>
+
+		</div>
+		
+	</div>
+
+
+	<div class="footer footer-fixed-bottom clearContent" role="footer">
+		<footer>
+		&copy; 2017 Interactive Advertising Bureau
+		</footer>
+	</div>
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+<!-- ================= SOME TEXT CONTENT ================== -->
+	
+	<div style="display:none;">
+	<section id="hiddenContent">
+		<div id="longArticleContent">
+			<p>Chicharrones vice locavore raclette.  Labore iPhone est  DIY, affogato in  cray put a bird on it fashion axe quis drinking vinegar et crucifix sint  fap.  Lyft lumbersexual delectus farm-to-table bitters.  Wolf veniam cillum, ramps pop-up coloring book jean shorts sed nisi next level gentrify authentic.  Distillery aesthetic nulla, knausgaard fam organic eiusmod minim kitsch franzen craft beer VHS put a bird on it single-origin coffee readymade.  Disrupt typewriter banjo labore, offal pour-over shoreditch gochujang freegan irony.  Tacos culpa  enamel pin, put a bird on it photo booth et coloring book vexillologist sustainable yr small batch tousled freegan next level hot chicken.</p><p>Consequat pug asymmetrical hoodie aesthetic.  Cornhole aute  exercitation quis direct trade.  Meditation laborum sustainable glossier venmo, you probably haven't heard of them helvetica live-edge migas ethical copper mug sed asymmetrical dreamcatcher exercitation.  Ex vegan cornhole humblebrag pabst, synth prism hell of beard knausgaard lyft.  Green juice hoodie tofu vegan meggings duis  cold-pressed.  Chartreuse distillery thundercats, sunt vegan chicharrones echo park.  Narwhal dolor  gochujang echo park, chia humblebrag kombucha consectetur vero laboris  selvage eu.</p><p>Dolore ad non, air plant edison bulb voluptate  odio chia readymade meditation put a bird on it jianbing tote bag forage.  Church-key commodo VHS, venmo sint  pickled nesciunt velit  green juice officia  tousled migas chia.  Pop-up tbh sint, flexitarian id  vero enamel pin four dollar toast roof party photo booth af next level raclette blog nostrud.  Franzen swag hoodie, vape cold-pressed bespoke mlkshk dolore dolor  anim.  Listicle sriracha man braid, +1 veniam hammock dolor  tilde messenger bag live-edge.  Meditation actually ad, cred PBR&amp;B sartorial minim raclette nisi chia.  Sriracha commodo blue bottle typewriter messenger bag fanny pack, roof party slow-carb.</p><p>Wayfarers labore affogato, mumblecore culpa  dreamcatcher hoodie tofu exercitation heirloom knausgaard nesciunt.  Do magna blue bottle flexitarian, vape chartreuse you probably haven't heard of them poke ramps master cleanse labore cold-pressed gluten-free.  Assumenda small batch snackwave, et elit tousled irure  ennui actually.  Pug irure  fingerstache, fashion axe tacos celiac small batch duis  squid listicle distillery incididunt food truck.  Ugh truffaut pariatur hexagon, vinyl aesthetic occupy synth crucifix tumblr snackwave wayfarers chambray church-key kale chips.  Quis viral bicycle rights small batch, literally ramps quinoa food truck veniam kickstarter.  Knausgaard mollit  tilde thundercats quinoa, irure  lumbersexual lyft esse  magna chartreuse schlitz.</p>
+		</div>
+		<div id="shortArticle">
+			Four dollar toast tumblr distillery farm-to-table lumbersexual franzen, flexitarian edison bulb artisan. Hot chicken lo-fi skateboard schlitz, tofu small batch kogi cardigan. Flexitarian health goth kombucha air plant, lomo truffaut pug prism plaid freegan chambray chillwave tilde. Hella mixtape vaporware, hoodie cold-pressed chambray fingerstache umami pug hexagon. Cardigan XOXO skateboard pickled chicharrones. Blog food truck aesthetic kombucha banjo. Next level tumeric plaid, semiotics direct trade williamsburg post-ironic cornhole blog pork belly cred vape pour-over swag.
+		</div>
+		
+		<div id="floralContent">
+<p>
+Florem ipsum mimosa, bell heather cornflower crocus, chincerinchee. Violet tansy buttercup windflower scots primrose bee orchid. Lobster claw, globe artichoke cloudberry love-in-a-mist queen Anne’s lace. Guelder rose rosemary jacob's ladder. Chickweed flame lily snowdrop poppy bogbean. Spotted orchid, acacia false goat’s beard begonia yarrow, glory lily.
+</p>
+<p>
+Floss flower moth orchid jacob's ladder painter’s palette evening primrose queen Fabiola lily snow berry. Mum, globeflower, michaelmas daisy columbine globe amarath wormwood september flower. Red rose guernsey lily glory lily tuberose. Slipper orchid ulster mary ox-eye daisy masterwort. Grape hyacinth, spiked speedwell cuban lily cornflower. Acacia peruvian lily snapdragon, feverfew tazetta forget-me-not. Waratah spray carnation, poppy.
+</p>
+<p>
+Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyflower, dune helleborine, round-leaved sundew cuckooflower houndstongue tulip lilac. Holy grass carnation tansy calla lily hop. Moth orchid begonia Kansas feather waratah mimosa sword lily masterwort. Bottlebrush marguerite.
+</p>
+
+		</div>
+		
+	</section>
+	</div>
+	
+	
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+	
+ </body>
+</html>
