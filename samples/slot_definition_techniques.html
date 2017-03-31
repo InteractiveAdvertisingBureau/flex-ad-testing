@@ -168,6 +168,7 @@ pre.code{
 
 .intro{
 	font-size: 0.85em;
+	margin-bottom: 35px;
 }
 
 .imageScaleSample{
@@ -205,6 +206,18 @@ label.diagramLabel{
 	margin-left: 25px;
 	font-style: italic;
 }
+
+section.techniqueSection{
+	display: block;
+	margin-bottom: 45px;
+	margin-top: 35px;
+	padding-top: 10px;
+	border-top: 2px solid #eee;
+	padding-bottom: 25px;
+	border-bottom: 2px solid #bbb;
+	border-radius: 8px;
+}
+
 
 /* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
 
@@ -272,9 +285,19 @@ label.diagramLabel{
 		</div>
 	</div>
 	
-	<div class="content-wrap" >
+	<div class="content-wrap"  role="main" >
 		<h1>Defining Flex Ad Containers</h1>
 		<div class="articleDate" role="date">March 30, 2017</div>
+		
+		<ul>
+			<li>
+				<a href="#slotScaledImage" >Scaled Image Container Definition</a>
+			</li>
+			<li>
+				<a href="#javascriptScaleSlot" >Javascript Scale Container Definition</a>
+			</li>
+		</ul>
+		
 		
 		<div class="intro" role="introduction">
 		<p>
@@ -304,7 +327,7 @@ label.diagramLabel{
 		</p>
 		</div>
 		
-		<h2>Publisher Slot definition - CSS</h2>
+		<h2 >Publisher Slot definition - CSS</h2>
 		
 		<p>
 			At the time of writing there is no perfect technique available using CSS only to define a
@@ -312,13 +335,26 @@ label.diagramLabel{
 			container that maintained a scaleable aspect ratio and none were perfect. 
 		</p>
 		
-		<h3>Scaled Image Technique</h3>
+		<section id="slotScaledImage" class="techniqueSection">
+		<h3 >Scaled Image Technique</h3>
 		
 		<p>
 			The most reliable technique at time of writing is to utilize an image of the desired aspect ratio 
 			and to scale the image to size, then overlay another element into the scaled container to hold
 			the ad unit. Scaled images are supported in all modern browsers.
 		</p>
+		
+		<div>
+			<img src="./images/css-container-diagram.png" style="width:400px;height:200px;" alt="Scaled Image Container" />
+		</div>
+			
+		<p>
+			The image can be minimally defined to the correct aspect ratio and be simple, transparent pixels.
+			For purposes of illustration, below is an 8x1 image scaled into different container sizes.
+			It will retain it's scale size as the container or the browser resizes. The top image has no
+			scaling applied.
+		</p>
+			
 		
 		<div class="stepHeading">Image Setup</div>
 		<div class="imageScaleSample">
@@ -330,14 +366,7 @@ label.diagramLabel{
 			Scaled 25%
 			
 		</div>
-		
-		
-		<p>
-			The image can be minimally defined to the correct aspect ratio and be simple, transparent pixels.
-			For purposes of illustration, above is an 8x1 image scaled into different container sizes.
-			It will retain it's scale size as the container or the browser resizes. The top image has no
-			scaling applied.
-		</p>
+
 		
 		<div class="stepHeading">DOM Element Setup</div>
 		<p>
@@ -444,112 +473,123 @@ label.diagramLabel{
 			</li>
 		</ul>
 		
+		</section>
 		
 		
+		<!-- ================================================= JAVASCRIPT SLOT DEFINITION ====================== -->
 		
+		<section id="javascriptScaleSlot" class="techniqueSection">
+		<h3 >Javascript Scaled Container Technique</h3>
 		
-		
-		
-		<hr style="margin-top:45px;" />
-		
-		<div class="flex-ad-unit flexad-8x1 " >
-			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
-			 class="flex-spacer-image" />
+		<p>
+			Another reliable technique for setting the scaled size of the ad container is the utilize Javascript to size
+			things with code. This technique provides finite control over element behavior and scaling and is
+			well understood in modern browsers. The downside is that the technique requires a lot of custom event
+			registration and wire-up.
+		</p>
 			
-			<div class="flex-ad-content" id="topBillboardAd">			
+			
+		<div id="scriptScaledElements">
+
+		<h4>Examples in Action - Javascript Scaled Image Containers</h4>
+		
+		<div class="flex-ad-unit script-ad-unit" data-flex="8x1" >Full width ad</div>
+		
+		<div style="margin-top: 10px;display: flex;padding: 5px;justify-content: space-between;">
+			<div style="flex:2;margin:2px;">
+				<div class="flex-ad-unit script-ad-unit" data-flex="8x1" >Two thirds</div>
+			</div>
+			
+			<div style="flex:1;margin:2px;">
+				<div class="flex-ad-unit script-ad-unit" data-flex="8x1" >One third</div>
 			</div>
 		</div>
+		
+		<p>
+			There are an infinite amount of ways to utilize Javascript for wiring up flex scaling of ad unit containers.
+			The method displayed here utilizes data-* attributes to define the scale size and then attaches to window.onresize.
+			Below is the markup used in the above sample.
+		</p>
+			
+		<pre class="code" id="scriptAdContainerSample" >
+&lt;div class=&quot;flex-ad-unit script-ad-unit&quot; data-flex=&quot;8x1&quot; &gt;Flex ad unit&lt;/div&gt;
+		</pre>
+		
+			
+		<p>
+			In our example we utilize CSS class names to allow the script to identify ad units.
+			The <em>data-flex</em> attribute identifies the aspect ratio. This is parsed and 
+			used to calculate the height based on the width.
+		</p>
+		
+			
+		
+		<pre class="code" id="scriptAdScript" >
+var setSize = function(){
+	var ads = document.querySelectorAll('#scriptScaledElements .script-ad-unit');
+	var i, slot, flex, sizes, ratio, wd, scaleHt;
+	for(i=0;i&lt;ads.length;i++){
+		slot = ads[i];
+		flex = slot.getAttribute('data-flex') || '1x1';
+		sizes = flex.split('x');
+		ratio = sizes[1]/sizes[0];
+		wd = slot.offsetWidth;
+		scaleHt = wd * ratio;
+		slot.style.height = new String(scaleHt) + 'px';			
+	}
+};
+
+// set the initial size
+setTimeout(setSize, 1);
+
+// attach for resizing
+window.addEventListener('resize', setSize);
+		</pre>
+		
+		
+		<p>
+			If you resize the page you can see both the CSS and the script examples behave as expected.
+			The difference is that the script examples have more bulk for a small number of ads and
+			the event wire-up is more error prone.
+		</p>
+		
+		<!--	
+		</div>	
+		-->
+			
+			
+			
+			
+		<script type="text/javascript">
+			var setSize = function(){
+				var ads = document.querySelectorAll('#scriptScaledElements .script-ad-unit');
+				var i, slot, flex, sizes, ratio, wd, scaleHt;
+				for(i=0;i<ads.length;i++){
+					slot = ads[i];
+					flex = slot.getAttribute('data-flex') || '1x1';
+					sizes = flex.split('x');
+					ratio = sizes[1]/sizes[0];
+					wd = slot.offsetWidth;
+					scaleHt = wd * ratio;
+					slot.style.height = new String(scaleHt) + 'px';			
+				}
+			};
+			
+			// set the initial size
+			setTimeout(setSize, 1);
+			
+			// attach for resizing
+			window.addEventListener('resize', setSize);
+			
+		
+		</script>
+
+			
+		</section>
+		
 	</div>
+	<hr style="margin-top:45px;" />
 	
-	<div class="content-wrap main-content" role="main">
-	
-		<div class="content-flexrow">
-			
-			<div class="item highlighted" >
-				<img src="./images/kiwifruit-400143_640.jpg" class="scalewidth" />
-				<div class="teaserTitle">
-					Kiwi declared to be delicious
-				</div>
-			</div>
-			<div class="item sidebar">
-				
-				<div class="ad-block" style="margin-bottom: 5px;">
-					<div class="flex-ad-unit flexad-1x1 " >
-						<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12P4//8/AwAI/AL+XJ/P2gAAAABJRU5ErkJggg=="
-						 class="flex-spacer-image" />
-						
-						<div class="flex-ad-content" id="column-adblock">			
-						</div>
-					</div>					
-				</div>
-
-				<div class="article">
-				<img src="./images/tulips-2091615_640.jpg" class="scalewidth" />
-				<div class="teaserTitle">
-					Tulips come in the spring
-				</div>
-				</div>
-				
-			</div>
-			
-		</div>
-		
-		<div class="content-flexrow">
-			<div class="item normal" >
-				<div class="article">
-					<p>
-The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack.
-</p>
-
-					<p>
-Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack! " my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box. Quick brown dogs jump over the lazy fox. The jay, pig,
-
-</p>
-				</div>
-			</div>
-			
-			<div class="item normal" >
-				<div class="article">
-					<p>
-						Red ensign bilge water me topmast fire in the hole crimp ahoy wherry parley belay. 
-						Scurvy strike colors Davy Jones' Locker Yellow Jack gun flogging lateen sail gibbet rutters hands. 
-						Bowsprit square-rigged belay Buccaneer log gibbet tender long boat lugsail take a caulk.
-					</p>
-<p>
-Draught Nelsons folly spanker gally jury mast flogging barkadeer pressgang boatswain to go on account. 
-Chase guns pillage flogging reef sails Brethren of the Coast heave down Plate Fleet Arr marooned Sea Legs. 
-Schooner lass lad measured fer yer chains red ensign spike lugger pinnace fire in the hole jury mast.
-</p>
-				</div>
-			</div>
-
-			<div class="item normal" >
-				
-		<div class="flex-ad-unit flexad-4x1 " >
-	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAYAAAD0In+KAAAAEElEQVQI12P4//8/KwMQAAAVDQMDEwgEHAAAAABJRU5ErkJggg=="
-			 class="flex-spacer-image" />
-			
-			<div class="flex-ad-content" id="topBillboardAd">			
-			</div>
-		</div>
-
-				
-				<div class="article">
-<p>
-Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent. Electromagnetic and subspace wave fronts approaching synchronization. What is the strength of the ship's deflector shields at maximum output? The wormhole's size and short period would make this a local phenomenon. Do you have sufficient data to compile a holographic simulation?
-</p>
-
-<p>
-It indicates a synchronic distortion in the areas emanating triolic waves. The cerebellum, the cerebral cortex, the brain stem,  the entire nervous system has been depleted of electrochemical energy. Any device like that would produce high levels of triolic waves. These walls have undergone some kind of selective molecular polarization. I haven't determined if our phaser energy can generate a stable field. We could alter the photons with phase discriminators.
-</p>
-
-				</div>
-			</div>
-
-		</div>
-		
-	</div>
-
 
 	<div class="footer footer-fixed-bottom clearContent" role="footer">
 		<footer>

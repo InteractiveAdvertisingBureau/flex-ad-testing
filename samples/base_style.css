@@ -1,0 +1,305 @@
+body, html{
+	position: relative;
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+}
+body{
+	/* min-width: 1080px; */
+}
+
+body{
+	font-family: Arial, sans-serif;
+	font-size: 1rem;
+	line-height: 1.4;
+	margin: 0;
+	
+	position: relative;
+	background: #fff;
+}
+
+.clearContent{
+	clear: both;
+}
+
+.navbar{
+	min-height: 55px;
+	color: #333;
+	background-color: white;
+}
+
+.hidden{
+	display: none;
+}
+
+.navbar.navbar-fixed-top{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+.navbar.mainNav{
+	border-bottom: 1px solid red;
+	margin-bottom: 3px;
+	z-index: 10;
+}
+
+div.logo{
+	display: inline-block;
+	margin-left: 25px;
+}
+
+.navbar .logo img{
+	display: inline-block;
+	max-height: 65px;
+	border: 0;
+	
+}
+
+.navbar .right-tools{
+	float: right;
+	margin-right: 20px;
+}
+
+.navbar .centerText{
+	display: inline-block;
+	width: 70%;
+	text-align: center;
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: top;
+}
+
+.navbar .centerText .title{
+	font-size: 1.5rem;
+	font-weight: bold;
+	
+}
+
+button.icon-button{
+	border: 0;
+	margin: 5px 0;
+	padding: 0;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+img.adMenuIcon{
+	width: 50px;
+	height: 50px;
+}
+
+.footer{
+	min-height: 45px;
+	padding: 10px;
+	margin-top: 10px;
+	padding-top: 10px;
+	background-color: white;
+	width: 100%;
+}
+
+.footer-fixed-bottom{
+	position: fixed;
+	bottom: 0;
+}
+body > .content-wrap{
+	margin-top: 72px;
+	margin-bottom: 100px;
+}
+
+.content-wrap{
+	width: 1080px;
+	margin: 0 auto;
+}
+
+.hero-module-full {
+	clear: both;
+	width: 100%;
+	min-height: 405px;
+}
+
+.yellow-box{
+	background-color: yellow;
+}
+.red-box{
+	background-color: rgba(255, 128, 128, 0.5);
+}
+.blue-box{
+	background-color: rgba(128, 128, 255, 0.5);
+}
+.gray-box{
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+.section-header{
+	font-size: 1.2rem;
+	font-weight: bold;
+	margin: 0 3 22 5;
+	border-bottom: 1px solid #333;	
+}
+
+.ad-unit{
+	background-image: url(./ads/ad_bg.png);
+	position:relative;
+	overflow:hidden;
+}
+.ad-unit iframe{
+	overflow:hidden;
+}
+
+.adunit-billboard{
+	margin: 0 auto;
+	width: 970px;
+	height: 250px;
+}
+
+.adunit-medrect{
+	margin: 0;
+	width: 340px;
+	height: 340px;
+}
+
+/* ================================ */
+
+.adControlDialog{
+	position: fixed;
+	z-index: 20;
+	width: 400px;
+	min-height: 450px;
+	top: 25px;
+	right: 70px;
+	border: 3px solid #ddd;
+	border-radius: 5px;
+	background-color: white;
+	box-shadow: 4px 4px 3px #888;
+	padding: 10px;
+}
+
+.adControlDialog .heading{
+	font-size: 1.1em;
+	font-weight: bold;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #ccc;
+}
+
+
+.controls ul.adList{
+	list-style: none;
+	margin: 10px 0;
+	padding: 0;
+	
+}
+
+.controls ul.adList li{
+	margin-bottom: 10px;
+}
+
+.controls ul.adList input[type=checkbox]{
+	margin-right: 10px;
+}
+
+
+/* ==================================== */
+
+
+
+.card-full-width {
+	clear: both;
+	position: relative;
+}
+
+.hero-module-full .main-content{
+	width: 720px;
+	float: left;
+	min-height: 405px;
+	overflow: hidden;
+	position: relative;
+}
+
+.main-content .teaser{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	color: white;
+	min-height: 180px;
+	padding: 10px 25px;
+	background-color: rgba(128,128,128,0.5);
+}
+
+.teaser .header{
+	font-size: 1.4rem;
+	text-shadow: 1px 1px 3px #000;
+}
+
+.teaser .clippedText{
+	max-width: 95%;
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+
+.hero-image-large{
+	width: 100%;
+}
+.hero-image-small{
+	display: none;
+}
+
+.hero-module-full .sidebar{
+	width: 345px;
+	float: right;
+	padding-left: 15px;
+	background: white;
+}
+
+ul.sidelinks{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul.sidelinks li{
+	padding: 10px 10px 8px 10px;
+	border-bottom: 1px solid #88F;
+}
+
+@media (min-width: 1321px){
+	body{
+		min-width: 1320px;
+	}
+	.content-wrap{
+		width: 1320px;
+	}
+}
+
+
+@media (max-width: 1079px){
+	.content-wrap{
+		width: 100%;
+	}
+	.adunit-billboard{
+		width: 582px;
+		height: 150px;
+	}
+
+	.hero-image-large{
+		display: none;
+	}
+	.hero-image-small{
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	.hero-module-full .main-content{
+		width: 100%;
+	}
+	.hero-module-full .sidebar{
+		width: 100%;
+		clear: both;
+		float: none;
+	}
+	.hero-module-full .sidebar section{
+		padding-left: 15px;
+	}
+}
