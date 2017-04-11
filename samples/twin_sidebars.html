@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 	
-<!---------------------------------------------------------------------------------
+<!-- ============================================================================
 # /*
 # * Copyright (c) 2017, Interactive Advertising Bureau
 # * All rights reserved.
@@ -13,12 +13,236 @@
 # Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
-#------------------------------------------------------------------------------->
-<title>IAB: Flex ad sample page</title>
-<link rel="stylesheet" href="./base_style.css">
-<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+# ============================================================================ -->
+	
+<title>IAB: Flex ad twin sidebars sample</title>
+
+	<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+
+	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script> // fluid'
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex1:3', [1,1], 'div-gpt-ad-1490307633828-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+	
+	
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex1:1', [1,1], 'div-gpt-ad-1490307785754-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+	
+
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex8:1', [1,1], 'div-gpt-ad-1490307722661-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+</script>
+	
+	
+<style type="text/css">
+
+html, body{
+	margin: 0;
+	min-height: 100v;
+	font-family: Verdana, Arial;
+}
+
+.gridcell{
+	border: 1px solid red;
+	border-radius: 5px;
+	min-height: 30px;
+}
+
+.top-header img.logo{
+	width: auto;
+	height: 80px;
+	display: inline-block;
+	margin-top: -10px;
+}
+
+.footer{
+	position: fixed;
+	border-top-right-radius: 1em;
+	bottom: 0;
+	padding: 15px;
+	font-size: 0.8rem;
+	background: white;
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-radius-
+}
+
+.content-wrap{
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.main-content{
+	margin-bottom: 50px;
+
+}
+
+.content-flexrow{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.content-flexrow > .item{
+	padding: 10px;
+	position: relative;
+}
+
+.content-flexrow > .item.sidebar {
+	flex: 0.5;
+}
+.content-flexrow > .item.highlighted {
+	flex: 2;
+}
+
+.content-flexrow > .item.normal {
+	flex: 1;
+}
+
+
+
+img.scalewidth{
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+
+.content-flexrow > .item .teaserTitle {
+	position: relative;
+	top: -55px;
+	min-height: 65px;
+	padding: 10px;
+	width: 75%;
+	background: white;
+	font-size: 1.2em;
+}
+
+
+@media (max-width: 800px){
+
+.content-flexrow {
+	flex-direction: column;
+}
+
+}
+
+.layoutgrid{
+	display: grid;
+	/* grid-template-columns: repeat(1fr, 3fr, 1fr); */
+	grid-template-columns: 1fr, 3fr, 1fr;
+	grid-gap: 10px;
+	grid-auto-rows: minmax(100px, auto);
+}
+
+.ms-layoutgrid{
+  display: -ms-grid;
+  background: gray;
+  border: blue;
+  -ms-grid-columns: 1fr 3fr 1fr;
+  -ms-grid-rows: 50px 5em auto;
+  -ms-grid-gap: 10px;
+}
+
+.gridcell.headercell h1{
+	margin-top: 2px;
+}
+
+.gridcell.headercell {
+	color: white;
+	background: blue;
+	grid-column: 1/3;
+	grid-row: 1;
+	-ms-grid-row: 1;
+	-ms-grid-column: 1;
+	-ms-grid-column-span: 3;
+}
+
+
+.gridcell.leftsidebar {
+	grid-column: 1;
+	-ms-grid-column: 1;
+	grid-row: 2;
+	-ms-grid-row: 2;
+}
+.gridcell.rightsidebar {
+	grid-column: 3;
+	-ms-grid-column: 3;
+	grid-row: 2;
+	-ms-grid-row: 2;
+}
+
+.gridcell.maincontent {
+	grid-column: 2;
+	-ms-grid-column: 2;
+	grid-row: 2;
+	-ms-grid-row: 2;
+}
+
+
+</style>
 
 <style type="text/css">
+
+
+
+/* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
+
+.flex-ad-unit{
+	position:relative;
+}
+
+.flex-units-visible .flex-ad-unit{
+	background: #eee;
+	border: 1px solid orange;
+}
+
+
+.flex-ad-unit>.flex-spacer-image{
+	width:100%;
+	height:auto;
+	z-index:-1;
+	display:block;
+}
+.flex-ad-unit>div.flex-ad-content{
+	position:absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+}
 
 </style>
 
@@ -26,114 +250,88 @@
 </script>
 </head>
 
-<body>
-
-	<div class="navbar navbar-fixed-top mainNav"><nav>
-		<div class="logo"><a href="./index.html" ><img src="./images/iab-logo.png" /></a></div>
-		
-		<div class="right-tools">
-			<button type="button" class="icon-button" id="adMenu" title="Controls for Sample Ads"><img src="./images/menu-icon.png" class="adMenuIcon"/></button>
+<body class="flex-units-visible">
+	
+	
+	<div class="content-wrap">
+	
+	<div class="layoutgrid ms-layoutgrid">
+		<div class="gridcell headercell">
+			<h1>header</h1>
 		</div>
 		
-		
-		<div class="centerText"><span class="title">Flex Ad Test Page</span> </div>
-		
-	</nav>
-	</div>
+		<div class="gridcell leftsidebar">
+<!-- /3790/Flex1:3 -->
+<div id='div-gpt-ad-1490307633828-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490307633828-0'); });
+</script>
+</div>
 
-	<div class="content-wrap" role="main">
-		
-	<div class="ad-unit adunit-billboard hidden" id="topBillboardAd"></div>
-		
+		</div>
+		<div class="gridcell maincontent">
+			My content
+		</div>
+
+		<div class="gridcell rightsidebar">
+			<!-- /3790/Flex1:1 -->
+<div id='div-gpt-ad-1490307785754-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490307785754-0'); });
+</script>
+</div>
+		</div>
+
+	</div>
 	
-	<!-- HERO ROW -->
-	<div class="hero-module-full gray-box">
+	</div>
 	
-	<div class="main-content red-box">
-		<img src="./images/tulips-2091615_1280.jpg" class="hero-image-large" />
-		<img src="./images/tulips-2091615_640.jpg" class="hero-image-small" />
-		<div class="teaser">
-			<div class="header">Tulips come in Spring</div>
-			<div class="clippedText">
-				Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyflower, dune helleborine, round-leaved sundew cuckooflower houndstongue tulip lilac. Holy grass carnation tansy calla lily hop. Moth orchid begonia Kansas feather waratah mimosa sword lily masterwort. Bottlebrush marguerite.
+	
+	
+			<div class="item">
+				<img src="./images/iab-techlab-logo.png" style="max-width:65px;margin-top:30px;" class="logo" />
+			</div>
+
+	
+	<div class="content-wrap" >
+		<div class="flex-ad-unit flexad-8x1 " >
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAABCAYAAADjAO9DAAAAEElEQVQI12P4//8/GwMeAABdcgME8m91jwAAAABJRU5ErkJggg=="
+			 class="flex-spacer-image" />
+			
+			<div class="flex-ad-content" id="topBillboardAd">
+				
+<!-- /3790/Flex8:1 -->
+<div id='div-gpt-ad-1490307722661-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490307722661-0'); });
+</script>
+</div>
+				
 			</div>
 		</div>
 	</div>
-	<div class="sidebar ">
-		<section>
-			<header><p class="section-header">TOP STORIES</p> </header>
-	<ul class="sidelinks top-story-list">
-	<li>FOO</li>
-	<li>bOO</li>
-	<li>zdfOO</li>
-	<li>FOOsdfsdf</li>
 	
-	</ul>
-			
-		</section>
-	<div class="ad-unit adunit-medrect hidden" id="sideRectAd"></div>
-	</div>
-	
-	</div>
-	
-	
-	<div id="mainArticle" class="clearContent">
-		
-	</div>
-		
-		
-	</div>
-
-
 	<div class="footer footer-fixed-bottom clearContent" role="footer">
 		<footer>
 		&copy; 2017 Interactive Advertising Bureau
 		</footer>
 	</div>
 
-	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 
-
-	<script type="text/javascript">
-    </script>
-	
-	
-		
-	<div id="adControlDialog" class="adControlDialog hidden">
-		<div class="heading">Toggle to Enable Ad Placements</div>
-		
-		<div class="controls">
-			
-			<ul class="adList" id="adVisibleToggle">
-				<li>
-					<label><input type="checkbox" data-adid="topBillboardAd" />Top Billboard </label>
-				</li>
-				<li>
-					<label><input type="checkbox" data-adid="sideRectAd" />Sidebar Rectangle </label>
-				</li>
-				
-			</ul>
-			
-			<div>
-				<div>
-			<label>Load Ad URL</label>
-				<input type="text" style="width: 250px;" id="adUrl" value="http://foo/flexads/ads/ad_01.html" />
-					</div>
-				<div>
-			<label>Target</label>
-					<select id="adFrameTarget">
-						<option value="topBillboardAd">Top Billboard</option>
-						<option value="sideRectAd">Sidebar Rectangle</option>
-					</select>
-		</div>
-				<button type="button" id="btnLoadAd">Load Ad</button>
-			</div>
-		</div>
 		
 		
-	</div>
-
-	<div style="height:400px;" class="footest">fosidf asdfasodfiasodi fos idfoisafd</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 <!-- ================= SOME TEXT CONTENT ================== -->
 	
@@ -162,36 +360,23 @@ Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyfl
 	</section>
 	</div>
 	
-	
-	<pre id="dfpSampleCode">
-		
-		
-		
-		
-		
-	</pre>
-	
-	
-	
-	
-	
-	
-	<!--
-	<script src="./js/flexad.js" type="text/javascript"></script>
-	-->
-	<script src="./js/iab-flex-ad-tester.js" type="text/javascript"></script>
+	<script src="../src/js/iab-flex-ad-tester.js" type="text/javascript"></script>
 	<script>
 	(function(){
+	/*
 		iab.flexAds.setup({
 			controls: true,
 			slots: [
 				{ "selector" : "#topBillboardAd", "name": "Top Billboard", "ad": "http://foo/flexads/ads/ad_01.html" }
 			]
 		});
+		*/
 	})()
 	</script>
 	
 	
+	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
 	<script>
 	(function(){
 		$('#mainArticle').html( $('#shortArticle').html() );

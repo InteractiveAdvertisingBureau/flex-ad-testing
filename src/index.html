@@ -15,7 +15,7 @@
 # */
 #------------------------------------------------------------------------------->
 <title>IAB: Flex ad sample page</title>
-<link rel="stylesheet" href="./base_style.css">
+<link rel="stylesheet" href="../samples/base_style.css">
 <link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
 
 <style type="text/css">
@@ -29,7 +29,7 @@
 <body>
 
 	<div class="navbar navbar-fixed-top mainNav"><nav>
-		<div class="logo"><a href="./index.html" ><img src="./images/iab-logo.png" /></a></div>
+		<div class="logo"><a href="./index.html" ><img src="../samples/images/iab-logo.png" /></a></div>
 		
 		<div class="right-tools">
 			<button type="button" class="icon-button" id="adMenu" title="Controls for Sample Ads"><img src="./images/menu-icon.png" class="adMenuIcon"/></button>
@@ -43,7 +43,7 @@
 
 	<div class="content-wrap" role="main">
 		
-	<div class="ad-unit adunit-billboard hidden" id="topBillboardAd"></div>
+	<div class="ad-unit adunit-billboard " id="topBillboardAd"></div>
 		
 	
 	<!-- HERO ROW -->
@@ -171,8 +171,9 @@ Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyfl
 		iab.flexAds.setup({
 			controls: true,
 			slots: [
-				{ "selector" : "#topBillboardAd", "name": "Top Billboard", "ad": "http://foo/flexads/ads/ad_01.html" }
-			]
+				{ "selector" : "#topBillboardAd", "name": "Top Billboard", "flexunit": "8x1", "ad": "http://foo/flexads/ads/ad_01.html" }
+			],
+			visible: true
 		});
 	})()
 	</script>
