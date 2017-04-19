@@ -291,6 +291,9 @@ section.techniqueSection{
 		
 		<ul>
 			<li>
+				<a href="#slotScaledPadding" >Scaled Padding Container Definition</a>
+			</li>
+			<li>
 				<a href="#slotScaledImage" >Scaled Image Container Definition</a>
 			</li>
 			<li>
@@ -333,13 +336,91 @@ section.techniqueSection{
 			At the time of writing there is no perfect technique available using CSS only to define a
 			container that holds fixed aspect ratios. Multiple techniques were evaluated to create a 
 			container that maintained a scaleable aspect ratio and none were perfect. 
+			Achieving a scaled aspect ratio container with CSS requires overlaying two different elements
+			within a wrapping element to achieve the aspect ratio and the ad creative container.
+		</p>
+		<section id="slotScaledPadding" class="techniqueSection">
+		<h3 >Scaled Padding Technique</h3>
+		
+		<p>
+			The first technique utilizes a full width div (width:100%) with top padding set to the
+			percentage required for the aspect ratio. Another absolutely positioned element is then
+			overlain on the aspect ratio div to the the injection target for the ad creative.
 		</p>
 		
+		<div>
+			<img src="./images/css-padding-container.png" style="width:400px;height:200px;margin-bottom:15px;" alt="Padding Scaled Container" />
+		</div>
+		
+		<div class="stepHeading">DOM Element Setup</div>
+		<p>
+			The first step is to create an enclosing block or inline-block level wrapping element.
+			This element declares <em>relative</em> positioning to establish a new coordinate placement
+			system internally for the flex scaled content. The second step is to add a
+			block level element that has a <em>width of 100%</em> and a <em>padding-top</em> of the desired aspect ratio.
+			These style settings direct the browser to fill available width and linearly scale the image height.
+			The final part is to create the ad targeting container. This should be an absolutely positioned
+			element with all four of <em>top, bottom, left, and right set to zero</em>. The effect of
+			doing this tells the element to stretch to the edges of its container while being
+			absolutely positioned over the top of other elements.
+		</p>
+		
+		<pre class="code" id="adContainerSample" >
+&lt;div style=&quot;display:block;position:relative;&gt; 
+	&lt;div style=&quot;display:block;width:100%;padding-top:25%;&quot; &gt;&lt;/div&gt;
+	<span style="font-weight:bold;">
+	&lt;div id=&quot;ad_target_element&quot; style=&quot;display:absolute;left:0;top:0;right:0;bottom:0;&quot; &gt; 
+	&lt;/div&gt;
+	</span>
+&lt;/div&gt;
+		</pre>
+		<label for="adContainerSample" class="diagramLabel">Markup for CSS Flex ad container</label>
+		
+		<h4>Examples in Action - CSS Padding Scaled Containers</h4>
+		
+		
+		<div style="margin-top: 10px;display: flex;padding: 5px;justify-content: space-between;">
+			<div style="flex:3;margin:2px;">
+				
+		<div class="flex-ad-unit flexad-8x1 " >
+			<div style="width:100%;padding-top:12.5%;"></div>
+			
+			<div class="flex-ad-content" >Three quarter 8x1
+			</div>
+		</div>
+				<br/>
+				<br/>
+				
+
+		<div class="flex-ad-unit flexad-4x1 " >
+			<div style="width:100%;padding-top:25%;"></div>
+			
+			<div class="flex-ad-content" >Three quarter 4x1
+			</div>
+		</div>
+			</div>
+			
+			<div style="flex:1;margin:2px;">
+		<div class="flex-ad-unit flexad-1x2 " >
+			<div style="width:100%;padding-top:200%;"></div>
+
+			
+			<div class="flex-ad-content" >One third 1x2
+			</div>
+		</div>
+			</div>
+		</div>
+		
+		
+		<br/>
+		
+
+			<!-- =========================================== SCALED IMAGE SECTION ======================================= -->
 		<section id="slotScaledImage" class="techniqueSection">
 		<h3 >Scaled Image Technique</h3>
 		
 		<p>
-			The most reliable technique at time of writing is to utilize an image of the desired aspect ratio 
+			A very similar technique is to utilize an image of the desired aspect ratio 
 			and to scale the image to size, then overlay another element into the scaled container to hold
 			the ad unit. Scaled images are supported in all modern browsers.
 		</p>
@@ -453,7 +534,7 @@ section.techniqueSection{
 		<h3>Other CSS Techniques</h3>
 		
 		<p>
-			The above technique is simply one we found to work today. It will no doubt be superceeded in the future
+			The above techniques are simply what we found to work today. They will no doubt be superceeded in the future
 			as CSS continues to evolve. In certain narrower scenarios you may find other techniques that are superior 
 			for your given situation. Consider working with CSS <em>calc()</em> or experimenting with CSS <em>grid display</em>.
 		</p>
@@ -485,7 +566,8 @@ section.techniqueSection{
 			Another reliable technique for setting the scaled size of the ad container is the utilize Javascript to size
 			things with code. This technique provides finite control over element behavior and scaling and is
 			well understood in modern browsers. The downside is that the technique requires a lot of custom event
-			registration and wire-up.
+			registration and wire-up, and there is a small stutter before the script events execute 
+			(depending on browser and device). This stutter can be witnessed through successive page refreshes of this page.
 		</p>
 			
 			

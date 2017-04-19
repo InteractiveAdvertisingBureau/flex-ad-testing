@@ -15,9 +15,10 @@
 # */
 #------------------------------------------------------------------------------->
 <title>IAB: Ad Blocks for Flex ads</title>
-<link rel="stylesheet" href="./base_style.css">
 <link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
 
+<link rel="stylesheet" href="./pub-flex-styles.css">
+	
 <style type="text/css">
 
 body{
@@ -54,20 +55,10 @@ body{
 	background-color: #c0c0c0;
 }
 
+
 .iab-flexad img.iab-flexsizer{
 	height: auto;
 	width: 100%;
-	display: block;
-	position: relative;
-	z-index: -1;
-}
-
-.iab-flexad div.iab-adcontent{
-	position: absolute;
-	left:0;
-	right:0;
-	top:0;
-	bottom:0;
 }
 
 
@@ -75,6 +66,8 @@ body{
 	margin-top:0;
 	margin-bottom: 50%;
 	text-align: center;
+	font-family: Arial;
+	padding-top: 10px;
 }
 </style>
 
@@ -99,6 +92,10 @@ body{
 		
 	<div class="ad-unit adunit-billboard " id="topBillboardAd">
 	
+	<div class="iab-ad-unit iab-flexad iab-visible">
+		<div class="iab-flexsizer flex-4x1" ></div>
+		<div class="iab-adcontent">
+			<div>
 					<!-- ======================= BEGIN AD ======================== -->
 <!-- Responsiveads.com - 58c2df8af5fc78dd23000004 -->
 <ins id="responsivead-58c2df8af5fc78dd23000004"></ins>
@@ -109,6 +106,10 @@ Radical.push(['58c2df8af5fc78dd23000004',{clickthrough:'%%CLICK_URL_UNESC%%',flo
 s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsByTagName('head')[0].appendChild(s);}(document,Radical));
 </script>
 			<!-- ======================= END   AD ======================== -->
+</div>		
+</div>
+		</div>
+	</div>
 
 	</div>
 <br class="clear" />
@@ -116,7 +117,7 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 <div style="margin:auto;width:50%;">
 
 	<div class="iab-ad-unit iab-flexad iab-visible">
-		<img class="iab-flexsizer" src="./images/adsize_4x1.png" />
+		<div class="iab-flexsizer flex-4x1" ></div>
 		<div class="iab-adcontent">
 			<h4>Flex Ad 4x1</h4>
 		</div>
@@ -126,7 +127,7 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 	<br class="clear" />
 
 	<div class="iab-ad-unit iab-flexad iab-visible">
-		<img class="iab-flexsizer" src="./images/adsize_8x1.png" />
+		<div class="iab-flexsizer flex-8x1" ></div>
 		<div class="iab-adcontent">
 			<h4>Flex Ad 8x1</h4>
 		</div>
@@ -136,7 +137,7 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 	<br class="clear" />
 
 	<div class="iab-ad-unit iab-flexad iab-visible">
-		<img class="iab-flexsizer" src="./images/adsize_6x1.png" />
+		<div class="iab-flexsizer flex-6x1" ></div>
 		<div class="iab-adcontent">
 			<h4>Flex Ad 6x1</h4>
 		</div>
@@ -155,7 +156,7 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 	
 	<div class="flexitem" style="flex: 1">
 		<div class="iab-ad-unit iab-flexad iab-visible">
-			<img class="iab-flexsizer" src="./images/adsize_1x3.png" />
+		<div class="iab-flexsizer flex-1x3" ></div>
 			<div class="iab-adcontent">
 				<h4>Flex Ad 1x3</h4>
 			</div>
@@ -164,7 +165,7 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 	
 	<div class="flexitem" style="flex: 2">
 		<div class="iab-ad-unit iab-flexad iab-visible">
-			<img class="iab-flexsizer" src="./images/adsize_1x1.png" />
+		<div class="iab-flexsizer flex-1x1" ></div>
 			<div class="iab-adcontent">
 				<h4>Flex Ad 1x1</h4>
 			</div>
@@ -174,7 +175,7 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 	
 	<div class="flexitem" style="flex: 1">
 		<div class="iab-ad-unit iab-flexad iab-visible">
-			<img class="iab-flexsizer" src="./images/adsize_1x2.png" />
+		<div class="iab-flexsizer flex-1x2" ></div>
 			<div class="iab-adcontent">
 				<h4>Flex Ad 1x2</h4>
 			</div>
@@ -202,49 +203,6 @@ s.src='https://publish.responsiveads.com/libs/radical.r5.min.js';d.getElementsBy
 		</footer>
 	</div>
 
-	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
-
-	<script type="text/javascript">
-    </script>
-	
-	
-		
-	<div id="adControlDialog" class="adControlDialog hidden">
-		<div class="heading">Toggle to Enable Ad Placements</div>
-		
-		<div class="controls">
-			
-			<ul class="adList" id="adVisibleToggle">
-				<li>
-					<label><input type="checkbox" data-adid="topBillboardAd" />Top Billboard </label>
-				</li>
-				<li>
-					<label><input type="checkbox" data-adid="sideRectAd" />Sidebar Rectangle </label>
-				</li>
-				
-			</ul>
-			
-			<div>
-				<div>
-			<label>Load Ad URL</label>
-				<input type="text" style="width: 250px;" id="adUrl" value="http://foo/flexads/ads/ad_01.html" />
-					</div>
-				<div>
-			<label>Target</label>
-					<select id="adFrameTarget">
-						<option value="topBillboardAd">Top Billboard</option>
-						<option value="sideRectAd">Sidebar Rectangle</option>
-					</select>
-		</div>
-				<button type="button" id="btnLoadAd">Load Ad</button>
-			</div>
-		</div>
-		
-		
-	</div>
-
-	<div style="height:400px;" class="footest">fosidf asdfasodfiasodi fos idfoisafd</div>
 	
 <!-- ================= SOME TEXT CONTENT ================== -->
 	

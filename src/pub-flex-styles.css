@@ -1,0 +1,88 @@
+/*
+* Copyright (c) 2017, Interactive Advertising Bureau
+* All rights reserved.
+* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/* ====================================================================================
+ Publisher-side css classes for creating flex ad containers.
+ 
+ Example usage:
+ 
+<div class="iab-flexad">
+	<div class="iab-flexsizer flex-4x1" ></div>
+	<div class="iab-adcontent">
+		<!-- AD INSERTED HERE -->
+	</div>
+</div>
+
+ ======================================================================================
+*/
+
+.iab-flexad{
+	display: block;
+	position: relative;
+	/* overflow: hidden | visible; this value depends on if ads are allowed overlay expansion or not */
+}
+
+.iab-flexsizer{
+	display: block;
+	position: relative;
+	z-index: -1;
+}
+
+.iab-flexsizer.flex-2x1{
+	width: 100%;
+	padding-top: 50%;
+}
+.iab-flexsizer.flex-4x1{
+	width: 100%;
+	padding-top: 25%;
+}
+.iab-flexsizer.flex-6x1{
+	width: 100%;
+	padding-top: 16.67%;
+}
+.iab-flexsizer.flex-8x1{
+	width: 100%;
+	padding-top: 12.5%;
+}
+
+.iab-flexsizer.flex-1x1{
+	width: 100%;
+	padding-top: 100%;
+}
+.iab-flexsizer.flex-1x2{
+	width: 100%;
+	padding-top: 200%;
+}
+.iab-flexsizer.flex-1x3{
+	width: 100%;
+	padding-top: 300%;
+}
+.iab-flexsizer.flex-1x4{
+	width: 100%;
+	padding-top: 400%;
+}
+.iab-flexsizer.flex-9x16{
+	width: 100%;
+	padding-top: 177.7%;
+}
+
+
+.iab-flexad img.iab-flexsizer{
+	height: auto;
+	width: 100%;
+}
+
+.iab-flexad div.iab-adcontent{
+	position: absolute;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+}
+
+
