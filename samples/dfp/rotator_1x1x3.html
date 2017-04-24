@@ -27,17 +27,47 @@
 </script>
 <script>
 	var adSets = [
-		{ elem: 'div-gpt-ad-1490307785754-0', ad: '/3790/Flex1:1'},
-		{ elem: 'div-gpt-ad-rotate-3', ad: '/3790/Flex1:3'},	
+		{ elem: 'div-gpt-ad-1490307785754-0', ad: '/3790/Flex1:1', cssClass: 'flex-1x1'},
+		{ elem: 'div-gpt-ad-rotate-3', ad: '/3790/Flex1:3', cssClass: 'flex-1x3'}
 	];
 </script>
 <script>
-  googletag.cmd.push(function() {
-    googletag.defineSlot('/3790/Flex1:1', [1,1], 'div-gpt-ad-1490307785754-0').addService(googletag.pubads());
-   // googletag.defineSlot('/3790/Flex1:3', [1,1], 'div-gpt-ad-rotate-3').addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-  });
+  
+var dfslot = function(ads){
+	googletag.cmd.push(function() {
+		var i, ad;
+		for(i=0;i<ads.length;i++){
+			ad = ads[i];
+			googletag.defineSlot(ad.ad, [1,1], ad.elem).addService(googletag.pubads());
+		}
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+	  });
+}
+
+
+dfslot(adSets);
+
+/*
+	googletag.cmd.push(function() {
+		googletag.pubads().enableSingleRequest();
+		googletag.enableServices();
+	  });
+*/
+  
+(function(){
+
+	var n = 0;
+	
+	
+
+
+
+})();
+  
+  
+  
+  
 </script>
 
 
@@ -88,33 +118,58 @@ Integre nusquam rationibus in nec. Inimicus iudicabit usu te, errem putent cu ha
 		
 		<div class="col-md-4">
 
-<div class="iab-flexad">
+<div class="iab-flexad" id="adWrapper">
 	<div class="iab-flexsizer flex-1x1" ></div>
 	<div class="iab-adcontent">
 		<!-- AD INSERTED HERE -->
 <!-- /3790/Flex1:1 -->
-<div id='div-gpt-ad-1490307785754-0'>
-<div id='div-gpt-ad-rotate-3'>
+<div id='div-gpt-ad-1490307785754-0'></div>
+<div id='div-gpt-ad-rotate-3' style="display:none;"></div>
 <script>
 
 (function(){
-	var ad1x1 = 'div-gpt-ad-1490307785754-0';
-	var ad1x3 = 'div-gpt-ad-rotate-3';
 	
-	var showAd = function(id, hideId){
-		document.getElementById(hideId).style.display='none';
-		document.getElementById(id).style.display='block';
-		googletag.cmd.push(function() { googletag.display(id); });		
+var n = 0;
+	
+	var showAd = function(pos){
+	console.log('called ' + pos);
+		var wrap = document.getElementById('adWrapper');
+		var thisAd = adSets[pos];
+		var curAd;
+		for(var i=0;i<adSets.length;i++){
+			curAd = adSets[i];
+			if(i != pos){
+				document.getElementById(curAd.elem).style.display='none';
+			}
+			else{
+				document.getElementById(thisAd.elem).style.display='block';
+				googletag.cmd.push(function() { googletag.display(thisAd.elem); });
+			}
+		}
+		
+		var sizer = wrap.querySelector('.iab-flexsizer');
+		sizer.className = 'iab-flexsizer ' + thisAd.cssClass;
+//		
 	}
 	
 	
-	showAd(ad1x1, ad1x3);
+	showAd(n);
+	
+	adRotateHook = setInterval(function(){
+		showAd((++n) % 2);
+	}, 4000);
+	
+	
+	setTimeout(function(){
+		console.log('halting ad rotation');
+		clearInterval(adRotateHook);
+	}, 30 * 1000);
 
 })();
 
 
 </script>
-</div>			
+	
 	</div>
 </div>
 
