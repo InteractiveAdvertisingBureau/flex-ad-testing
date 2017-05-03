@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 	
-<!---------------------------------------------------------------------------------
+<!-- ============================================================================
 # /*
 # * Copyright (c) 2017, Interactive Advertising Bureau
 # * All rights reserved.
@@ -13,12 +13,191 @@
 # Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
-#------------------------------------------------------------------------------->
-<title>IAB: Flex ad sample page</title>
-<link rel="stylesheet" href="../samples/base_style.css">
-<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+# ============================================================================ -->
+	
+<title>IAB: SDK sample for FlexAds</title>
 
+	<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+<link rel="stylesheet" href="pub-flex-styles.css">
 <style type="text/css">
+
+html, body{
+	margin: 0;
+	min-height: 100v;
+	font-family: Verdana, Arial;
+}
+
+p {
+	display: block;
+	-webkit-margin-before: 0;
+	margin-before: 0;
+	margin-top: 0;
+	margin-bottom: 1.2em;Wwwwwwwwwwsadfsdfsdf
+}
+
+.teaserBar{
+	width: 100%;
+	margin-top:0;
+	margin-bottom: 10px;
+	background: #555;
+	color: white;	
+}
+
+.teaserBar>div.content{
+	display: flex;
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px 20px;
+	font-size: .9rem;	
+}
+
+.teaserBar>div.content > .item {
+	flex: 1 1 auto;
+	margin-right: 5px;
+}
+
+.top-header{
+	height: 85px;
+	margin-bottom: 10px;
+	color: blue;
+	font-size: 1.25rem;
+}
+.top-header .content{
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	display: flex;
+}
+.top-header .content .item {
+	padding: 10px;
+	flex: 1 1 auto;
+}
+
+.top-header img.logo{
+	width: auto;
+	height: 80px;
+	display: inline-block;
+	margin-top: -10px;
+}
+
+.sidebar .article{
+	font-size: 0.9em;
+}
+.sidebar .article .title{
+	font-size: 1.1em;
+	font-weight: bold;
+	font-color: #444;
+	margin-bottom: 1em;
+}
+
+.footer{
+	position: fixed;
+	border-top-right-radius: 1em;
+	bottom: 0;
+	padding: 15px;
+	font-size: 0.8rem;
+	background: white;
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-radius-
+}
+
+.content-wrap{
+	max-width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.main-content{
+	margin-bottom: 50px;
+
+}
+
+.content-flexrow{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+.content-flexrow > .item{
+	padding: 10px;
+	position: relative;
+}
+
+.content-flexrow > .sidebar {
+	flex: 0.5;
+}
+.content-flexrow > .item.highlighted {
+	flex: 2;
+}
+
+.content-flexrow > .item.normal {
+	flex: 1;
+}
+
+pre.code{
+	padding-left:15px;
+	padding-top: 8px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-left: 3px solid green;
+	border-top: 2px solid #050;
+	border-radius: 3px;
+	background-color: #FFF;
+	color: #373;
+	font-size: 1.1em;
+}
+
+img.scalewidth{
+	width: 100%;
+	height: auto;
+	display: inline-block;
+}
+
+
+@media (max-width: 800px){
+
+.content-flexrow {
+	flex-direction: column;
+}
+
+}
+
+
+
+
+
+
+
+/* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
+
+.flex-ad-unit{
+	position:relative;
+}
+
+.flex-units-visible .flex-ad-unit{
+	background: #eee;
+	border: 1px solid orange;
+}
+
+
+.flex-ad-unit>.flex-spacer-image{
+	width:100%;
+	height:auto;
+	z-index:-1;
+	display:block;
+}
+.flex-ad-unit>div.flex-ad-content{
+	position:absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+}
 
 </style>
 
@@ -26,61 +205,146 @@
 </script>
 </head>
 
-<body>
+<body class="flex-units-visible">
 
-	<div class="navbar navbar-fixed-top mainNav"><nav>
-		<div class="logo"><a href="./index.html" ><img src="../samples/images/iab-logo.png" /></a></div>
-		
-		<div class="right-tools">
-			<button type="button" class="icon-button" id="adMenu" title="Controls for Sample Ads"><img src="./images/menu-icon.png" class="adMenuIcon"/></button>
-		</div>
-		
-		
-		<div class="centerText"><span class="title">Flex Ad Test Page</span> </div>
-		
-	</nav>
-	</div>
-
-	<div class="content-wrap" role="main">
-		
-	<div class="ad-unit adunit-billboard " id="topBillboardAd"></div>
-		
-	
-	<!-- HERO ROW -->
-	<div class="hero-module-full gray-box">
-	
-	<div class="main-content red-box">
-		<img src="./images/tulips-2091615_1280.jpg" class="hero-image-large" />
-		<img src="./images/tulips-2091615_640.jpg" class="hero-image-small" />
-		<div class="teaser">
-			<div class="header">Tulips come in Spring</div>
-			<div class="clippedText">
-				Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyflower, dune helleborine, round-leaved sundew cuckooflower houndstongue tulip lilac. Holy grass carnation tansy calla lily hop. Moth orchid begonia Kansas feather waratah mimosa sword lily masterwort. Bottlebrush marguerite.
+	<div class="teaserBar">
+		<div class="content">
+			<div class="item">
+				<b>IAB Flex Ads SDK</b>
+			</div>
+			<div class="item">
+				IAB
+			</div>
+			<div class="item">
+				
 			</div>
 		</div>
 	</div>
-	<div class="sidebar ">
-		<section>
-			<header><p class="section-header">TOP STORIES</p> </header>
-	<ul class="sidelinks top-story-list">
-	<li>FOO</li>
-	<li>bOO</li>
-	<li>zdfOO</li>
-	<li>FOOsdfsdf</li>
 	
-	</ul>
+	<div class="top-header">
+		<div class="content">
+			<div class="item">
+				Flex Ads
+			</div>
 			
-		</section>
-	<div class="ad-unit adunit-medrect hidden" id="sideRectAd"></div>
+			<div class="item">
+				<img src="./images/iab-techlab-logo.png" class="logo" />
+			</div>
+			
+			<div class="item">
+				Eliminate Page Stutter
+			</div>
+			
+		</div>
 	</div>
 	
+	<div class="content-wrap" >
+		<div id="top_billboard_wrap"></div>
 	</div>
 	
+	<div class="content-wrap main-content" role="main">
 	
-	<div id="mainArticle" class="clearContent">
+		<div class="content-flexrow">
+			
+			<div class="item highlighted" >
+				<p>
+				The IAB Flex Ad SDK is a drop-in script helper to facilitate testing of flex ads in your existing content pages.
+				One of the purposes of the new Flex Ad format is to have pre-defined aspect ratio placements in the content prior
+				to arrival of the ad unit. In this manner the page does not exhibit the page stutter.
+				</p>
+<pre class="code">
+&lt;script src="../src/js/iab-flex-ad-tester.js" type="text/javascript"&gt;&lt;/script&gt;
+&lt;script&gt;
+(function(){
+	iab.flexAds.setup({
+		controls: true,
+		unitsVisible: true,
+		slots: [
+			{ "selector" : "#top_billboard_wrap", 
+				"key": "topBillboard", 
+				"adtype": "flex", 
+				"size": "8x1" }
+		]
+	});
+})()
+&lt;/script&gt;
+
+</pre>
+				<p>
+					This page uses the above initialization to define flex ad placements on the page.
+					Style has been added to make the ad slots visible.
+				</p>
+				
+				
+			</div>
+			<div class="sidebar">
+				
+				<div class="sidebar-adwrapper"></div>
+
+				<div class="article item ">
+				<div class="title">The Flex Ad Tester Can Inject Ads</div>
+				<p>
+					In addition to defining the slot, you can call for an ad unit from DFP or a static ad unit.
+					Please note that synchronous ad code utilizing <code>document.write</code> is not supported
+					unless it is injected into an iframe.
+				</p>
+				
+					<p>
+						Ad injection may happen at the point you define the slot, or it may happen
+						afterwards by using the widget.
+					</p>
+					
+				</div>
+				
+			</div>
+			
+		</div>
 		
-	</div>
-		
+		<div class="content-flexrow">
+			<div class="item normal" >
+				<div class="article">
+					<p>
+The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps. Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz. Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack.
+</p>
+
+					<p>
+Quick wafting zephyrs vex bold Jim. Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz. Quick, Baz, get my woven flax jodhpurs! "Now fax quiz Jack! " my brave ghost pled. Five quacking zephyrs jolt my wax bed. Flummoxed by job, kvetching W. zaps Iraq. Cozy sphinx waves quart jug of bad milk. A very bad quack might jinx zippy fowls. Few quips galvanized the mock jury box. Quick brown dogs jump over the lazy fox. The jay, pig,
+
+</p>
+				</div>
+			</div>
+			
+			<div class="item normal" >
+				<div class="article">
+					<p>
+						Red ensign bilge water me topmast fire in the hole crimp ahoy wherry parley belay. 
+						Scurvy strike colors Davy Jones' Locker Yellow Jack gun flogging lateen sail gibbet rutters hands. 
+						Bowsprit square-rigged belay Buccaneer log gibbet tender long boat lugsail take a caulk.
+					</p>
+<p>
+Draught Nelsons folly spanker gally jury mast flogging barkadeer pressgang boatswain to go on account. 
+Chase guns pillage flogging reef sails Brethren of the Coast heave down Plate Fleet Arr marooned Sea Legs. 
+Schooner lass lad measured fer yer chains red ensign spike lugger pinnace fire in the hole jury mast.
+</p>
+				</div>
+			</div>
+
+			<div class="item normal" >
+		<div id="lower-adunit"></div>
+				
+				<div class="article">
+<p>
+Run a manual sweep of anomalous airborne or electromagnetic readings. Radiation levels in our atmosphere have increased by 3,000 percent. Electromagnetic and subspace wave fronts approaching synchronization. What is the strength of the ship's deflector shields at maximum output? The wormhole's size and short period would make this a local phenomenon. Do you have sufficient data to compile a holographic simulation?
+</p>
+
+<p>
+It indicates a synchronic distortion in the areas emanating triolic waves. The cerebellum, the cerebral cortex, the brain stem,  the entire nervous system has been depleted of electrochemical energy. Any device like that would produce high levels of triolic waves. These walls have undergone some kind of selective molecular polarization. I haven't determined if our phaser energy can generate a stable field. We could alter the photons with phase discriminators.
+</p>
+
+				</div>
+			</div>
+
+		</div>
 		
 	</div>
 
@@ -91,49 +355,21 @@
 		</footer>
 	</div>
 
-	<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 
-
-	<script type="text/javascript">
-    </script>
-	
-	
-		
-	<div id="adControlDialog" class="adControlDialog hidden">
-		<div class="heading">Toggle to Enable Ad Placements</div>
-		
-		<div class="controls">
-			
-			<ul class="adList" id="adVisibleToggle">
-				<li>
-					<label><input type="checkbox" data-adid="topBillboardAd" />Top Billboard </label>
-				</li>
-				<li>
-					<label><input type="checkbox" data-adid="sideRectAd" />Sidebar Rectangle </label>
-				</li>
-				
-			</ul>
-			
-			<div>
-				<div>
-			<label>Load Ad URL</label>
-				<input type="text" style="width: 250px;" id="adUrl" value="http://foo/flexads/ads/ad_01.html" />
-					</div>
-				<div>
-			<label>Target</label>
-					<select id="adFrameTarget">
-						<option value="topBillboardAd">Top Billboard</option>
-						<option value="sideRectAd">Sidebar Rectangle</option>
-					</select>
-		</div>
-				<button type="button" id="btnLoadAd">Load Ad</button>
-			</div>
-		</div>
 		
 		
-	</div>
-
-	<div style="height:400px;" class="footest">fosidf asdfasodfiasodi fos idfoisafd</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 <!-- ================= SOME TEXT CONTENT ================== -->
 	
@@ -162,26 +398,89 @@ Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyfl
 	</section>
 	</div>
 	
-	<!--
-	<script src="./js/flexad.js" type="text/javascript"></script>
-	-->
-	<script src="./js/iab-flex-ad-tester.js" type="text/javascript"></script>
+	
+<div class="iab-flexad">
+	<div class="iab-flexsizer flex-8x1" ></div>
+	<div class="iab-adcontent">
+		<!-- AD INSERTED HERE -->
+					<!-- /3790/Flex8:1 -->
+	</div>
+</div>
+
+	
+	<script src="../src/js/iab-flex-ad-tester.js" type="text/javascript"></script>
 	<script>
 	(function(){
 		iab.flexAds.setup({
 			controls: true,
+			unitsVisible: true,
 			slots: [
-				{ "selector" : "#topBillboardAd", "name": "Top Billboard", "flexunit": "8x1", "ad": "http://foo/flexads/ads/ad_01.html" }
-			],
-			visible: true
+				{ 	
+					"selector" : "#top_billboard_wrap", 
+					"key": "topBillboard", 
+					"adtype": "flex", 
+					"size": "8x1",
+					"ad": {
+						"type": "dfp",
+						"adid": "/3790/Flex8:1",
+						"divid": "div-gpt-ad-1490307722661-0"
+					}
+				},
+				{ 
+					"selector" : ".sidebar > .sidebar-adwrapper", 
+					"key": "sidebarUnit", 
+					"adtype": "flex", "size": "1x1" ,
+					"ad": {
+						"type": "dfp",
+						"adid": "/3790/Flex1:1",
+						"divid": "div-gpt-ad-1490307785754-0"
+					}
+				},				
+				{ "selector" : "#lower-adunit", "key": "lowerUnit", "adtype": "flex", "size": "4x1" }
+			]
 		});
 	})()
 	</script>
 	
+	<!-- 
+	
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+	  googletag.cmd.push(function() {
+    googletag.defineSlot('/3790/Flex1:1', [1,1], 'div-gpt-ad-1490307785754-0').addService(googletag.pubads());
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
+  });
+
+// on the page, but push script to head
+  <div id='div-gpt-ad-1490307785754-0'>
+<script>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1490307785754-0'); });
+</script>
+</div>			
+	
+	-->
+	
 	
 	<script>
 	(function(){
-		$('#mainArticle').html( $('#shortArticle').html() );
+		var d = document;
+		d.addEventListener("DOMContentLoaded", function(event) {
+			try{
+				var txtel = d.getElementById('shortArticle');
+				var el = d.getElementById('mainArticle');
+				if(el && txtel){
+					el.innerHTML = txtel.innerHTML;
+				}					
+			}
+			catch(ex){
+				console.error(ex);
+			}
+		});
 	})()
 	</script>
 	

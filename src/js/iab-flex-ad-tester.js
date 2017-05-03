@@ -1,17 +1,36 @@
 /**
  * Copyright 2017 IAB. All rights reserved
  * @author chris cole
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 (function() {
+	"use strict";
 	
 	var iab = window.iab || {};
 	
 	var controlId = "IAB_FLEXAD_MENU",
-		stylesheetId = "IAB_FLEXAD_STYLESHEET";
+		stylesheetId = "IAB_FLEXAD_STYLESHEET",
+		elemSelectorId = 'iab-html-ad-Target';
 	
 	
-	
+	var flexAdSizes =
+	[
+		{ "sz": "2x1", "rat": "50%"},
+		{ "sz": "4x1", "rat": "25%"},
+		{ "sz": "6x1", "rat": "16.7%"},
+		{ "sz": "8x1", "rat": "12.5%"},
+		{ "sz": "1x1", "rat": "100%"},
+		{ "sz": "1x2", "rat": "200%"},
+		{ "sz": "1x3", "rat": "300%"},
+		{ "sz": "1x4", "rat": "400%"},
+		{ "sz": "9x16", "rat": "177.7%"}
+	];
+
+		
 	var iabStyleSheet = null;
 	
 
@@ -19,11 +38,26 @@
 		return typeof(fn) === 'function';
 	}
 	
+	var IMG_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABQCAYAAADSm7GJAAAFf0lEQVR4AezBgQAAAACAoP2pF6kCAAAAAADgdu4vRKoqDuD42d3SzDaNVtI0Le+dsMVdd2YkpUKlrIgIJbSS6iXCFKO0CNEsQgQXsbSWiAj/IWT0UEQKgpQUgWSx1aKQkRhaGs3s7Loabu7unL4H7MHhznR+e/eOd2fODz53XwTB757rmT/nDm7ugbZUndM100/mUt4avJdLehtzSf8R7fsjoWLOBS413Wnf60x5X+VSvi5E6NPZFn8RVHy5wEUnl57a1Jn0MiZmMZ0pP8+feQkqplzgoDG3X+L9EhA1KPJALpmYAxVDLnDw6vWXm3i2WClfuxU8jKYz6R8UBWYV/5WeNgEqblzggGED1WPCSWRbEvOh4sYFDl7B/dLAXWlvIVTcuMABwy33N2ng7pSXhoobFzgwsLdduMnK6sWqDipuXOCgwDOnTjcbJ8EmawNUHLnARYZVud4urvfjH+kJ10LFkQtcZLRSNUTeUjJw0vtW/vLIvUyK1WRT/mx21Z/wQcM5E/XSDvswP5fpuXOvgooxF1gU+07/+rhtptwmy02FBXbjArvALvA1aLU0NsTfMQ8rsBFb8DqWYRbqUDgr0Wph9hAFrkETnsMGbEUrVuFB1GNYzhhoS5MhmXn4GH9Dl3AWO5HCf9MBbWF5yMAJtCEDXUIf9uNR1FZ74EZ8CQ2pvZhShsA3YgcGoIV+wtxqDfw8eqFDOIeeiANnoEMYwCbUVUvgGrRBR0geOHqfY2Q1BG6DrsLAxmeoq+TAy6CrOLDxZqUGTuC8C6zymF+JgfdBu8CGOoarKynwHGgX+DLPVlLgT6EhdQq70YrdOBmDwBnswSZsQwc0pI6iphICj0MftMAJPBzwD1CDh3D8CgTO4Kkiu+C70Q4tNLsSAj8NLdCOBpSaBnxfxsAn4aHUjMJeaIGNlRD4A2hL3bgFNjMJuTIE7kMaNjMav0Jb+qYSAn8Hbek1SGZtGQLvgGSWiN5qrYDAklXmQTI3lyHwvZDMCPRAWxo/3ANrS1kMZk5HHHgMpHMY2lLjcA58HbSl4xjMHIkwcB6ykb+pM6NaVnAPBjPZiFfwuIhX8B3DPXAmwt/mJuiIAy+EZOqFn3M3DPfAh6AttUEyb5ch8D5IZhW0pbOVsIt+F9rSP5gJm0mhN/rAolU8SXjHOoiS0900+YZs0n/GPK4KH+aS/uZs2n9AK1ULVQIXgRCBH4MW+B1NFrfmU9BlCtyN+yziHoEWeON/juwu5TRkV5Hjue1dMxItUMWYi7UQgetxAVrgPNYF/P/UgHU4fwXei76IzQHvtNVjBTLQQs3hTnJ657LpxCyoIOZiK+ynSbugIdWPDhxAB/pj8GlSHj/jC7SH+OJgOwKHW/D9rNy83Vls79SZ5ubRUIXMxVrIwC3Iu8+DL/MkAsccwTXxbBV78Jy5WAsZ2MxHcIGBH1Bb5GmCk000kaR3CKqQuVgbgsATkVMucD9mlbo9SwNzO89BFTIXa/LAgbMI+SoPvBZFJ9fiLZCvYP8CVCFzsTaE34teU8WBd6EGRce89JEGxjGoQuZia6iPrryKfJUF3o46i+eg1LKgzgg3WVvjsMkqnMfRDR1CBrmIAx+HDqEXL8ueSZZ4RRD3onmGN1Qhc7EV1enCidgjPbmHAWzD+DKcLhyFVvRCCx3AdIhGNzaOMDtjq8D8MkAFMRdbUZ8PbsQ7OGPxNdq3cPsVOB88EetxFLqETuzEXSrEdM2YMpZb9f4SK7eveFx54BAn/MUzDYvxAlZjKRYURA17wv9WtFoKmpuwAC9iNVZiCVpQN7TPJZv6BKt5L7H/vPSQuRP8fD+XvK0ZqhRzqVyOC+wCOy6w4wI7LrDjAjsusOMCu8COC+y4wI4L7ETuX0qdfsHy3hYcAAAAAElFTkSuQmCC";
+	
+	var logErr = function(err){
+		if(typeof(err) === 'string'){
+			console.error('FlexAd Tester - ' + err);
+		}
+		else
+		{
+			console.error(err);
+		}
+	}
+	
+	/*
+	* Static object collection of utility methods
+	*/
 	var util = {
 		
 		style: function(elem, styleObj){
 			var k;
-			s = elem.style;
+			var s = elem.style;
 			
 			for(k in styleObj){
 				if(styleObj.hasOwnProperty(k)){
@@ -33,6 +67,11 @@
 			
 		},
 		
+		/**
+		* @function
+		* Helper to define a css style rule.
+		*
+		*/
 		addStyleRule: function(selector, style){
 			var ss, rule, styleRule, st, index, len;
 			if(iabStyleSheet == null){
@@ -78,6 +117,30 @@
 			}			
 		},
 		
+		/**
+		* @function
+		* Dynamically insert and execute javascript statments
+		*
+		*/
+		injectScript: function(opts){
+			var h = document.head,
+				s;
+			if(opts.src){
+				s = util.makeElement('script', { attrs: opts});
+				
+				h.appendChild(s);
+
+			}
+			else if(opts.code){
+				s = util.makeElement('script', { html: opts.code});
+				h.appendChild(s);
+			}
+		},
+		
+		/**
+		* @function
+		* Helper function to make DOM elements.
+		*/
 		makeElement: function(tag, options){
 			var opts = options || {};
 			var k;
@@ -101,6 +164,126 @@
 		},
 		
 		/**
+		* Shortcut method to document.querySelector. 
+		* @param selector The CSS selector to use
+		* @param el A DOM element. If unspecified the document object is used.
+		*/
+		qsel: function(selector, el){
+			var elem = el || document;
+			return elem.querySelector(selector);
+		},
+		
+		byId: function(id){
+			return document.getElementById(id);
+		},
+		
+		/**
+		* Shortcut method to document.querySelectorAll. 
+		* @param selector The CSS selector to use
+		* @param el A DOM element. If unspecified the document object is used.
+		*/
+		qselA: function(selector, el){
+			var elem = el || document;
+			return elem.querySelectorAll(selector);
+		},
+		
+		/**
+		* Checks to see if el has the given css class name
+		*/
+		hasClass: function(className, el){
+			var cn = el.className || '',
+				items = cn.split(' ');
+				
+			for(i=0;i<items.length;i++){
+				if(items[i] == className){
+					return true;
+				}
+			}
+			
+			return false;
+		},
+		
+		addClass: function(className, el){
+			var cn = el.className || '';
+			
+			el.className = cn + ' ' + className;
+			return el;
+		},
+		
+		/**
+		* @function
+		* Remove a CSS class name
+		*/
+		removeClass: function(className, el){
+			var i;
+			var cn = el.className || '',
+				items = cn.split(' '),
+				clist = [];
+				
+			for(i=0;i<items.length;i++){
+				if(items[i] == className){
+					continue;
+				}
+				clist.push(items[i]);
+			}
+			
+			el.className = clist.join(' ');
+			return el;
+		},
+		
+		/**
+		* @function
+		* Generate a random ID.
+		* @param verifyDomUnique True to test the DOM for uniqueness before returning ID.
+		*/
+		randId: function(verifyDomUnique){
+			var min=55, max = 987634;
+			var rand = Math.floor(Math.random() * (max-min) + min);
+			var id = "iab-newId-" + rand;
+			
+			if(verifyDomUnique){
+				var el = util.byId(id);
+				if(el == null){
+					return id;
+				}
+				return util.randId(verifyDomUnique);
+			}
+			else{
+				return id;
+			}
+		},
+
+		
+		/**
+		* @function
+		* Attach an event listener to an element
+		*/
+		on: function(eventName, element, fn){
+			var elem, elemList, i;
+			if(!eventName || !element || !fn){
+				console.error('invalid event listener attachment - bad element or function parameter');
+				return;
+			}
+			
+			if(typeof(element) === 'string'){
+				elem = util.qselA(element);
+			}
+			else{
+				elem = element;
+			}
+			
+			if(elemList && elemList.length > 0){
+				for(i=0;i<elemList.length;i++){
+					elem = elemList[i];
+					elem.addEventListener(eventName, fn);
+				}
+			}
+			else{			
+				elem.addEventListener(eventName, fn);
+			}
+		},
+		
+		/**
 		* Attaches event to DOMContentLoaded, surrounded in a try/catch
 		*/
 		onDocReady: function(fn){
@@ -118,7 +301,7 @@
 				if(document.readyState === 'complete'){
 					execFn.call(null);
 				}
-				else{				
+				else{			
 					document.addEventListener('DOMContentLoaded', execFn);
 				}
 			}
@@ -129,22 +312,101 @@
 		
 		
 	}
+	/**
+	* @function
+	* Recursively search up the DOM tree to see if we are in a flex container
+	* that is already registered as an ad slot.
+	*/
+	function searchFlexSlotElement(elem){
+		var i, n, parent;
+		
+		var result = {
+			found: false,
+			slotId: null,
+			element: null
+		}
+		
+		if(elem.parentNode == null || elem.tagName == 'BODY'){
+			return result;
+		}
+		
+		var slotId = elem.getAttribute('data-slotkey');
+		if(slotId != null){
+			result.found = true;
+			result.slotId = slotId;
+			result.element = elem;
+			
+			return result;
+		}
+		
+		return searchFlexSlotElement(elem.parentNode);
+	}
 	
-	
+	/**
+	* @function
+	* Code to inject a DFP ad into the given location
+	*/
+	function injectDfpSlot(){
+		var me = this;
+		var elemSelector = util.byId(elemSelectorId).value;
+		var el = util.qsel(elemSelector);
+		var adId = util.byId('iab-dfpSlotId').value;
+		var adSize = util.byId('iab-flexSlotSize').value;
+		if(!el || !adId){
+			console.error('Invalid element selector for ad insertion or missing ad id');
+			return;
+		}
+		
+		var flexSlot = searchFlexSlotElement(el);
+		var slotId;
+		console.log(flexSlot);
+		
+/*			
+		"/3790/Flex8:1"
+divid
+:
+"div-gpt-ad-1490307722661-0"
+type
+:
+"dfp"
+*/		
+		var adSlotObj = {
+			selector : elemSelector, 
+			key: "my-iab-ad", 
+			adtype: "flex", 
+			size: adSize,
+			ad: {
+				adid: adId,
+				divid: elemSelector,
+				type: 'dfp'
+			}
+		}
+		
+		if(flexSlot.found){
+			slotId = flexSlot.slotId;
+			adSlotObj.key = slotId;
+		}
+		else{
+			// create slot
+			// slotId = ...
+		}
+		
+		me.injectAd(adSlotObj, slotId);
+
+	}
 	
 	function drawFloatingMenu(){
 		var content = [
 		'<div style="height: 44px;width:100%;border-bottom: 2px solid #ccc; margin:0;cursor:move;" class="iab-drag-handle" >',
-		'<img src="https://www.iab.com/wp-content/themes/iab/assets/img/iab-logo.png" style="height:44px;width:auto;margin-left:10px;" />', 
+		'<img src="', IMG_LOGO, '" style="height:44px;width:auto;margin-left:10px;" />', 
 		'</div>'
 		];
 		
-		var i, n, t;
+		var i, n, t, sz;
 		var popc = [];
+		var me = this; // hook to iab ad popup object
 		
-		content.push('<div class="iab-popup-menu"><a href="#">&#9776;</a></div>');
-		
-		
+		content.push('<div class="iab-popup-menu"><a href="javascript:void(0);">&#9776;</a></div>');
 		
 		var el = util.makeElement('div', {
 			style: {
@@ -162,7 +424,7 @@
 			html: content.join('')
 		});
 		
-		
+		var elSel = [];
 		var adTabs = [];
 		adTabs.push('<div id="iab-flex-tab-control-wrap">',
 		'<ul class="iab-tablist" role="tablist">');
@@ -185,20 +447,27 @@
 		}
 		adTabs.push('</ul>');
 		
+		elSel.push('<div class="iab-labelrow" style="margin-top:10px;"><label>Target Selector</label> ', 
+		'<div class="iab-labeled-content"><input type="text" id="', elemSelectorId, '" value="#topBillboardAd" /></div>',
+		'<button type="button" class="iab-button" id="iab-ElemSelectToggle" />Toggle Element<br/> Selection</button>',		
+		'</div>');
+		
+		elSel.push('<div><span class="iab-label">Unit Size</span><select class="iab-formcontrol" id="iab-flexSlotSize" ></select></div>');
+
 		// tab content
 		
-		
+		//			'<button type="button" class="iab-btn iab-add-dfp">Inject Google DFP Scripts</div>',
 		
 		popc.push('<div class="iab-popup-heading">Toggle to Enable Ad Placements</div>',
 			'<div class="iab-controls">',
-			'<button type="button" class="iab-btn iab-add-dfp">Inject Google DFP Scripts</div>',
+			elSel.join(''),
 			'<ul class="iab-adlist-toggles" ></ul>\n',
 			'<div class="iab-placement-controls">',
 			adTabs.join(''),
 			'<div class="iab-tabcontent-wrap">',
 			'	<div class="iab-tabcontent iab-tab-dfp" ><label>DFP</label><div class="iab-labeled-content iabctrl-dfp"></div></div>',
 			'	<div class="iab-tabcontent iab-tab-markup" style="display:none;"><label>HTML</label><div class="iab-labeled-content iabctrl-html"></div></div>',
-			'	<div class="iab-tabcontent iab-tab-iframe" style="display:none;"><label>HTML</label><div class="iab-labeled-content iabctrl-html"></div></div>',
+			'	<div class="iab-tabcontent iab-tab-iframe" style="display:none;"><label>IFrame</label><div class="iab-labeled-content iabctrl-iframe"></div></div>',
 			'</div>\n',
 			'</div>');
 		
@@ -216,12 +485,34 @@
 		
 		el.appendChild(popup);
 		
+		/**
+		* Toggle dialog display
+		*/
+		var toggleDlg = function(evt, popupDialog){
+			var dlg = popupDialog || popup; // from closure
+			var isVisible = dlg.style.display == 'block';
+			if(isVisible){
+				dlg.style.display = 'none';
+			}
+			else{
+				dlg.style.display = 'block';
+			}			
+		}
+		
+
+		
+		var dfpCtl = popup.querySelector('.iab-tabcontent-wrap .iabctrl-dfp');
+		var dbuf = [];
+		dbuf.push('<div class="iab-tab-panel>');
+		dbuf.push('<div><span class="iab-label">DFP Slot Id</span><input type="text" class="iab-formcontrol" id="iab-dfpSlotId" value="/3790/Flex1:1" /></div>');
+		dbuf.push('<div><button type="button" class="iab-btn " id="btnDfpAdd">Insert DFP</button></div>');
+		dbuf.push('</div>');
+		//flexAdSizes
+		
+		dfpCtl.innerHTML = dbuf.join('');
+		
 		var htmlCtl = popup.querySelector('.iab-tabcontent-wrap .iabctrl-html');
 		var hbuf = [];
-		hbuf.push('<div class="iab-labelrow"><label>Target Selector</label> ', 
-		'<label style="font-size:.8em;"><input type="checkbox" id="iab-ElemSelectToggle" />Click to Pick Element</label>',
-		'<div class="iab-labeled-content"><input type="text" id="htmlTarget" value="#topBillboardAd" /></div>',
-		'</div>');
 		hbuf.push('<label>HTML Content</label>');
 		hbuf.push('<div><textarea style="width: 90%;height: 35px;" id="iab-htmlContent"></textarea></div>');
 		hbuf.push('<label>Script</label>');
@@ -230,33 +521,90 @@
 		
 		
 		htmlCtl.innerHTML = hbuf.join('');
+
+		var toggleGrabBtn = util.qsel('#iab-ElemSelectToggle', popup);
+		
+		
+		var flexSizeDrop = util.qsel('#iab-flexSlotSize', popup);
+		var dropbuf = [];
+		for(i=0;i<flexAdSizes.length;i++){
+			sz = flexAdSizes[i].sz;
+			dropbuf.push('<option value="', sz, '" >', sz, '</option>');
+		}
+		
+		flexSizeDrop.innerHTML = dropbuf.join('');
+		
 		
 		// attach handlers
-		var dfpScriptBtn = popup.querySelector('button.iab-add-dfp');
-		dfpScriptBtn.addEventListener('click', function(evt){
-			var h = document.head;
-			var googTag = window.googletag;
-			if(googTag != null){
-				return;
-			}
-			
-			var gptScript = util.makeElement('script', {
-				attrs: {
-					async: 'async',
-					src: 'https://www.googletagservices.com/tag/js/gpt.js'
-				}
-			});
-			h.appendChild(gptScript);
-			
-			h.appendChild(util.makeElement('script', {
-					html: 'var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];'			
-				})
-			);
+		var dfpBtn = util.qsel('#btnDfpAdd', popup);
+		
+		util.on('click', dfpBtn, function(evt){
+			injectDfpSlot.apply(me);
+			toggleDlg(evt, popup);
 		});
 		
+		/**
+		* @function
+		* Handle element selection for ad unit targeting
+		*/
+		var grabElement = function(evt){
+			var targ = evt.target;
+			var prevbg = targ.style.backgroundColor;
+			var id = targ.getAttribute('id');
+			if(id == null){
+				id = util.randId(true);
+				targ.setAttribute('id', id);
+			}
+			
+			targ.style.backgroundColor="red";
+			unsetSelectToggle();
+			
+			setTimeout(function(){
+				var txt = util.byId(elemSelectorId);
+				targ.style.backgroundColor=prevbg;
+				txt.value = '#' + id;
+				txt.style.backgroundColor="red";
+				txt.style.color="white";
+				setTimeout(function(){
+					txt.style.backgroundColor="white";
+					txt.style.color="black";
+				}, 500);
+			}, 400);
+		}
+		
+		var unsetSelectToggle = function(){
+			var b = toggleGrabBtn;
+			b.setAttribute('data-active', null);
+			util.removeClass('iab-active', b);
+			window.removeEventListener('click', grabElement);
+		}
+		
+		//
+		util.on('click', toggleGrabBtn, function(evt){
+			var b = toggleGrabBtn;
+			var state = b.getAttribute('data-active');
+			if(state == "active"){
+				unsetSelectToggle();
+			}
+			else{
+				b.setAttribute('data-active', 'active');
+				util.addClass('iab-active', b);
+				setTimeout(function(){
+					try{
+						window.addEventListener('click', grabElement, { once: true });
+					}
+					catch(ex){
+						window.addEventListener('click', grabElement);
+					}
+				}, 10);
+			}
+			
+		});
+		
+		
 		var htmlBtn = popup.querySelector('button.iab-ad-html');
-		htmlBtn.addEventListener('click', function(evt){
-			var sel = document.getElementById('htmlTarget').value;
+		util.on('click', htmlBtn, function(evt){
+			var sel = document.getElementById(elemSelectorId).value;
 			var content = document.getElementById('iab-htmlContent').value;
 			var scrip = document.getElementById('iab-htmlScript').value;
 			
@@ -276,18 +624,6 @@
 			
 		});
 		
-		var selectToggle = popup.querySelector('#iab-ElemSelectToggle');
-		
-		
-		var togglePickHandler = function(evt){
-			console.log(evt);
-			
-		};
-		
-		
-		selectToggle.addEventListener('change', function(evt){
-			togglePickHandler(evt);			
-		});
 		
 		// Build a closure for the tab events
 		(function(){
@@ -345,7 +681,7 @@
 		
 		// check for being not at top.
 		var ot = el.offsetTop;
-		menuRect = el.getBoundingClientRect();
+		var menuRect = el.getBoundingClientRect();
 		
 		if(menuRect.top > 0){
 			el.style.top = "-" + new String(menuRect.top - 5) + "px";
@@ -357,21 +693,24 @@
 		// wire toggle menu
 		var toggleA = el.querySelector('.iab-popup-menu a');
 		
-		var toggleDlg = function(evt){
-			var dlg = popup; // from closure
-			var isVisible = dlg.style.display == 'block';
-			if(isVisible){
-				dlg.style.display = 'none';
-			}
-			else{
-				dlg.style.display = 'block';
-			}			
-		}
-		
-		toggleA.addEventListener('click', function(evt){ toggleDlg(evt); return false; });
+		toggleA.addEventListener('click', function(evt){ toggleDlg(evt, popup); return false; });
 		
 		return el;
 		
+	}
+	
+	/**
+	* @function
+	* Inserts the Dfp support scripts if not already present.
+	*/
+	function insertDfpScripts(){
+		var googTag = window.googletag;
+		if(googTag != null){
+			return;
+		}
+		
+		util.injectScript({ src: 'https://www.googletagservices.com/tag/js/gpt.js', async: 'async'});
+		util.injectScript({ code: 'var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];'});
 	}
 	
 	function wireDragMove(el, dragElem){
@@ -456,8 +795,10 @@
 		
 	}
 
-	
-	
+	/**
+	* @function
+	* Create a new stylesheet for our IAB style classes and append to the DOM.
+	*/
 	function createIabStylesheet(){
 		
 		var ss = document.getElementById(stylesheetId);
@@ -476,8 +817,7 @@
 		}
 	}
 	
-	
-	
+		
 	var styleRulesDone = false;
 	
 	/**
@@ -489,12 +829,85 @@
 			return;
 		}
 		
+		injectIabAdContainerStyleRules();
+		injectIabFlexAdSDKStyleRules();
+		
+		styleRulesDone = true;
+	}
+	
+	/**
+	* @function
+	* Inject style rules for the base set of flex ad containers.
+	*/
+	function injectIabAdContainerStyleRules(){
+		
+		util.addStyleRule('.iab-flexad', { "display": "block", "position": "relative" });
+		util.addStyleRule('.iab-flexsizer', { "display": "block", "position": "relative", "z-index": "-1"});
+		util.addStyleRule('.iab-flexsizer div.iab-adcontent', { "display": "block", "position": "absolute", "left": "0", "right": "0", "top": "0", "bottom": "0"});
+				
+		var sizes = flexAdSizes;
+		
+		var i, sel, f;
+		for(i=0;i<sizes.length;i++){
+			f = sizes[i];
+			sel = '.iab-flexsizer.flex-' + f.sz;
+			util.addStyleRule(sel, { "width": "100%", "padding-top": f.rat});
+		}
+		
+		// helper class to make ad units visible
+		util.addStyleRule('.iab-flex-units-visible .iab-flexad', 
+			{ 
+				"border": "0.5px solid orange"
+			});
+	}
+	
+	
+	/**
+	* @function
+	* Add CSS classes to support the IAB flex widget.
+	*/
+	function injectIabFlexAdSDKStyleRules(){
+		
 		util.addStyleRule('.iab-popup-menu', '{ text-align: center; font-size: 2em; font-weight: bold; }');
 		
 		util.addStyleRule('.iab-popup-menu a', { "text-decoration": "none", "color": "black"});
 		
 		util.addStyleRule('.iab-labelrow', { "margin-bottom": "10px"});
 		util.addStyleRule('.iab-labelrow label', { "display": "inline-block", "font-weight": "bold"});
+		
+		util.addStyleRule('.iab-label', 
+		{
+			"font-weight": "bold",
+			"display": "inline-block",
+			"margin-right": "5px",
+			"line-height": "1.2em"
+		});
+		util.addStyleRule('.iab-button', 
+		{ 
+			"display": "inline-block", 		
+			"padding": "6px 8px",
+			"margin": "3px",
+			"border-radius": "4px",
+			"border": "1px solid #aaa",
+			"background": "white"
+		});
+		
+		util.addStyleRule('.iab-button.iab-active', 
+		{ 
+			"background": "#444",
+			"color": "white"
+		});
+		
+		util.addStyleRule('.iab-adControlDialog input, .iab-adControlDialog select',
+		{
+			"padding": "4px"
+		});
+		
+		util.addStyleRule('.iab-adControlDialog select',
+		{
+			"padding": "4px",
+			"min-width": "250px"
+		});
 		
 		util.addStyleRule('.iab-adControlDialog', {
 			"position": "absolute",
@@ -592,51 +1005,21 @@
 		});
 		
 		
-		/*
-		
-		
-<style type="text/css">
-.iab-ad-unit{
-	background-image: url(./ads/ad_bg.png);
-	position:relative;
-	overflow:hidden;
-}
-
-.iab-flexad.iab-visible{
-	border: 1px solid blue;
-	background-color: #c0c0c0;
-}
-
-.iab-flexad img.iab-flexsizer{
-	height: auto;
-	width: 100%;
-	display: block;
-	position: relative;
-	z-index: -1;
-}
-
-.iab-flexad div.iab-adcontent{
-	position: absolute;
-	left:0;
-	right:0;
-	top:0;
-	bottom:0;
-}
-
-
-.iab-adcontent h4{
-	margin-top:0;
-	margin-bottom: 50%;
-	text-align: center;
-}
-</style>
-*/
-		
-		
-		
 		styleRulesDone = true;
 	}
 	
+	
+	function adSizer(obj){
+		var t = obj.adtype || 'flex';
+		if(t == 'flex'){
+			return 'flex-' + obj.size;		
+		}
+		else{
+			return '';
+		}		
+	}
+	
+	// =====================================================================================
 	
 	/**
 	* @class
@@ -646,25 +1029,47 @@
 	function FlexAdTester(options){
 		var o = options;
 		
+		this.adSlots = {};
 		
+		/**
+		* @function
+		* Setup of the SDK
+		*
+		*/
 		this.setup = function(options){
 			var menu = document.getElementById(controlId);
 			var dlg;
 			var slots = options.slots, i, s;
+			var bodyClass;
+			var me = this;
 			
 			initStyleRules();
 			
 			
 			if(menu == null){
-				menu = drawFloatingMenu();
+				menu = drawFloatingMenu.apply(me);
 				dlg = menu.querySelector('div.iab-adControlDialog');
 				// add the slots
 				for(i=0;i<slots.length;i++){
 					s = slots[i];
-					this.registerSlot(s, menu);
+					//this.registerSlot(s, menu);
+					this.createSlot(s);
+				}
+				//wireHandlers();
+			}
+			
+			// Make ad units visible if specified
+			if(options.unitsVisible){
+				bodyClass = document.body.className;
+				if(bodyClass == null){
+					document.body.className = 'iab-flex-units-visible';
+				}
+				else{
+					document.body.className += ' iab-flex-units-visible';
 				}
 			}
 			
+			/*
 			var pauseVideo = function(){
 				var vids = document.querySelectorAll('video');
 				var i, v;
@@ -680,79 +1085,114 @@
 			};
 			
 			setTimeout(callPause, 1500);
+			*/
 			
+			return this;
 		}
 		
-		this.registerSlot = function(slot, menu){
-			var menu = menu || document.getElementById(controlId);
+		/**
+		* @function
+		* Create a new ad slot with a wrapper.
+		*/
+		this.createSlot = function(obj){
+			var buf = [];
+			var ads = this.adSlots;
+			var me = this;
 			
-			if(menu == null){
-				var me = this;
-				setTimeout(function(){
-					me.registerSlot(slot);
-				}, 500);
-				return;				
+			var anchor = util.qsel(obj.selector);
+			if(anchor == null){
+				logErr('Invalid selector for slot: ' + obj.selector);
+				return;
 			}
 			
-			var dlg = menu.querySelector('div.iab-adControlDialog');
-			var list = dlg.querySelector('ul');
-			var item = util.makeElement('li', {
-				html: '<label><input type="checkbox" data-adid="topBillboardAd" />Top Billboard </label>'
-			});
+			if(typeof(obj.key) !== 'string'){
+				logErr('must specify a key in ad slot');
+				return;
+			}
 			
-			list.appendChild(item);
-			 /* <li>
-					<label><input type="checkbox" data-adid="topBillboardAd" />Top Billboard </label>
-				</li>
-				*/
+			if(ads[obj.key] != null){
+				logErr('ad key already defined: ' + obj.key);
+				return;
+			}
+			
+			ads[obj.key] = obj;
+			
+			buf.push('<div class="iab-flexad" data-slotkey="', obj.key, '" ><div class="iab-flexsizer ');
+			buf.push(adSizer(obj));
+			buf.push('" ></div><div class="iab-adcontent"></div></div>');
+			
+			anchor.innerHTML = buf.join('');
+			obj.built = true;
+			
+			if(obj.ad != null){
+				setTimeout(function(){
+					me.injectAd(obj.ad, obj.key);
+				}, 1);
+			}
+		}
+		
+		/**
+		* @function
+		* Inject an ad unit into the defined slot
+		* @param adObj The ad object
+		* @param slotKey Key corresponding to the ad slot target registered through createSlot
+		*/
+		this.injectAd = function(adObj, slotKey){
+			var ads = this.adSlots;
+			var obj = ads[slotKey];
+			
+			if(!obj){
+				logErr('Unregistered ad key used: ' + slotKey);
+				return;
+			}
+			
+			var anchor = util.qsel(obj.selector),
+				el = util.qsel('.iab-adcontent', anchor),
+				adEl;
+				
+			if(adObj.type == 'dfp'){
+				insertDfpScripts();
+				adEl = document.getElementById(adObj.divid);
+				if(adEl == null){
+					adEl = util.makeElement('div', { attrs: { id: adObj.divid }});
+					el.appendChild(adEl);
+				}
+				
+				var codeFn = function(){
+					var code = [];
+					
+					code.push('googletag.cmd.push(function() {',
+						'googletag.defineSlot("',
+						adObj.adid,
+						'", [1,1], "',
+						adObj.divid,
+						'").addService(googletag.pubads());',
+						'googletag.pubads().enableSingleRequest();',
+						'googletag.enableServices();',
+					'});',
+					'googletag.cmd.push(function() { googletag.display("', adObj.divid, '"); });'
+					);
+					
+					util.injectScript({ code: code.join('')});
+				}
+				
+				setTimeout(codeFn, 1);
+			}
 		}
 	}
 	
-	
-	
-	function setupPage(){
-		wireHandlers();
-	}
 	
 	function toggleAdControlDialog(){
-		var dlg = $('#adControlDialog');
-		if(dlg.hasClass('hidden')){
-			dlg.removeClass('hidden');
+		
+		var dlg = util.qsel('#adControlDialog');
+		if(util.hasClass('hidden', dlg)){
+			util.removeClass('hidden', dlg);
 		}
 		else{
-			dlg.addClass('hidden');
+			util.addClass('hidden', dlg);
 		}
 	}
-	
-	function wireHandlers(){
 		
-		$('#adMenu').on('click', function(evt){
-			toggleAdControlDialog();
-		});
-		
-		$('#adVisibleToggle input[type=checkbox]').on('change', function(evt){
-			var el = evt.target;
-			var adid = el.getAttribute('data-adid');
-			var ad = $('#' + adid);
-			if(el.checked){
-				ad.removeClass('hidden');
-			}
-			else{
-				ad.addClass('hidden');
-			}
-		});
-		
-		$('#btnLoadAd').on('click', function(evt){
-			var url = $('#adUrl').val();
-			var targ = $('#adFrameTarget').val();
-			loadAdUrl(url, targ);
-			toggleAdControlDialog();
-		});
-		
-		
-	}
-	
-	
 	function drawFloatingControls(){
 		
 		var body = document.body;
@@ -775,9 +1215,11 @@
 		ifr.attr('src', url);
 	}
 	
-	
-	
-	
+	/**
+	* @function
+	* Add the given function to the document.DOMContentLoaded.
+	* This is equivalent to $document.ready in jQuery.
+	*/
 	function addLoader(fn){
 		
 		document.addEventListener("DOMContentLoaded", function(event) {
@@ -789,11 +1231,6 @@
 			}
 		});
 	}
-	
-	addLoader(function(evt){
-		setupPage();
-	});
-	
 	
 	iab.onReady = util.onDocReady; 
 	

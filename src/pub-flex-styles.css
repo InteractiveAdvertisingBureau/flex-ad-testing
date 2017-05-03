@@ -85,4 +85,8 @@
 	bottom:0;
 }
 
+.iab-flex-units-visible  .iab-flexad {
+	box-sizing: border-box; /* make the visible debugging border not push the page contents by 1px */
+	border: 0.5px solid orange;	
+}
 
