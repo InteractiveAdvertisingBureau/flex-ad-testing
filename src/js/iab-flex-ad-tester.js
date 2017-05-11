@@ -38,6 +38,15 @@
 		return typeof(fn) === 'function';
 	}
 	
+	var isArray = function(ar){
+		if(ar != null){
+			if(typeof(ar) === 'object' && ar.length != undefined && !isNaN(parseInt(ar.length))){
+				return true;
+			}			
+		}
+		return false;
+	}
+	
 	var IMG_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABQCAYAAADSm7GJAAAFf0lEQVR4AezBgQAAAACAoP2pF6kCAAAAAADgdu4vRKoqDuD42d3SzDaNVtI0Le+dsMVdd2YkpUKlrIgIJbSS6iXCFKO0CNEsQgQXsbSWiAj/IWT0UEQKgpQUgWSx1aKQkRhaGs3s7Loabu7unL4H7MHhznR+e/eOd2fODz53XwTB757rmT/nDm7ugbZUndM100/mUt4avJdLehtzSf8R7fsjoWLOBS413Wnf60x5X+VSvi5E6NPZFn8RVHy5wEUnl57a1Jn0MiZmMZ0pP8+feQkqplzgoDG3X+L9EhA1KPJALpmYAxVDLnDw6vWXm3i2WClfuxU8jKYz6R8UBWYV/5WeNgEqblzggGED1WPCSWRbEvOh4sYFDl7B/dLAXWlvIVTcuMABwy33N2ng7pSXhoobFzgwsLdduMnK6sWqDipuXOCgwDOnTjcbJ8EmawNUHLnARYZVud4urvfjH+kJ10LFkQtcZLRSNUTeUjJw0vtW/vLIvUyK1WRT/mx21Z/wQcM5E/XSDvswP5fpuXOvgooxF1gU+07/+rhtptwmy02FBXbjArvALvA1aLU0NsTfMQ8rsBFb8DqWYRbqUDgr0Wph9hAFrkETnsMGbEUrVuFB1GNYzhhoS5MhmXn4GH9Dl3AWO5HCf9MBbWF5yMAJtCEDXUIf9uNR1FZ74EZ8CQ2pvZhShsA3YgcGoIV+wtxqDfw8eqFDOIeeiANnoEMYwCbUVUvgGrRBR0geOHqfY2Q1BG6DrsLAxmeoq+TAy6CrOLDxZqUGTuC8C6zymF+JgfdBu8CGOoarKynwHGgX+DLPVlLgT6EhdQq70YrdOBmDwBnswSZsQwc0pI6iphICj0MftMAJPBzwD1CDh3D8CgTO4Kkiu+C70Q4tNLsSAj8NLdCOBpSaBnxfxsAn4aHUjMJeaIGNlRD4A2hL3bgFNjMJuTIE7kMaNjMav0Jb+qYSAn8Hbek1SGZtGQLvgGSWiN5qrYDAklXmQTI3lyHwvZDMCPRAWxo/3ANrS1kMZk5HHHgMpHMY2lLjcA58HbSl4xjMHIkwcB6ykb+pM6NaVnAPBjPZiFfwuIhX8B3DPXAmwt/mJuiIAy+EZOqFn3M3DPfAh6AttUEyb5ch8D5IZhW0pbOVsIt+F9rSP5gJm0mhN/rAolU8SXjHOoiS0900+YZs0n/GPK4KH+aS/uZs2n9AK1ULVQIXgRCBH4MW+B1NFrfmU9BlCtyN+yziHoEWeON/juwu5TRkV5Hjue1dMxItUMWYi7UQgetxAVrgPNYF/P/UgHU4fwXei76IzQHvtNVjBTLQQs3hTnJ657LpxCyoIOZiK+ynSbugIdWPDhxAB/pj8GlSHj/jC7SH+OJgOwKHW/D9rNy83Vls79SZ5ubRUIXMxVrIwC3Iu8+DL/MkAsccwTXxbBV78Jy5WAsZ2MxHcIGBH1Bb5GmCk000kaR3CKqQuVgbgsATkVMucD9mlbo9SwNzO89BFTIXa/LAgbMI+SoPvBZFJ9fiLZCvYP8CVCFzsTaE34teU8WBd6EGRce89JEGxjGoQuZia6iPrryKfJUF3o46i+eg1LKgzgg3WVvjsMkqnMfRDR1CBrmIAx+HDqEXL8ueSZZ4RRD3onmGN1Qhc7EV1enCidgjPbmHAWzD+DKcLhyFVvRCCx3AdIhGNzaOMDtjq8D8MkAFMRdbUZ8PbsQ7OGPxNdq3cPsVOB88EetxFLqETuzEXSrEdM2YMpZb9f4SK7eveFx54BAn/MUzDYvxAlZjKRYURA17wv9WtFoKmpuwAC9iNVZiCVpQN7TPJZv6BKt5L7H/vPSQuRP8fD+XvK0ZqhRzqVyOC+wCOy6w4wI7LrDjAjsusOMCu8COC+y4wI4L7ETuX0qdfsHy3hYcAAAAAElFTkSuQmCC";
 	
 	var logErr = function(err){
@@ -107,14 +116,30 @@
 				len = len - 1; // ie fix
 			}
 			
-			
-			
-			if("insertRule" in ss){
-				ss.insertRule(rule, len); 
+			try{
+				if("insertRule" in ss){
+					ss.insertRule(rule, len); 
+				}
+				else if("addRule" in ss){
+					ss.addRule(selector, styleRule, len); 
+				}
 			}
-			else if("addRule" in ss){
-				ss.addRule(selector, styleRule, len); 
-			}			
+			catch(ex){
+				logErr("Error defining style rule for " + selector);
+				logErr(ex);
+				try{
+					len = len - 1; // ie fix again
+					if("insertRule" in ss){
+						ss.insertRule(rule, len); 
+					}
+					else if("addRule" in ss){
+						ss.addRule(selector, styleRule, len); 
+					}
+				}
+				catch(ex){
+					logErr("Fatal error in try2 for style define");
+				}
+			}
 		},
 		
 		/**
@@ -258,10 +283,19 @@
 		* @function
 		* Attach an event listener to an element
 		*/
-		on: function(eventName, element, fn){
+		
+		off: function(eventName, element, fn){
+			util.eventAction(eventName, false, element, fn);
+		},
+				
+		on: function(eventName, element, fn, opts){
+			util.eventAction(eventName, true, element, fn, opts);
+		},
+
+		eventAction: function(eventName, isAttach, element, fn, opts){
 			var elem, elemList, i;
 			if(!eventName || !element || !fn){
-				console.error('invalid event listener attachment - bad element or function parameter');
+				logErr('invalid event listener attachment - bad element or function parameter');
 				return;
 			}
 			
@@ -272,14 +306,28 @@
 				elem = element;
 			}
 			
+			if(isArray(elem)){
+				elemList = elem;
+			}
+			
 			if(elemList && elemList.length > 0){
 				for(i=0;i<elemList.length;i++){
 					elem = elemList[i];
-					elem.addEventListener(eventName, fn);
+					if(isAttach){
+						elem.addEventListener(eventName, fn, opts);
+					}
+					else{
+						elem.removeEventListener(eventName, fn);
+					}
 				}
 			}
 			else{			
-				elem.addEventListener(eventName, fn);
+				if(isAttach){
+					elem.addEventListener(eventName, fn, opts);
+				}
+				else{
+					elem.removeEventListener(eventName, fn);
+				}
 			}
 		},
 		
@@ -294,7 +342,7 @@
 						fn.call(null, evt);
 					}
 					catch(ex){
-						console.error(ex);
+						logErr(ex);
 					}					
 				};
 				
@@ -306,7 +354,7 @@
 				}
 			}
 			else{
-				console.error('IAB onDocReady: Invalid function registration for page ready');
+				logErr('IAB onDocReady: Invalid function registration for page ready');
 			}
 		}
 		
@@ -318,6 +366,53 @@
 	* that is already registered as an ad slot.
 	*/
 	function searchFlexSlotElement(elem){
+		var result = searchFlexSlotDown(elem);
+		if(result.found){
+			return result;
+		}
+		else{
+			return searchFlexSlotUp(elem);
+		}
+	}
+	
+	function searchFlexSlotDown(elem){
+		var i, n, kids, klm, rslt;
+		
+		var result = {
+			found: false,
+			slotId: null,
+			element: null,
+			isDown: true
+		}
+		
+		if(elem == null || !elem.hasChildNodes()){
+			console.log('no kids');
+			return result;
+		}
+		kids = elem.childNodes;
+		
+		var slotId = elem.getAttribute('data-slotkey');
+		if(slotId != null){
+			result.found = true;
+			result.slotId = slotId;
+			result.element = elem;
+			
+			return result;
+		}
+		
+		for(i=0;i<kids.length;i++){
+			klm = kids[i];
+			result = searchFlexSlotDown(klm);
+			if(result.found){
+				return result;
+			}
+		}
+		
+		console.log('final down');
+		return result;
+	}
+	
+	function searchFlexSlotUp(elem){
 		var i, n, parent;
 		
 		var result = {
@@ -339,8 +434,10 @@
 			return result;
 		}
 		
-		return searchFlexSlotElement(elem.parentNode);
+		return searchFlexSlotUp(elem.parentNode);
 	}
+	
+	
 	
 	/**
 	* @function
@@ -349,13 +446,21 @@
 	function injectDfpSlot(){
 		var me = this;
 		var elemSelector = util.byId(elemSelectorId).value;
-		var el = util.qsel(elemSelector);
+		var el;
 		var adId = util.byId('iab-dfpSlotId').value;
 		var adSize = util.byId('iab-flexSlotSize').value;
+		
+		if(elemSelector.indexOf('#') == 0 && elemSelector.indexOf(' ') == -1){
+			el = util.byId(elemSelector.substr(1));
+		}
+		if(!el){		
+			el = util.qsel(elemSelector);
+		}
 		if(!el || !adId){
-			console.error('Invalid element selector for ad insertion or missing ad id');
+			logErr('Invalid element selector for ad insertion or missing ad id');
 			return;
 		}
+		
 		
 		var flexSlot = searchFlexSlotElement(el);
 		var slotId;
@@ -385,13 +490,15 @@ type
 		if(flexSlot.found){
 			slotId = flexSlot.slotId;
 			adSlotObj.key = slotId;
+			me.injectAd(adSlotObj, slotId);
 		}
 		else{
 			// create slot
+			adSlotObj.ad.divid = util.randId(true);
+			me.createSlot(adSlotObj);
 			// slotId = ...
 		}
 		
-		me.injectAd(adSlotObj, slotId);
 
 	}
 	
@@ -452,7 +559,16 @@ type
 		'<button type="button" class="iab-button" id="iab-ElemSelectToggle" />Toggle Element<br/> Selection</button>',		
 		'</div>');
 		
+		elSel.push('<div class="iab-unit-size-selector">',
+			'<fieldset class="iab-fieldset"><legend>Flex Container Size</legend>');
+		elSel.push('<fieldset  class="injectradios iab-fieldset">',
+			'<label style="margin-right:5px"><input type="checkbox" id="iab-chk-injectContainer" checked="checked" /> Inject Flex Container</label>',
+			'<label><input type="checkbox" id="iab-chk-resizeContainer" checked="checked" /> Resize Existing Container</label>',
+			'</fieldset>');
+		
 		elSel.push('<div><span class="iab-label">Unit Size</span><select class="iab-formcontrol" id="iab-flexSlotSize" ></select></div>');
+		
+		elSel.push('</fieldset></div>');
 
 		// tab content
 		
@@ -465,7 +581,7 @@ type
 			'<div class="iab-placement-controls">',
 			adTabs.join(''),
 			'<div class="iab-tabcontent-wrap">',
-			'	<div class="iab-tabcontent iab-tab-dfp" ><label>DFP</label><div class="iab-labeled-content iabctrl-dfp"></div></div>',
+			'	<div class="iab-tabcontent iab-tab-dfp" ><div class="iab-labeled-content iabctrl-dfp"></div></div>',
 			'	<div class="iab-tabcontent iab-tab-markup" style="display:none;"><label>HTML</label><div class="iab-labeled-content iabctrl-html"></div></div>',
 			'	<div class="iab-tabcontent iab-tab-iframe" style="display:none;"><label>IFrame</label><div class="iab-labeled-content iabctrl-iframe"></div></div>',
 			'</div>\n',
@@ -503,9 +619,10 @@ type
 		
 		var dfpCtl = popup.querySelector('.iab-tabcontent-wrap .iabctrl-dfp');
 		var dbuf = [];
-		dbuf.push('<div class="iab-tab-panel>');
-		dbuf.push('<div><span class="iab-label">DFP Slot Id</span><input type="text" class="iab-formcontrol" id="iab-dfpSlotId" value="/3790/Flex1:1" /></div>');
-		dbuf.push('<div><button type="button" class="iab-btn " id="btnDfpAdd">Insert DFP</button></div>');
+		dbuf.push('<div class="iab-tab-panel">');
+		dbuf.push('<div><span class="iab-label">DFP Slot Id</span>',
+			'<input type="text" class="iab-formcontrol" id="iab-dfpSlotId" value="/3790/Flex1:1" /></div>');
+		dbuf.push('<div><button type="button" class="iab-btn " id="iab-btnDfpAdd">Insert DFP</button></div>');
 		dbuf.push('</div>');
 		//flexAdSizes
 		
@@ -536,7 +653,7 @@ type
 		
 		
 		// attach handlers
-		var dfpBtn = util.qsel('#btnDfpAdd', popup);
+		var dfpBtn = util.qsel('#iab-btnDfpAdd', popup);
 		
 		util.on('click', dfpBtn, function(evt){
 			injectDfpSlot.apply(me);
@@ -548,6 +665,7 @@ type
 		* Handle element selection for ad unit targeting
 		*/
 		var grabElement = function(evt){
+			console.log('grabElement ')
 			var targ = evt.target;
 			var prevbg = targ.style.backgroundColor;
 			var id = targ.getAttribute('id');
@@ -558,6 +676,9 @@ type
 			
 			targ.style.backgroundColor="red";
 			unsetSelectToggle();
+			setClickToggleListener(false);
+			toggleDlg(evt, popup);
+
 			
 			setTimeout(function(){
 				var txt = util.byId(elemSelectorId);
@@ -572,11 +693,52 @@ type
 			}, 400);
 		}
 		
+		
+		var iframeClickMonitorId = 0;
+		/**
+		* @function
+		* Monitor function for if user clicks on an iframe
+		*/
+		var iframeMonitor = function(){
+			var elem = document.activeElement;
+			var par, parId;
+			if(elem && elem.tagName == 'IFRAME'){
+				clearInterval(iframeClickMonitorId);
+				par = elem.parentNode;
+				parId = par.getAttribute('id');
+				if(parId && parId.indexOf('google_ads_iframe') > -1 && parId.indexOf('__container__') > -1){
+					par = par.parentNode;
+				}
+				grabElement({ target: par });
+			}
+		}
+		
+		/**
+		* @function
+		* toggle the click to pick functions on or off
+		*/
+		var setClickToggleListener = function(attach){
+			var dom = document.body;
+			//var iframes = util.qselA('iframe');
+			
+			if(attach){
+				util.on('click', dom, grabElement);
+				iframeClickMonitorId = setInterval(iframeMonitor, 100);
+			}
+			else{
+				util.off('click', dom, grabElement);
+				clearInterval(iframeClickMonitorId);
+			}			
+		}
+		
 		var unsetSelectToggle = function(){
+			
+			console.log('unsetSelectToggle ')
+			
 			var b = toggleGrabBtn;
 			b.setAttribute('data-active', null);
 			util.removeClass('iab-active', b);
-			window.removeEventListener('click', grabElement);
+			util.removeClass('iab-clickselect-active', document.body);
 		}
 		
 		//
@@ -585,17 +747,15 @@ type
 			var state = b.getAttribute('data-active');
 			if(state == "active"){
 				unsetSelectToggle();
+				setClickToggleListener(false);
 			}
 			else{
+				toggleDlg(evt, popup); // Hide dialog during selection
 				b.setAttribute('data-active', 'active');
 				util.addClass('iab-active', b);
 				setTimeout(function(){
-					try{
-						window.addEventListener('click', grabElement, { once: true });
-					}
-					catch(ex){
-						window.addEventListener('click', grabElement);
-					}
+					util.addClass('iab-clickselect-active', document.body);
+					setClickToggleListener(true);
 				}, 10);
 			}
 			
@@ -875,6 +1035,14 @@ type
 		util.addStyleRule('.iab-labelrow', { "margin-bottom": "10px"});
 		util.addStyleRule('.iab-labelrow label', { "display": "inline-block", "font-weight": "bold"});
 		
+		util.addStyleRule('fieldset.iab-fieldset', {
+			"font-size": "0.8em",
+			"margin-bottom": "3px",
+			"border-radius": "4px",
+			"padding": "14px 4px",
+			"border": "1px solid rgba(0,0,0,0.3)"
+		});
+		
 		util.addStyleRule('.iab-label', 
 		{
 			"font-weight": "bold",
@@ -1002,6 +1170,11 @@ type
 			"border-left": "1px solid #ddd",
 			"border-right": "1px solid #ddd",
 			"border-bottom": "1px solid #ddd"
+		});
+		
+		
+		util.addStyleRule('.iab-clickselect-active iframe:hover', {
+			  "background-color": "rgba(192,192,160,0.5)"
 		});
 		
 		
@@ -1140,6 +1313,11 @@ type
 		this.injectAd = function(adObj, slotKey){
 			var ads = this.adSlots;
 			var obj = ads[slotKey];
+			var adActual = adObj;
+			
+			if(adActual.ad != null){
+				adActual = adActual.ad;
+			}
 			
 			if(!obj){
 				logErr('Unregistered ad key used: ' + slotKey);
@@ -1150,12 +1328,19 @@ type
 				el = util.qsel('.iab-adcontent', anchor),
 				adEl;
 				
-			if(adObj.type == 'dfp'){
+			if(adActual.type == 'dfp'){
 				insertDfpScripts();
-				adEl = document.getElementById(adObj.divid);
+				adEl = document.getElementById(adActual.divid);
+				if(adEl == null && adActual.divid.indexOf('#') > -1){
+					adActual.divid = adActual.divid.substr(adActual.divid.indexOf('#') + 1);
+					adEl = document.getElementById(adActual.divid);
+				}
 				if(adEl == null){
-					adEl = util.makeElement('div', { attrs: { id: adObj.divid }});
+					adEl = util.makeElement('div', { attrs: { id: adActual.divid }});
 					el.appendChild(adEl);
+				}
+				else{
+					adEl.innerHTML = ''; // clear existing content
 				}
 				
 				var codeFn = function(){
@@ -1163,14 +1348,14 @@ type
 					
 					code.push('googletag.cmd.push(function() {',
 						'googletag.defineSlot("',
-						adObj.adid,
+						adActual.adid,
 						'", [1,1], "',
-						adObj.divid,
+						adActual.divid,
 						'").addService(googletag.pubads());',
 						'googletag.pubads().enableSingleRequest();',
 						'googletag.enableServices();',
 					'});',
-					'googletag.cmd.push(function() { googletag.display("', adObj.divid, '"); });'
+					'googletag.cmd.push(function() { googletag.display("', adActual.divid, '"); });'
 					);
 					
 					util.injectScript({ code: code.join('')});
@@ -1227,7 +1412,7 @@ type
 				fn.call(null, event);
 			}
 			catch(ex){
-				console.error(ex);
+				logErr(ex);
 			}
 		});
 	}
