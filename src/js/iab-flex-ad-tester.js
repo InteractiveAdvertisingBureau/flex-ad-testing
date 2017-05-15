@@ -49,9 +49,14 @@
 	
 	var IMG_LOGO = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAABQCAYAAADSm7GJAAAFf0lEQVR4AezBgQAAAACAoP2pF6kCAAAAAADgdu4vRKoqDuD42d3SzDaNVtI0Le+dsMVdd2YkpUKlrIgIJbSS6iXCFKO0CNEsQgQXsbSWiAj/IWT0UEQKgpQUgWSx1aKQkRhaGs3s7Loabu7unL4H7MHhznR+e/eOd2fODz53XwTB757rmT/nDm7ugbZUndM100/mUt4avJdLehtzSf8R7fsjoWLOBS413Wnf60x5X+VSvi5E6NPZFn8RVHy5wEUnl57a1Jn0MiZmMZ0pP8+feQkqplzgoDG3X+L9EhA1KPJALpmYAxVDLnDw6vWXm3i2WClfuxU8jKYz6R8UBWYV/5WeNgEqblzggGED1WPCSWRbEvOh4sYFDl7B/dLAXWlvIVTcuMABwy33N2ng7pSXhoobFzgwsLdduMnK6sWqDipuXOCgwDOnTjcbJ8EmawNUHLnARYZVud4urvfjH+kJ10LFkQtcZLRSNUTeUjJw0vtW/vLIvUyK1WRT/mx21Z/wQcM5E/XSDvswP5fpuXOvgooxF1gU+07/+rhtptwmy02FBXbjArvALvA1aLU0NsTfMQ8rsBFb8DqWYRbqUDgr0Wph9hAFrkETnsMGbEUrVuFB1GNYzhhoS5MhmXn4GH9Dl3AWO5HCf9MBbWF5yMAJtCEDXUIf9uNR1FZ74EZ8CQ2pvZhShsA3YgcGoIV+wtxqDfw8eqFDOIeeiANnoEMYwCbUVUvgGrRBR0geOHqfY2Q1BG6DrsLAxmeoq+TAy6CrOLDxZqUGTuC8C6zymF+JgfdBu8CGOoarKynwHGgX+DLPVlLgT6EhdQq70YrdOBmDwBnswSZsQwc0pI6iphICj0MftMAJPBzwD1CDh3D8CgTO4Kkiu+C70Q4tNLsSAj8NLdCOBpSaBnxfxsAn4aHUjMJeaIGNlRD4A2hL3bgFNjMJuTIE7kMaNjMav0Jb+qYSAn8Hbek1SGZtGQLvgGSWiN5qrYDAklXmQTI3lyHwvZDMCPRAWxo/3ANrS1kMZk5HHHgMpHMY2lLjcA58HbSl4xjMHIkwcB6ykb+pM6NaVnAPBjPZiFfwuIhX8B3DPXAmwt/mJuiIAy+EZOqFn3M3DPfAh6AttUEyb5ch8D5IZhW0pbOVsIt+F9rSP5gJm0mhN/rAolU8SXjHOoiS0900+YZs0n/GPK4KH+aS/uZs2n9AK1ULVQIXgRCBH4MW+B1NFrfmU9BlCtyN+yziHoEWeON/juwu5TRkV5Hjue1dMxItUMWYi7UQgetxAVrgPNYF/P/UgHU4fwXei76IzQHvtNVjBTLQQs3hTnJ657LpxCyoIOZiK+ynSbugIdWPDhxAB/pj8GlSHj/jC7SH+OJgOwKHW/D9rNy83Vls79SZ5ubRUIXMxVrIwC3Iu8+DL/MkAsccwTXxbBV78Jy5WAsZ2MxHcIGBH1Bb5GmCk000kaR3CKqQuVgbgsATkVMucD9mlbo9SwNzO89BFTIXa/LAgbMI+SoPvBZFJ9fiLZCvYP8CVCFzsTaE34teU8WBd6EGRce89JEGxjGoQuZia6iPrryKfJUF3o46i+eg1LKgzgg3WVvjsMkqnMfRDR1CBrmIAx+HDqEXL8ueSZZ4RRD3onmGN1Qhc7EV1enCidgjPbmHAWzD+DKcLhyFVvRCCx3AdIhGNzaOMDtjq8D8MkAFMRdbUZ8PbsQ7OGPxNdq3cPsVOB88EetxFLqETuzEXSrEdM2YMpZb9f4SK7eveFx54BAn/MUzDYvxAlZjKRYURA17wv9WtFoKmpuwAC9iNVZiCVpQN7TPJZv6BKt5L7H/vPSQuRP8fD+XvK0ZqhRzqVyOC+wCOy6w4wI7LrDjAjsusOMCu8COC+y4wI4L7ETuX0qdfsHy3hYcAAAAAElFTkSuQmCC";
 	
+	/**
+	* @function
+	* Log an error message
+	*/
 	var logErr = function(err){
 		if(typeof(err) === 'string'){
 			console.error('FlexAd Tester - ' + err);
+			console.trace();
 		}
 		else
 		{
@@ -386,6 +391,7 @@
 	function searchFlexSlotDown(elem){
 		var i, n, kids, klm, rslt;
 		var me = this;
+		var adSlots = this.adSlots;
 		
 		var result = {
 			found: false,
@@ -425,6 +431,8 @@
 	
 	function searchFlexSlotUp(elem){
 		var i, n, parent;
+		var adSlots = this.adSlots;
+
 		
 		var result = {
 			found: false,
@@ -512,6 +520,10 @@
 		if(flexSlot.found){
 			// Adjust all pointers in object.
 			adSlotObj = flexSlot.adSlot;
+			if(adSlotObj.size != opts.adSize){
+				adSlotObj.newSize = opts.adSize;
+				adSlotObj.oldSize = adSlotObj.size;
+			}
 		}
 		else{
 			adSlotObj = {
@@ -530,18 +542,11 @@
 		if(a.type == 'dfp'){
 			a.adid = opts.content.dfpId;
 		}
-/*			
-		"/3790/Flex8:1"
-divid
-:
-"div-gpt-ad-1490307722661-0"
-type
-:
-"dfp"
-*/		
-		
 		
 		if(flexSlot.found){
+			if(adSlotObj.newSize != null){
+				adjustAdSlot.call(me, adSlotObj);
+			}
 			me.injectAd(adSlotObj);
 		}
 		else{
@@ -589,8 +594,7 @@ type
 		
 		var tlist = [
 			{label: "DFP", "active": true, tab: "#iab-flex-tab-control-wrap .iab-tab-dfp", "href": "#dfp"},
-			{label: "Markup", tab: "#iab-flex-tab-control-wrap .iab-tab-markup", "href": "#markup"},
-			{label: "iFrame", tab: "#iab-flex-tab-control-wrap .iab-tab-iframe", "href": "#iframe"}
+			{label: "Markup", tab: "#iab-flex-tab-control-wrap .iab-tab-markup", "href": "#markup"}
 		]
 		
 		for(i=0;i<tlist.length;i++){
@@ -606,7 +610,7 @@ type
 		adTabs.push('</ul>');
 		
 		elSel.push('<div class="iab-labelrow" style="margin-top:10px;"><label>Target Selector</label> ', 
-		'<div class="iab-labeled-content"><input type="text" id="', elemSelectorId, '" value="#topBillboardAd" /></div>',
+		'<div class="iab-labeled-content"><input type="text" id="', elemSelectorId, '" value="" class="iab-formcontrol" placeholder="CSS Selector or DIV Id" /></div>',
 		'<button type="button" class="iab-button" id="iab-ElemSelectToggle" />Toggle Element<br/> Selection</button>',		
 		'</div>');
 		
@@ -625,7 +629,8 @@ type
 		
 		//			'<button type="button" class="iab-btn iab-add-dfp">Inject Google DFP Scripts</div>',
 		
-		popc.push('<div class="iab-popup-heading">Toggle to Enable Ad Placements</div>',
+		popc.push('<div class="iab-gradient"><div class="iab-popup-heading">Flex Ad SDK Tester</div>',
+			'<div class="iab-popup-panelContents">',
 			'<div class="iab-controls">',
 			elSel.join(''),
 			'<ul class="iab-adlist-toggles" ></ul>\n',
@@ -634,9 +639,9 @@ type
 			'<div class="iab-tabcontent-wrap">',
 			'	<div class="iab-tabcontent iab-tab-dfp" ><div class="iab-labeled-content iabctrl-dfp"></div></div>',
 			'	<div class="iab-tabcontent iab-tab-markup" style="display:none;"><label>HTML</label><div class="iab-labeled-content iabctrl-html"></div></div>',
-			'	<div class="iab-tabcontent iab-tab-iframe" style="display:none;"><label>IFrame</label><div class="iab-labeled-content iabctrl-iframe"></div></div>',
 			'</div>\n',
-			'</div>');
+			'</div>\n',
+			'</div></div>');
 		
 		
 		var popup = util.makeElement('div', {
@@ -673,7 +678,7 @@ type
 		dbuf.push('<div class="iab-tab-panel">');
 		dbuf.push('<div><span class="iab-label">DFP Slot Id</span>',
 			'<input type="text" class="iab-formcontrol" id="iab-dfpSlotId" value="/3790/Flex1:1" /></div>');
-		dbuf.push('<div><button type="button" class="iab-btn " id="iab-btnDfpAdd">Insert DFP</button></div>');
+		dbuf.push('<div><button type="button" class="iab-btn iab-bottom " id="iab-btnDfpAdd">Insert DFP</button></div>');
 		dbuf.push('</div>');
 		//flexAdSizes
 		
@@ -685,7 +690,7 @@ type
 		hbuf.push('<div><textarea style="width: 90%;height: 35px;" id="iab-htmlContent"></textarea></div>');
 		hbuf.push('<label>Script</label>');
 		hbuf.push('<div><textarea style="width: 90%;height: 35px;" id="iab-htmlScript"></textarea></div>');
-		hbuf.push('<div><button type="button" class="iab-btn iab-ad-html" id="btnHtmlAdd">Ad Content</button></div>');
+		hbuf.push('<div><button type="button" class="iab-btn iab-bottom iab-ad-html" id="btnHtmlAdd">Insert Content</button></div>');
 		
 		
 		htmlCtl.innerHTML = hbuf.join('');
@@ -801,7 +806,9 @@ type
 				setClickToggleListener(false);
 			}
 			else{
-				toggleDlg(evt, popup); // Hide dialog during selection
+				setTimeout(function(){
+					toggleDlg(evt, popup); // Hide dialog during selection
+				}, 250);
 				b.setAttribute('data-active', 'active');
 				util.addClass('iab-active', b);
 				setTimeout(function(){
@@ -1054,7 +1061,7 @@ type
 		
 		util.addStyleRule('.iab-flexad', { "display": "block", "position": "relative" });
 		util.addStyleRule('.iab-flexsizer', { "display": "block", "position": "relative", "z-index": "-1"});
-		util.addStyleRule('.iab-flexsizer div.iab-adcontent', { "display": "block", "position": "absolute", "left": "0", "right": "0", "top": "0", "bottom": "0"});
+		util.addStyleRule('.iab-flexsizer div.iab-adcontent', { "display": "block", "position": "absolute", "left": "0", "right": "0", "top": "0", "bottom": "0", "text-align": "center" });
 				
 		var sizes = flexAdSizes;
 		
@@ -1104,11 +1111,13 @@ type
 		util.addStyleRule('.iab-button', 
 		{ 
 			"display": "inline-block", 		
-			"padding": "6px 8px",
+			"padding": "6px 12px",
 			"margin": "3px",
+			"cursor": "pointer",
 			"border-radius": "4px",
-			"border": "1px solid #aaa",
-			"background": "white"
+			"border": "1px solid #2e6da4",
+			"background-color": "#337ab7",
+			"color": "#fff"
 		});
 		
 		util.addStyleRule('.iab-button.iab-active', 
@@ -1128,16 +1137,31 @@ type
 			"min-width": "250px"
 		});
 		
+		util.addStyleRule('.iab-formcontrol::-ms-input-placeholder, .iab-formcontrol::placeholder', {
+			"color": "#ccc",
+			"font-style": "italic"
+		});
+		
+		util.addStyleRule('.iab-gradient', {
+			"background": "linear-gradient(99deg,  rgba(238,50,36,0.65) 0%,rgba(140,30,21,.10) 41%,rgba(0,0,0,0) 100%)"
+		});
+		
+		util.addStyleRule('.iab-popup-panelContents', {
+			"padding": "10px",
+			"padding-top": "0"
+		});
+			
+		
 		util.addStyleRule('.iab-adControlDialog', {
 			"position": "absolute",
 			"z-index": "20",
 			"width": "400px",
 			"min-height": "150px",
-			"border": "3px solid #ddd",
+			"border": "3px solid #EE3224",
 			"border-radius": "5px",
 			"background-color": "white",
 			"box-shadow": "4px 4px 3px #888",
-			"padding": "10px"
+			"padding": "0"
 		});
 		
 		util.addStyleRule('.iab-btn', {
@@ -1163,6 +1187,19 @@ type
 		util.addStyleRule('.iab-btn:hover', {
 			"background-color": "#ffe",
 			"color": "#000"
+		});
+		
+		util.addStyleRule('.iab-btn.iab-bottom', {
+			"position": "absolute",
+			"bottom": "5px"
+		});
+		
+		util.addStyleRule('.iab-popup-heading', {
+			"background-color": "rgba(238,50,36,1)",
+			"color": "#fff",
+			"font-size": "1.2em",
+			"font-weight": "bold",
+			"padding": "10px"
 		});
 		
 		// Tab control styles
@@ -1216,11 +1253,13 @@ type
 		util.addStyleRule('.iab-tabcontent', {
 			"min-height": "150px",
 			"padding": "10px",
+			"padding-bottom": "40px",
 			"margin-bottom": "5px",
 			"margin-top": "-15px",
 			"border-left": "1px solid #ddd",
 			"border-right": "1px solid #ddd",
-			"border-bottom": "1px solid #ddd"
+			"border-bottom": "1px solid #ddd",
+			"position": "relative"
 		});
 		
 		
@@ -1242,6 +1281,36 @@ type
 			return '';
 		}		
 	}
+	
+	
+	/**
+	* @function
+	* Adjust the ad slot for resize issues
+	*/
+	function adjustAdSlot(obj){
+		var i, c, newClass = [];
+		var anchor = util.qsel(obj.selector);
+		var sizerElem, domSize, sizerCss;
+		if(anchor == null){
+			logErr('Invalid selector for slot: ' + obj.selector);
+			return;
+		}
+		
+		sizerElem = anchor.querySelector('div.iab-flexad > div.iab-flexsizer');
+		sizerCss = sizerElem.className;
+		if(sizerCss){
+			sizerCss = sizerCss.split(' ');
+		}
+		else{
+			return;
+		}
+		
+		sizerElem.className = 'iab-flexsizer flex-' + obj.newSize;
+		delete obj.newSize;
+		delete obj.oldSize;
+	}
+	
+	
 	
 	// =====================================================================================
 	
@@ -1368,6 +1437,7 @@ type
 			var ads = this.adSlots;
 			var obj = ads[key];
 			var adActual = adObj;
+			var googQryVal;
 			
 			if(adActual.ad != null){
 				adActual = adActual.ad;
@@ -1380,7 +1450,7 @@ type
 			
 			var anchor = util.qsel(obj.selector),
 				el = util.qsel('.iab-adcontent', anchor),
-				adEl;
+				adEl, adPar;
 				
 			if(adActual.type == 'dfp'){
 				insertDfpScripts();
@@ -1396,6 +1466,17 @@ type
 				else{
 					adEl.innerHTML = ''; // clear existing content
 				}
+				
+				// If existing DFP, delete it and create new DOM
+				googQryVal = adEl.getAttribute('data-google-query-id');
+				if(googQryVal != null){
+					adPar = adEl.parentNode;
+					adPar.removeChild(adEl);
+					adActual.divid = util.randId('mynewAd-el', true);
+					adEl = util.makeElement('div', { attrs: { id: adActual.divid }});
+					el.appendChild(adEl);					
+				}				
+				
 				
 				var codeFn = function(){
 					var code = [];
