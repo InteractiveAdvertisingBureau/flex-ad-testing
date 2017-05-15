@@ -59,6 +59,13 @@
 		}
 	}
 	
+	var enableDebug = true;
+	var logDebug = function(msg){
+		if(enableDebug){
+			console.log(msg);
+		}
+	}
+	
 	/*
 	* Static object collection of utility methods
 	*/
@@ -261,10 +268,11 @@
 		* Generate a random ID.
 		* @param verifyDomUnique True to test the DOM for uniqueness before returning ID.
 		*/
-		randId: function(verifyDomUnique){
+		randId: function(seed, verifyDomUnique){
 			var min=55, max = 987634;
 			var rand = Math.floor(Math.random() * (max-min) + min);
-			var id = "iab-newId-" + rand;
+			var seed = seed || "iab-newId-";
+			var id = seed + rand;
 			
 			if(verifyDomUnique){
 				var el = util.byId(id);
@@ -366,49 +374,52 @@
 	* that is already registered as an ad slot.
 	*/
 	function searchFlexSlotElement(elem){
-		var result = searchFlexSlotDown(elem);
+		var result = searchFlexSlotDown.call(this, elem);
 		if(result.found){
 			return result;
 		}
 		else{
-			return searchFlexSlotUp(elem);
+			return searchFlexSlotUp.call(this, elem);
 		}
 	}
 	
 	function searchFlexSlotDown(elem){
 		var i, n, kids, klm, rslt;
+		var me = this;
 		
 		var result = {
 			found: false,
-			slotId: null,
+			slotKey: null,
 			element: null,
 			isDown: true
 		}
 		
+		var adSlots = me.adSlots;
+		
 		if(elem == null || !elem.hasChildNodes()){
-			console.log('no kids');
+			logDebug('no kids');
 			return result;
 		}
 		kids = elem.childNodes;
 		
-		var slotId = elem.getAttribute('data-slotkey');
-		if(slotId != null){
+		var slotKey = elem.getAttribute('data-slotkey');
+		if(slotKey != null){
 			result.found = true;
-			result.slotId = slotId;
+			result.slotKey = slotKey;
 			result.element = elem;
-			
+			result.adSlot = adSlots[slotKey];
 			return result;
 		}
 		
 		for(i=0;i<kids.length;i++){
 			klm = kids[i];
-			result = searchFlexSlotDown(klm);
+			result = searchFlexSlotDown.call(this, klm);
 			if(result.found){
 				return result;
 			}
 		}
 		
-		console.log('final down');
+		logDebug('final down');
 		return result;
 	}
 	
@@ -417,7 +428,7 @@
 		
 		var result = {
 			found: false,
-			slotId: null,
+			slotKey: null,
 			element: null
 		}
 		
@@ -425,30 +436,60 @@
 			return result;
 		}
 		
-		var slotId = elem.getAttribute('data-slotkey');
-		if(slotId != null){
+		var slotKey = elem.getAttribute('data-slotkey');
+		if(slotKey != null){
 			result.found = true;
-			result.slotId = slotId;
+			result.slotKey = slotKey;
 			result.element = elem;
+			result.adSlot = adSlots[slotKey];
 			
 			return result;
 		}
 		
-		return searchFlexSlotUp(elem.parentNode);
+		return searchFlexSlotUp.call(this, elem.parentNode);
 	}
 	
 	
 	
 	/**
 	* @function
-	* Code to inject a DFP ad into the given location
+	* Event handler code to inject a DFP ad into the given location.
+	* Grabs values from the popup form, verifies the targeted element exists
+	* Then enters into logic flow for container and ad insertion or re-insertion
+	*
+	* This function is bound to the FlexAdTester instance
 	*/
 	function injectDfpSlot(){
-		var me = this;
-		var elemSelector = util.byId(elemSelectorId).value;
 		var el;
-		var adId = util.byId('iab-dfpSlotId').value;
-		var adSize = util.byId('iab-flexSlotSize').value;
+		var elemSelector = util.byId(elemSelectorId).value; // text field with Ad selector
+		var adId = util.byId('iab-dfpSlotId').value;  // DFP system ad identifier
+		var adSize = util.byId('iab-flexSlotSize').value; // Ad size dropdown
+		
+		var opts = {
+			elementSelector: elemSelector,
+			adSize: adSize,
+			content: {
+				type: 'dfp',
+				dfpId: adId
+			}
+		};
+		
+		createOrUpdateAd.call(this, opts);
+	}
+	
+	/**
+	* @function
+	* Resolves the target element, Identifies or inserts the ad slot, 
+	* Adjusts slot size, then injects the ad code
+	*
+	* This function is bound to the FlexAdTester instance
+	*/
+	function createOrUpdateAd(opts){
+		var me = this; // FlexAdTester instance
+		var el,
+			elemSelector = opts.elementSelector;
+			
+		var slotKey;
 		
 		if(elemSelector.indexOf('#') == 0 && elemSelector.indexOf(' ') == -1){
 			el = util.byId(elemSelector.substr(1));
@@ -456,15 +497,20 @@
 		if(!el){		
 			el = util.qsel(elemSelector);
 		}
-		if(!el || !adId){
-			logErr('Invalid element selector for ad insertion or missing ad id');
+		if(!el){
+			logErr('Invalid element selector');
 			return;
 		}
 		
 		
-		var flexSlot = searchFlexSlotElement(el);
-		var slotId;
-		console.log(flexSlot);
+		var flexSlot = searchFlexSlotElement.call(me, el);
+		var slotKey, adSlot;
+		logDebug(flexSlot);
+		
+		if(flexSlot.found){
+			slotKey = flexSlot.slotKey;
+			adSlot = flexSlot.adSlot;
+		}
 		
 /*			
 		"/3790/Flex8:1"
@@ -479,24 +525,28 @@ type
 			selector : elemSelector, 
 			key: "my-iab-ad", 
 			adtype: "flex", 
-			size: adSize,
-			ad: {
-				adid: adId,
+			size: opts.adSize,
+		}
+		
+		if(opts.content.type == 'dfp'){
+			adSlotObj.ad = {
+				adid: opts.content.dfpId,
 				divid: elemSelector,
 				type: 'dfp'
 			}
 		}
 		
+		
 		if(flexSlot.found){
-			slotId = flexSlot.slotId;
-			adSlotObj.key = slotId;
-			me.injectAd(adSlotObj, slotId);
+			slotKey = flexSlot.slotKey;
+			adSlotObj.key = slotKey;
+			me.injectAd(adSlotObj, slotKey);
 		}
 		else{
 			// create slot
-			adSlotObj.ad.divid = util.randId(true);
+			adSlotObj.ad.divid = util.randId(null, true);
 			me.createSlot(adSlotObj);
-			// slotId = ...
+			// slotKey = ...
 		}
 		
 
@@ -656,7 +706,7 @@ type
 		var dfpBtn = util.qsel('#iab-btnDfpAdd', popup);
 		
 		util.on('click', dfpBtn, function(evt){
-			injectDfpSlot.apply(me);
+			injectDfpSlot.call(me);
 			toggleDlg(evt, popup);
 		});
 		
@@ -665,12 +715,12 @@ type
 		* Handle element selection for ad unit targeting
 		*/
 		var grabElement = function(evt){
-			console.log('grabElement ')
+			logDebug('grabElement ')
 			var targ = evt.target;
 			var prevbg = targ.style.backgroundColor;
 			var id = targ.getAttribute('id');
 			if(id == null){
-				id = util.randId(true);
+				id = util.randId(null, true);
 				targ.setAttribute('id', id);
 			}
 			
@@ -733,7 +783,7 @@ type
 		
 		var unsetSelectToggle = function(){
 			
-			console.log('unsetSelectToggle ')
+			logDebug('unsetSelectToggle ')
 			
 			var b = toggleGrabBtn;
 			b.setAttribute('data-active', null);
@@ -963,7 +1013,7 @@ type
 		
 		var ss = document.getElementById(stylesheetId);
 		if(ss != null){
-			console.log(ss.tagName);
+			logDebug(ss.tagName);
 			return ss.sheet;
 		}
 		else{
@@ -1220,13 +1270,15 @@ type
 			
 			
 			if(menu == null){
-				menu = drawFloatingMenu.apply(me);
+				menu = drawFloatingMenu.call(me);
 				dlg = menu.querySelector('div.iab-adControlDialog');
 				// add the slots
-				for(i=0;i<slots.length;i++){
-					s = slots[i];
-					//this.registerSlot(s, menu);
-					this.createSlot(s);
+				if(slots){
+					for(i=0;i<slots.length;i++){
+						s = slots[i];
+						//this.registerSlot(s, menu);
+						this.createSlot(s);
+					}
 				}
 				//wireHandlers();
 			}
