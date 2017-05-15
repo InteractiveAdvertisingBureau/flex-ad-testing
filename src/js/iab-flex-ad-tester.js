@@ -504,14 +504,32 @@
 		
 		
 		var flexSlot = searchFlexSlotElement.call(me, el);
-		var slotKey, adSlot;
+		var a;
 		logDebug(flexSlot);
 		
+		var adSlotObj = {};
+		
 		if(flexSlot.found){
-			slotKey = flexSlot.slotKey;
-			adSlot = flexSlot.adSlot;
+			// Adjust all pointers in object.
+			adSlotObj = flexSlot.adSlot;
+		}
+		else{
+			adSlotObj = {
+				selector : elemSelector, 
+				key: "my-iab-ad",  //util.randId("my-iab-ad", false);
+				adtype: "flex",
+				ad: {
+					divid: util.randId(null, true)
+				}
+			}			
 		}
 		
+		adSlotObj.size = opts.adSize;
+		a = adSlotObj.ad;
+		a.type = opts.content.type;
+		if(a.type == 'dfp'){
+			a.adid = opts.content.dfpId;
+		}
 /*			
 		"/3790/Flex8:1"
 divid
@@ -521,30 +539,13 @@ type
 :
 "dfp"
 */		
-		var adSlotObj = {
-			selector : elemSelector, 
-			key: "my-iab-ad", 
-			adtype: "flex", 
-			size: opts.adSize,
-		}
-		
-		if(opts.content.type == 'dfp'){
-			adSlotObj.ad = {
-				adid: opts.content.dfpId,
-				divid: elemSelector,
-				type: 'dfp'
-			}
-		}
 		
 		
 		if(flexSlot.found){
-			slotKey = flexSlot.slotKey;
-			adSlotObj.key = slotKey;
-			me.injectAd(adSlotObj, slotKey);
+			me.injectAd(adSlotObj);
 		}
 		else{
 			// create slot
-			adSlotObj.ad.divid = util.randId(null, true);
 			me.createSlot(adSlotObj);
 			// slotKey = ...
 		}
@@ -1363,8 +1364,9 @@ type
 		* @param slotKey Key corresponding to the ad slot target registered through createSlot
 		*/
 		this.injectAd = function(adObj, slotKey){
+			var key = slotKey || adObj.key;
 			var ads = this.adSlots;
-			var obj = ads[slotKey];
+			var obj = ads[key];
 			var adActual = adObj;
 			
 			if(adActual.ad != null){
