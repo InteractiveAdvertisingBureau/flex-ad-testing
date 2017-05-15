@@ -210,6 +210,21 @@
 			return elem.querySelector(selector);
 		},
 		
+		/**
+		* Shortcut method to document.querySelector. 
+		* @param selector The CSS selector to use
+		* @param el A DOM element. If unspecified the document object is used.
+		*/
+		qselHard: function(selector, el){
+			var elem = el || document;
+			if(selector.indexOf('#') == 0 && selector.indexOf(' ') == -1){
+				var s = selector.substr(1);
+				return util.byId(s);
+			}
+			return elem.querySelector(selector);
+		},
+
+		
 		byId: function(id){
 			return document.getElementById(id);
 		},
@@ -499,12 +514,15 @@
 			
 		var slotKey;
 		
+		el = util.qselHard(elemSelector);
+		/*
 		if(elemSelector.indexOf('#') == 0 && elemSelector.indexOf(' ') == -1){
 			el = util.byId(elemSelector.substr(1));
 		}
 		if(!el){		
 			el = util.qsel(elemSelector);
 		}
+		*/
 		if(!el){
 			logErr('Invalid element selector');
 			return;
@@ -1061,7 +1079,11 @@
 		
 		util.addStyleRule('.iab-flexad', { "display": "block", "position": "relative" });
 		util.addStyleRule('.iab-flexsizer', { "display": "block", "position": "relative", "z-index": "-1"});
-		util.addStyleRule('.iab-flexsizer div.iab-adcontent', { "display": "block", "position": "absolute", "left": "0", "right": "0", "top": "0", "bottom": "0", "text-align": "center" });
+		util.addStyleRule('.iab-flexad div.iab-adcontent', 
+			{ 
+				"display": "block", "position": "absolute", "left": "0", "right": "0", "top": "0", "bottom": "0", 
+				"text-align": "center" 
+			});
 				
 		var sizes = flexAdSizes;
 		
@@ -1394,7 +1416,7 @@
 			var ads = this.adSlots;
 			var me = this;
 			
-			var anchor = util.qsel(obj.selector);
+			var anchor = util.qselHard(obj.selector);
 			if(anchor == null){
 				logErr('Invalid selector for slot: ' + obj.selector);
 				return;
@@ -1448,7 +1470,7 @@
 				return;
 			}
 			
-			var anchor = util.qsel(obj.selector),
+			var anchor = util.qselHard(obj.selector),
 				el = util.qsel('.iab-adcontent', anchor),
 				adEl, adPar;
 				
