@@ -10,6 +10,8 @@
 (function() {
 	"use strict";
 	
+	var VERSION = "0.9";
+	
 	var iab = window.iab || {};
 	
 	var controlId = "IAB_FLEXAD_MENU",
@@ -1360,13 +1362,18 @@
 	
 	/**
 	* @class
-	* Class definition for the flex ad tester
+	* Flex ad tester SDK.
 	*
 	*/
 	function FlexAdTester(options){
 		var o = options;
 		
 		this.adSlots = {};
+		
+		/**
+		* Release version number for this SDK.
+		*/
+		this.version = VERSION;
 		
 		/**
 		* @function
