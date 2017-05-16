@@ -487,6 +487,11 @@
 		var elemSelector = util.byId(elemSelectorId).value; // text field with Ad selector
 		var adId = util.byId('iab-dfpSlotId').value;  // DFP system ad identifier
 		var adSize = util.byId('iab-flexSlotSize').value; // Ad size dropdown
+		var dfpSelect = util.byId('iab-dfpAdSelect');
+		
+		if(dfpSelect != null && dfpSelect.value != null){
+			adId = dfpSelect.value;
+		}
 		
 		var opts = {
 			elementSelector: elemSelector,
@@ -546,7 +551,7 @@
 		else{
 			adSlotObj = {
 				selector : elemSelector, 
-				key: "my-iab-ad",  //util.randId("my-iab-ad", false);
+				key: util.randId("my-iab-ad", false),
 				adtype: "flex",
 				ad: {
 					divid: util.randId(null, true)
@@ -576,7 +581,7 @@
 
 	}
 	
-	function drawFloatingMenu(){
+	function drawFloatingMenu(opts){
 		var content = [
 		'<div style="height: 44px;width:100%;border-bottom: 2px solid #ccc; margin:0;cursor:move;" class="iab-drag-handle" >',
 		'<img src="', IMG_LOGO, '" style="height:44px;width:auto;margin-left:10px;" />', 
@@ -586,6 +591,8 @@
 		var i, n, t, sz;
 		var popc = [];
 		var me = this; // hook to iab ad popup object
+		var opts = opts || {},
+			dfpAds = opts.dfpAds || []
 		
 		content.push('<div class="iab-popup-menu"><a href="javascript:void(0);">&#9776;</a></div>');
 		
@@ -696,6 +703,15 @@
 		dbuf.push('<div class="iab-tab-panel">');
 		dbuf.push('<div><span class="iab-label">DFP Slot Id</span>',
 			'<input type="text" class="iab-formcontrol" id="iab-dfpSlotId" value="/3790/Flex1:1" /></div>');
+		if(dfpAds && dfpAds.length > 0){
+			dbuf.push('<div>or from dropdown<br/>\n<select class="iab-formcontrol" id="iab-dfpAdSelect">');
+			dbuf.push('<option value="" selected="selected" style="color:#ccc;">Select Ad from list</option>');
+			for(i=0;i<dfpAds.length;i++){
+				dbuf.push('<option value="', dfpAds[i], '" >', dfpAds[i], '</option>');				
+			}
+			
+			dbuf.push('</select></div>');
+		}
 		dbuf.push('<div><button type="button" class="iab-btn iab-bottom " id="iab-btnDfpAdd">Insert DFP</button></div>');
 		dbuf.push('</div>');
 		//flexAdSizes
@@ -1159,10 +1175,16 @@
 			"min-width": "250px"
 		});
 		
-		util.addStyleRule('.iab-formcontrol::-ms-input-placeholder, .iab-formcontrol::placeholder', {
+		util.addStyleRule('.iab-formcontrol::placeholder', {
 			"color": "#ccc",
 			"font-style": "italic"
 		});
+		/*
+		util.addStyleRule('.iab-formcontrol::-ms-input-placeholder', {
+			"color": "#ccc",
+			"font-style": "italic"
+		});
+		*/
 		
 		util.addStyleRule('.iab-gradient', {
 			"background": "linear-gradient(99deg,  rgba(238,50,36,0.65) 0%,rgba(140,30,21,.10) 41%,rgba(0,0,0,0) 100%)"
@@ -1350,6 +1372,13 @@
 		* @function
 		* Setup of the SDK
 		*
+		* @param options Object with settings for configuration of SDK
+		*	{
+		*		controls: true|false True to draw menu
+		*		unitsVisible: true|false True to add style for drawing a border around flex units
+		*		dfpAds: string array of DFP ad ids
+		*		slots: array of objects Object definitions for ad units and ad slots to initialize
+		*
 		*/
 		this.setup = function(options){
 			var menu = document.getElementById(controlId);
@@ -1357,22 +1386,23 @@
 			var slots = options.slots, i, s;
 			var bodyClass;
 			var me = this;
+			this.options = options
 			
 			initStyleRules();
 			
 			
-			if(menu == null){
-				menu = drawFloatingMenu.call(me);
+			if(menu == null && options.controls){
+				menu = drawFloatingMenu.call(me, options);
 				dlg = menu.querySelector('div.iab-adControlDialog');
-				// add the slots
-				if(slots){
-					for(i=0;i<slots.length;i++){
-						s = slots[i];
-						//this.registerSlot(s, menu);
-						this.createSlot(s);
-					}
+			}
+			
+			// add the slots
+			if(slots){
+				for(i=0;i<slots.length;i++){
+					s = slots[i];
+					//this.registerSlot(s, menu);
+					this.createSlot(s);
 				}
-				//wireHandlers();
 			}
 			
 			// Make ad units visible if specified
@@ -1533,13 +1563,6 @@
 		else{
 			util.addClass('hidden', dlg);
 		}
-	}
-		
-	function drawFloatingControls(){
-		
-		var body = document.body;
-		
-		
 	}
 	
 	
