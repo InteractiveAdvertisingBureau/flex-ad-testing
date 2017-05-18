@@ -1,11 +1,69 @@
-/**
+/*
  * Copyright 2017 IAB. All rights reserved
  * @author chris cole
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
+
+/**
+* Flex Ads testing SDK.
+* This tool can be used to define flex ad unit slots and inject them onto an existing page with a simple Javascript include.
+* The tool can also change or insert ad units where none currently exist, or replace ad units on page to test different units
+* and how they interact with page layout.
+*/
+
+/* ==============================================================================
+Usage:
+
+Hosting location for easy usage:  http://flexads.iabtechlab.net:8080/src/js/iab-flex-ad-tester.js
+
+To use the Flex Ad testing SDK you must include the script on page and insert
+some minimal initialization code.
+
+
+Ex: Minimal inclusion of the Flex Ad testing SDK. This inserts the SDK and draws the tool menu on page.
+
+<script src="http://flexads.iabtechlab.net:8080/src/js/iab-flex-ad-tester.js"></script>
+<script>
+	(function(){
+		iab.flexAds.setup();
+	})()
+</script>
+
+
+
+The tool can be used to pre-define ad units on the page. This will inject both the flex container and ad unit at the indicated location.
+
+Ex: Inject a DFP 8x1 ad unit
+
+<script src="http://flexads.iabtechlab.net:8080/src/js/iab-flex-ad-tester.js"></script>
+<script>
+(function(){
+	iab.flexAds.setup({
+		controls: true,
+		slots: [
+			{ 	
+				"selector" : "#top_billboard_wrap", 
+				"key": "topBillboard", 
+				"adtype": "flex", 
+				"size": "8x1",
+				"ad": {
+					"type": "dfp",
+					"adid": "/3790/Flex8:1",
+					"divid": "div-gpt-ad-1490307722661-0"
+				}
+			}
+		]
+	});
+})()
+</script>
+
+
+
+=================================================================================
+*/
 
 (function() {
 	"use strict";
@@ -18,7 +76,9 @@
 		stylesheetId = "IAB_FLEXAD_STYLESHEET",
 		elemSelectorId = 'iab-html-ad-Target';
 	
-	
+	/**
+	* Flex ad slot size array. Size keys and aspect ratios.
+	*/
 	var flexAdSizes =
 	[
 		{ "sz": "2x1", "rat": "50%"},
@@ -643,10 +703,12 @@
 		
 		elSel.push('<div class="iab-unit-size-selector">',
 			'<fieldset class="iab-fieldset"><legend>Flex Container Size</legend>');
+			/*
 		elSel.push('<fieldset  class="injectradios iab-fieldset">',
 			'<label style="margin-right:5px"><input type="checkbox" id="iab-chk-injectContainer" checked="checked" /> Inject Flex Container</label>',
 			'<label><input type="checkbox" id="iab-chk-resizeContainer" checked="checked" /> Resize Existing Container</label>',
 			'</fieldset>');
+		*/
 		
 		elSel.push('<div><span class="iab-label">Unit Size</span><select class="iab-formcontrol" id="iab-flexSlotSize" ></select></div>');
 		
@@ -856,11 +918,13 @@
 		});
 		
 		
-		var htmlBtn = popup.querySelector('button.iab-ad-html');
+		var htmlBtn = popup.querySelector('#btnHtmlAdd');
 		util.on('click', htmlBtn, function(evt){
 			var sel = document.getElementById(elemSelectorId).value;
 			var content = document.getElementById('iab-htmlContent').value;
 			var scrip = document.getElementById('iab-htmlScript').value;
+			var tagPos, scriptElem, tempElem, sEl, src;
+			var i, el;
 			
 			var targ = document.querySelector(sel);
 			targ.innerHTML = content;
@@ -869,12 +933,38 @@
 				targ.style.display = 'block';
 			}
 			
-			if(scrip && scrip.length > 0){			
-				var test = document.createElement('script');
-				test.innerHTML = scrip;
+			if(scrip && scrip.length > 0){
+				tagPos = scrip.indexOf('<script');
+				if(tagPos > -1 && tagPos < 30){
+					tempElem = document.createElement('div');
+					tempElem.innerHTML = scrip;
+					for(i=0;i<tempElem.childNodes.length;i++){
+						el = tempElem.childNodes[i];
+						if(el.tagName == 'SCRIPT'){
+							scriptElem = document.createElement('script');
+							src = el.getAttribute('src');
+							if(src != null){
+								scriptElem.setAttribute("src", src);
+							}
+							else{
+								scriptElem.innerText = el.innerText;
+							}
+							document.head.appendChild(scriptElem);
+						}
+						else{
+							// not sure what tags would be attempted
+							document.head.appendChild(el);
+						}
+					}
+					tempElem = null;
+				}
+				else{
+					scriptElem = document.createElement('script');
+					scriptElem.innerHTML = scrip;
+					document.head.appendChild(scriptElem);
+				}
 			}
 			
-			document.head.appendChild(test);
 			
 		});
 		
@@ -1181,12 +1271,6 @@
 			"color": "#ccc",
 			"font-style": "italic"
 		});
-		/*
-		util.addStyleRule('.iab-formcontrol::-ms-input-placeholder', {
-			"color": "#ccc",
-			"font-style": "italic"
-		});
-		*/
 		
 		util.addStyleRule('.iab-gradient', {
 			"background": "linear-gradient(99deg,  rgba(238,50,36,0.65) 0%,rgba(140,30,21,.10) 41%,rgba(0,0,0,0) 100%)"
@@ -1388,12 +1472,13 @@
 		*
 		*/
 		this.setup = function(options){
+			var options =  options || { controls: true };
 			var menu = document.getElementById(controlId);
 			var dlg;
 			var slots = options.slots, i, s;
 			var bodyClass;
 			var me = this;
-			this.options = options
+			this.options = options;
 			
 			initStyleRules();
 			
