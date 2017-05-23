@@ -12,4 +12,5 @@
 .iab-flexad img.iab-flexsizer{height:auto;width:100%;}
 .iab-flexad div.iab-adcontent{position:absolute;left:0;right:0;top:0;bottom:0;text-align:center;}
 .iab-flex-units-visible .iab-flexad{box-sizing:border-box;border:0.5px solid orange;}
+div.iab-adcontent iframe{min-width:100%!important;min-height:200px!important;}
 

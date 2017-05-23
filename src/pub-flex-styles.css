@@ -91,3 +91,8 @@
 	border: 0.5px solid orange;	
 }
 
+div.iab-adcontent iframe{
+	min-width: 100% !important;
+	min-height: 200px !important;
+}
+

@@ -1192,7 +1192,12 @@ Ex: Inject a DFP 8x1 ad unit
 				"display": "block", "position": "absolute", "left": "0", "right": "0", "top": "0", "bottom": "0", 
 				"text-align": "center" 
 			});
-				
+		util.addStyleRule('div.iab-adcontent iframe', 
+		{
+			"min-width": "100% !important",
+			"min-height": "200px !important"
+		});
+
 		var sizes = flexAdSizes;
 		
 		var i, sel, f;
