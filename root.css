@@ -1,0 +1,54 @@
+html, body{
+	margin: 0;
+	padding: 0;
+}
+
+body 
+{
+    font-family: Verdana, Arial;
+	background-color: white;
+}
+
+div.topNavHeader{
+	display: block;
+	position: fixed;
+	height: 65px;
+	border-bottom: 1px solid #ee3224;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: #fff;
+	box-shadow: 3px 2px 3px #777;
+}
+
+.mainContent{
+	margin-top: 76px;
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.contentGrid{
+	display: grid;
+}
+.cell{
+	border: 1px solid #777;
+	padding: 8px;
+	border-radius: 4px;
+}
+
+@media screen and (max-width: 899px){
+	.contentGrid .cell{
+		margin-bottom: 10px;
+	}
+	
+}
+
+@media only screen and (min-width: 900px){
+	.contentGrid{
+		display: grid;
+		grid-template-columns: 3fr 1fr;
+		grid-gap: 25px;
+	}
+
+}

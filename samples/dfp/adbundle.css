@@ -1,0 +1,21 @@
+html, body{
+	margin: 0;
+	padding: 0;
+}
+hr {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.pageWrap{
+	margin-left:auto;
+	margin-right:auto;
+}
+.pageWrap.wd80{
+	width:80%;
+}
+.pageWrap.wd50{
+	width:50%;
+}
+.pageWrap.wd30{
+	width:30%;
+}
