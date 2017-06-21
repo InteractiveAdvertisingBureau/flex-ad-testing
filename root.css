@@ -21,34 +21,94 @@ div.topNavHeader{
 	box-shadow: 3px 2px 3px #777;
 }
 
-.mainContent{
-	margin-top: 76px;
+img.techlabLogo-sm{
+	width: auto;
+	height: 64px;
+}
+
+.pageFullContentWidth{
 	width: 90%;
 	margin-left: auto;
 	margin-right: auto;
 }
 
+.nav{
+	margin: 0;
+	padding: 0;
+}
+ul.nav{
+	list-style: none;
+	font-size: 0.8em;
+}
+ul.nav li{
+	margin-bottom: 10px;
+}
+
+.sidebar h3:first-child{
+	margin-top: 0px;
+}
+
+
+.sidebar h3{
+	margin-top: 12 	px;
+	margin-bottom: 5px;
+	font-size: 1.15em;
+}
+
+.mainContent{
+	margin-top: 76px;	
+}
+
+.centerContent p:first-child{
+	margin-top: 0;
+	-webkit-margin-before: 0;
+}
+
 .contentGrid{
 	display: grid;
+	grid-auto-rows: minmax(100px, auto);
 }
+
 .cell{
 	border: 1px solid #777;
 	padding: 8px;
 	border-radius: 4px;
 }
 
-@media screen and (max-width: 899px){
+@media screen and (max-width: 767px ){
 	.contentGrid .cell{
 		margin-bottom: 10px;
 	}
-	
+	.contentGrid{
+		display: block;
+	}
 }
 
-@media only screen and (min-width: 900px){
+@media screen and (max-width: 899px) and (min-width: 768px ){
+	.contentGrid .cell{
+		margin-bottom: 10px;
+	}
 	.contentGrid{
 		display: grid;
 		grid-template-columns: 3fr 1fr;
+		grid-gap: 10px;
+	}
+	.contentGrid .left-sidebar{
+		grid-row: 2;
+	}
+}
+
+@media (min-width: 900px){
+	.contentGrid{
+		display: grid;
+		grid-template-columns: 1fr 3fr 1fr;
 		grid-gap: 25px;
 	}
+	.contentGrid .left-sidebar{
+		grid-row: 1;
+	}
+}
 
+
+@media (min-width: 1200px) {
 }
