@@ -35,6 +35,17 @@ hr {
 	width:20%;
 }
 
+.pageWrap .adWrap{
+	margin-bottom: 10px;
+	padding-bottom: 25px;
+	border-bottom: 1px solid #aaa;
+}
+
+.pageWrap.linearLayout .adWrap{
+	display: inline-block;
+	max-width: 22%;
+}
+
 .iab-adcontent.autoscale iframe{
 	min-width:auto;
 	min-height: auto;
@@ -52,3 +63,6 @@ hr {
 	height: 300%;
 }
 
+.em{
+	font-weight: bold;
+}

@@ -36,7 +36,7 @@
 	gptAdSlots.push(googletag.defineSlot('/3790/Flex6:1', [1,1], 'div-gpt-flex-ad').addService(googletag.pubads()));
 	gptAdSlots.push(googletag.defineSlot('/3790/Fixed320x50', [320,50], 'div-gpt-fixed-ad').addService(googletag.pubads()));
 	gptAdSlots.push(googletag.defineSlot('/3790/Static6:1', [1,1], 'div-gpt-static-ad-3').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Static320x50', [320,50], 'div-gpt-static300-ad-4').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static320x50', [320,50], 'div-gpt-static300-ad').addService(googletag.pubads()));
 	
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
@@ -55,6 +55,9 @@
 
 <body>
 <section class="intro">
+	<p class="em">
+		Best viewed on mobile phones. This ad unit’s recommended size range is best suited for mobile devices.
+	</p>
 	<p>
 		This page demonstrates a flexible sized ad container implementation and serving different types of ads that can be expected during the transition period for this ad unit. The ads are being served using standard Google DFP GPT tags and ad delivery setup and features. Ad tags and ad images for these ads have been provided by creative platforms - Flexitive, Responsive Ads and Flashtalking. 
 	</p>
@@ -131,7 +134,7 @@
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-6x1" ></div>
-	<div class="iab-adcontent">
+	<div class="iab-adcontent autoscale">
 		<!-- AD INSERTED HERE -->
 
 	<!-- /3790/Flex6:1 -->
