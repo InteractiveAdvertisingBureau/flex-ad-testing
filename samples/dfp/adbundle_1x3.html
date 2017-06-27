@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="adbundle.css">
 
 <style type="text/css">
+
 </style>
 
 	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
@@ -30,27 +31,21 @@
 
 <script>
   googletag.cmd.push(function() {
-    googletag.defineSlot('/3790/Flex1:3', [1,1], 'div-gpt-flex-ad').addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-  });
   
-  googletag.cmd.push(function() {
-    googletag.defineSlot('/3790/Fixed300x1050', [1,1], 'div-gpt-fixed-ad').addService(googletag.pubads());
+	var gptAdSlots = [];
+
+	gptAdSlots.push(googletag.defineSlot('/3790/Flex1:3', [1,1], 'div-gpt-flex-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Fixed300x1050', [300,1050], 'div-gpt-fixed-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static1:3', [1,1], 'div-gpt-static-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static300x1050', [300,1050], 'div-gpt-static300-ad').addService(googletag.pubads()));
+	
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
-  });
-  
-  googletag.cmd.push(function() {
-    googletag.defineSlot('/3790/Static1:3', ['fluid'], 'div-gpt-static-ad').addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-  });
-  
-  googletag.cmd.push(function() {
-    googletag.defineSlot('/3790/Static300x1050', ['fluid'], 'div-gpt-static300-ad').addService(googletag.pubads());
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
+
+	setInterval(function(){
+		googletag.pubads().refresh([gptAdSlots[0]]);
+	}, 20*1000);
+	
   });
 </script>
 
@@ -58,12 +53,20 @@
 </head>
 
 <body>
+<section class="intro">
+	<p>
+		This page demonstrates a flexible sized ad container implementation and serving different types of ads that can be expected during the transition period for this ad unit. The ads are being served using standard Google DFP GPT tags and ad delivery setup and features. Ad tags and ad images for these ads have been provided by creative platforms - Flexitive, Responsive Ads and Flashtalking. 
+	</p>
+	<p>
+		Please scroll down to see all four types of ad units working in the same flexible sized ad unit.
+	</p>
+</section>
 
-	<div class="pageWrap wd30">
+	<div class="pageWrap wd25">
 		
 		
 		
-<h4>Ad /3790/Flex1:3 below</h4>
+<h4>1:3 Aspect ratio based flexible and responsive ad in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x3" ></div>
@@ -83,11 +86,11 @@
 
 <hr>
 	
-<h4>Ad /3790/Fixed1:3 below</h4>
+<h4>Fixed (300 x 1050) ad in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x3" ></div>
-	<div class="iab-adcontent">
+	<div class="iab-adcontent autoscale hideYoverflow">
 		<!-- AD INSERTED HERE -->
 
 	<!-- /3790/Flex1:3 -->
@@ -103,11 +106,11 @@
 
 <hr>
 
-	<h4>Ad /3790/Static1:3 below</h4>
+<h4>1:3 Aspect ratio based static image in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x3" ></div>
-	<div class="iab-adcontent">
+	<div class="iab-adcontent iframe-flex1x3">
 		<!-- AD INSERTED HERE -->
 
 	<!-- /3790/Flex1:3 -->
@@ -123,7 +126,7 @@
 
 <hr>
 
-	<h4>Ad /3790/Static300x1050 below</h4>
+<h4>Fixed (300 x 1050) image ad in flexible container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x3" ></div>

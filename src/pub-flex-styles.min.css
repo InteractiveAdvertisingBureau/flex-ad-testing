@@ -4,7 +4,7 @@
 .iab-flexsizer.flex-4x1{width:100%;padding-top:25%;}
 .iab-flexsizer.flex-6x1{width:100%;padding-top:16.67%;}
 .iab-flexsizer.flex-8x1{width:100%;padding-top:12.5%;}
-.iab-flexsizer.flex-1x1{width:100%;padding-top:100%;}
+.iab-flexsizer.flex-1x1{width:100%;padding-top:100%;min-width:300px;}
 .iab-flexsizer.flex-1x2{width:100%;padding-top:200%;}
 .iab-flexsizer.flex-1x3{width:100%;padding-top:300%;}
 .iab-flexsizer.flex-1x4{width:100%;padding-top:400%;}
@@ -12,5 +12,5 @@
 .iab-flexad img.iab-flexsizer{height:auto;width:100%;}
 .iab-flexad div.iab-adcontent{position:absolute;left:0;right:0;top:0;bottom:0;text-align:center;}
 .iab-flex-units-visible .iab-flexad{box-sizing:border-box;border:0.5px solid orange;}
-div.iab-adcontent iframe{min-width:100%!important;min-height:200px!important;}
+div.iab-adcontent iframe{min-width:100%;min-height:110px;}
 

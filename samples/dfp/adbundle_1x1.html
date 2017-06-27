@@ -20,6 +20,10 @@
 <link rel="stylesheet" href="adbundle.css">
 
 <style type="text/css">
+.iab-adcontent.autoscale iframe{
+	min-width:auto;
+	min-height: auto;
+}
 </style>
 
 	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
@@ -34,9 +38,9 @@
 	var gptAdSlots = [];
 	
 	gptAdSlots.push(googletag.defineSlot('/3790/Flex1:1', [1,1], 'div-gpt-flex-ad').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Fixed300x250', [1,1], 'div-gpt-fixed-ad').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Static1:1', ['fluid'], 'div-gpt-static-ad').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Static300x250', ['fluid'], 'div-gpt-static300-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Fixed300x250', [300,250], 'div-gpt-fixed-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static1:1', [1,1], 'div-gpt-static-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static300x250', [300,250], 'div-gpt-static300-ad').addService(googletag.pubads()));
 	
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
@@ -54,13 +58,20 @@
 </head>
 
 <body>
-
+<section class="intro">
+	<p>
+		This page demonstrates a flexible sized ad container implementation and serving different types of ads that can be expected during the transition period for this ad unit. The ads are being served using standard Google DFP GPT tags and ad delivery setup and features. Ad tags and ad images for these ads have been provided by creative platforms - Flexitive, Responsive Ads and Flashtalking. 
+	</p>
+	<p>
+		Please scroll down to see all four types of ad units working in the same flexible sized ad unit.
+	</p>
+</section>
 	<div class="pageWrap wd30" >
 		
 		
 		
-<h4>Ad /3790/Flex1:1 below</h4>
-
+<h4>1:1 Aspect ratio based flexible and responsive ad in flexible ad container</h4>
+		
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x1" ></div>
 	<div class="iab-adcontent">
@@ -79,7 +90,7 @@
 
 <hr>
 	
-<h4>Ad /3790/Fixed1:1 below</h4>
+<h4>Fixed (300x250) ad in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x1" ></div>
@@ -99,11 +110,11 @@
 
 <hr>
 
-	<h4>Ad /3790/Static1:1 below</h4>
+<h4>1:1 Aspect ratio based static image in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x1" ></div>
-	<div class="iab-adcontent">
+	<div class="iab-adcontent autoscale">
 		<!-- AD INSERTED HERE -->
 
 	<!-- /3790/Flex1:1 -->
@@ -119,7 +130,7 @@
 
 <hr>
 
-	<h4>Ad /3790/Static300x250 below</h4>
+<h4>Fixed (300 x 250) image ad in flexible container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-1x1" ></div>

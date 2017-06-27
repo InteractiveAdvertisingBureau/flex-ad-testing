@@ -85,7 +85,7 @@ Ex: Inject a DFP 8x1 ad unit
 		{ "sz": "4x1", "rat": "25%"},
 		{ "sz": "6x1", "rat": "16.7%"},
 		{ "sz": "8x1", "rat": "12.5%"},
-		{ "sz": "1x1", "rat": "100%"},
+		{ "sz": "1x1", "rat": "100%", "minw": "300px"},
 		{ "sz": "1x2", "rat": "200%"},
 		{ "sz": "1x3", "rat": "300%"},
 		{ "sz": "1x4", "rat": "400%"},
@@ -1195,16 +1195,20 @@ Ex: Inject a DFP 8x1 ad unit
 		util.addStyleRule('div.iab-adcontent iframe', 
 		{
 			"min-width": "100% !important",
-			"min-height": "200px !important"
+			"min-height": "110px !important"
 		});
 
 		var sizes = flexAdSizes;
 		
-		var i, sel, f;
+		var i, sel, f, rule;
 		for(i=0;i<sizes.length;i++){
 			f = sizes[i];
 			sel = '.iab-flexsizer.flex-' + f.sz;
-			util.addStyleRule(sel, { "width": "100%", "padding-top": f.rat});
+			rule = { "width": "100%", "padding-top": f.rat};
+			if(f.minw != null){
+				rule["min-width"] = f.minw;
+			}
+			util.addStyleRule(sel, rule);
 		}
 		
 		// helper class to make ad units visible

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">		
 <link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
-	<title>IAB Flex Ads - Samples and Tests</title>
+	<title>IAB New Ad Portfolio - Flexiable Ad Units - Samples and Tests</title>
 		
 <link rel="stylesheet" href="root.css">
 		
@@ -23,6 +23,7 @@
 	
 <div class="contentGrid">
 	<div class="cell sidebar left-sidebar">
+		<section>
 		<h3>For Publishers</h3>
 		<ul class="nav">
 			<li>
@@ -33,31 +34,58 @@
 			<li>
 				<a href="./src/index.html">Flex ad testing helper code</a>
 			</li>
-				-->
 			<li>
 				<a href="./src/ad_blocks.html">Examples of publisher ad blocks and markup</a>
 			</li>
+				-->
 		</ul>
+		</section>
 
 	</div>
 	
 	<div class="cell centerContent"> 
-		<h1>Flex Ads and Transition Guideline</h1>
+		<h1>New Ad Portfolio Transition Guidance</h1>
+		<h2>Implementing and testing flexible sized ad containers</h2>
 		<p>
-			The IAB New Ad Portfolio defines the ad units based on aspect ratio. This is a big transition from current ad unit recommendations based on fixed pixel sizes. 
-			Flexible ad units provide benefits over the current fixed pixel ad units
+			The IAB New Ad Portfolio defines ad units based on aspect ratio and size range. 
+			This is a big transition from current ad unit recommendations based on fixed pixel sizes.
 		</p>
-		
+		<p>
+			Flexible sized ad units provide several benefits over the current fixed pixel ad units.
+		</p>
+			
 		<ul>
-			<li>Single ad unit can service multiple device aspect ratios</li>
-			<li>Publisher page can pre-define ad slot size to eliminate page stutter</li>
+			<li>
+				Publisher content delivered to multiple screen sizes and requires ads that can respond to multiple sizes and integrate with responsive website design.
+			</li>
+			<li>
+				Creative design needs to scale to different sizes without losing its original message and impact.
+			</li>
 		</ul>
 		
 		<p>
-			This project provides samples and techniques for testing and adoption of the new Flex Size ad units.
+			This project provides examples and techniques for implementing, testing and adopting the new aspect ratio based ad units. 
+			It addresses key aspects of flexible ad container implementation:
 		</p>
+		<ul>
+			<li>
+				Create an aspect ratio based ad slot that can scale up or down within the size range of the ad unit.
+				</li>
+			<li>
+				Maintain an ad slot that helps publishers accept both aspect ratio based ad units and fixed size ad units during the transition period.
+			</li>
+			<li>
+				Allow publisher page to pre-define an ad slot size to eliminate page stutter.
+
+			</li>
+		</ul>
+		<p>
+			IAB Techlab has created an open source project to enable publishers to quickly insert a flexible ad slot on their test pages. 
+			It is available here:
+		</p>
+		<a  style="font-weight:bold;font-size:1.1em;display:block;" href="https://github.com/InteractiveAdvertisingBureau/flex-ad-testing">Flexiable Ad Unit Testing Github Repo</a>
 		
-		<div class="sdkCodeBlock">
+		<div class="sdkCodeBlock" style="display:none;">
 		<h2>SDK Helper Code</h2>
 		<ul>
 			<li>
@@ -71,39 +99,20 @@
 	</div>
 	
 	<div class="cell sidebar right-sidebar">
-		<h3>Bare DFP Samples</h3>
-		<ul class="nav">
-			<li>
-				<a href="./samples/dfp/flexad_4x1.html">DFP Ad Unit 4x1 Aspect Ratio</a>
-			</li>
-			<li>
-				<a href="./samples/dfp/flexad_6x1.html">DFP Ad Unit 6x1 Aspect Ratio</a>
-			</li>
-			<li>
-				<a href="./samples/dfp/flexad_8x1.html">DFP Ad Unit 8x1 Aspect Ratio</a>
-			</li>
-			<li>
-				<a href="./samples/dfp/flexad_1x1.html">DFP Ad Unit 1x1 Aspect Ratio</a>
-			</li>
-		</ul>
+		<section>
 
 		<h3>Content Embedded Ads</h3>
 		<ul class="nav">
 			<li>
-				<a href="./samples/three_column.html">Three column sample page</a>
+				<a href="./samples/dfp/placed_8x1.html">DFP 8x1 Aspect Ratio Ad Unit</a>
 			</li>
 			<li>
 				<a href="./samples/dfp/placed_1x1.html">DFP 1x1 Aspect Ratio Ad Unit</a>
 			</li>
-			<li>
-				<a href="./samples/dfp/placed_1x3.html">DFP 1x3 Aspect Ratio Ad Unit</a>
-			</li>
-			<li>
-				<a href="./samples/dfp/placed_8x1.html">DFP 8x1 Aspect Ratio Ad Unit</a>
-			</li>
 		</ul>
 		
-		<h3>Mobile Formats</h3>
+		<h3>Full Page Ad</h3>
+			<p>Best viewed on mobile device screen.</p>
 		<ul class="nav">
 			<li>
 				<a href="./samples/dfp/flexad_9x16.html">DFP 9x16 Mobile Interstitial</a>
@@ -111,7 +120,8 @@
 		</ul>
 		
 		
-		<h3>Flex, Fixed Size, &amp; Static Image Ads</h3>
+		<h3>Inline Ads</h3>
+			<p>Flexible ad slot displays aspect ratio ad, fixed pixel ad, static image ad.</p>
 		<ul class="nav">
 			<li>
 				<a href="./samples/dfp/adbundle_1x1.html">Flex 1x1 and Legacy Formats</a>
@@ -129,6 +139,7 @@
 				<a href="./samples/dfp/adbundle_8x1.html">Flex 8x1 and Legacy Formats</a>
 			</li>
 		</ul>
+		</section>
 	</div>
 	
 	

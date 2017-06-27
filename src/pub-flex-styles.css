@@ -53,6 +53,7 @@
 .iab-flexsizer.flex-1x1{
 	width: 100%;
 	padding-top: 100%;
+	min-width: 300px;
 }
 .iab-flexsizer.flex-1x2{
 	width: 100%;
@@ -92,7 +93,7 @@
 }
 
 div.iab-adcontent iframe{
-	min-width: 100% !important;
-	min-height: 200px !important;
+	min-width: 100%;
+	min-height: 110px;
 }
 

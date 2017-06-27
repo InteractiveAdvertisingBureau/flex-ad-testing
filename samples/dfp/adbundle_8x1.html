@@ -20,6 +20,9 @@
 <link rel="stylesheet" href="adbundle.css">
 
 <style type="text/css">
+.iab-adcontent.autoscale iframe{
+	min-width:auto;
+}
 </style>
 
 	<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
@@ -34,9 +37,9 @@
 	var gptAdSlots = [];
 	
 	gptAdSlots.push(googletag.defineSlot('/3790/Flex8:1', [1,1], 'div-gpt-flex-ad').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Fixed728x90', [1,1], 'div-gpt-fixed-ad').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Static8:1', ['fluid'], 'div-gpt-static-ad').addService(googletag.pubads()));
-	gptAdSlots.push(googletag.defineSlot('/3790/Static728x90', ['fluid'], 'div-gpt-static300-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Fixed728x90', [728,90], 'div-gpt-fixed-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static8:1', [1,1], 'div-gpt-static-ad').addService(googletag.pubads()));
+	gptAdSlots.push(googletag.defineSlot('/3790/Static728x90', [728,90], 'div-gpt-static300-ad').addService(googletag.pubads()));
 	
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
@@ -47,25 +50,6 @@
 	}, 20000);
 	
   });
-/*
-  googletag.cmd.push(function() {
-    
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-  });
-  
-  googletag.cmd.push(function() {
-    
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-  });
-  
-  googletag.cmd.push(function() {
-    
-    googletag.pubads().enableSingleRequest();
-    googletag.enableServices();
-  });
-  */
 </script>
 
 
@@ -73,12 +57,20 @@
 </head>
 
 <body>
+<section class="intro">
+	<p>
+		This page demonstrates a flexible sized ad container implementation and serving different types of ads that can be expected during the transition period for this ad unit. The ads are being served using standard Google DFP GPT tags and ad delivery setup and features. Ad tags and ad images for these ads have been provided by creative platforms - Flexitive, Responsive Ads and Flashtalking. 
+	</p>
+	<p>
+		Please scroll down to see all four types of ad units working in the same flexible sized ad unit.
+	</p>
+</section>
 
 	<div class="pageWrap wd80">
 		
 		
 		
-<h4>Ad /3790/Flex8:1 below</h4>
+<h4>8:1 Aspect ratio based flexible and responsive ad in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-8x1" ></div>
@@ -98,7 +90,7 @@
 
 <hr>
 	
-<h4>Ad /3790/Fixed8:1 below</h4>
+<h4>Fixed (728 x 90) ad in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-8x1" ></div>
@@ -118,7 +110,7 @@
 
 <hr>
 
-	<h4>Ad /3790/Static8:1 below</h4>
+<h4>8:1 Aspect ratio based static image in flexible ad container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-8x1" ></div>
@@ -138,11 +130,11 @@
 
 <hr>
 
-	<h4>Ad /3790/Static300x250 below</h4>
+<h4>Fixed (728 x 90) image ad in flexible container</h4>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-8x1" ></div>
-	<div class="iab-adcontent">
+	<div class="iab-adcontent autoscale">
 		<!-- AD INSERTED HERE -->
 
 	<!-- /3790/Flex8:1 -->

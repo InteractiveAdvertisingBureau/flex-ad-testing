@@ -1,6 +1,15 @@
 html, body{
 	margin: 0;
 	padding: 0;
+	font-family: open sans, Arial;
+}
+body section.intro{
+	width: 70%;
+	max-width: 600px;
+	margin-left:auto;
+	margin-right:auto;
+	font-size:1em;
+	margin-bottom: 30px;
 }
 hr {
 	margin-top: 30px;
@@ -19,3 +28,27 @@ hr {
 .pageWrap.wd30{
 	width:30%;
 }
+.pageWrap.wd25{
+	width:25%;
+}
+.pageWrap.wd20{
+	width:20%;
+}
+
+.iab-adcontent.autoscale iframe{
+	min-width:auto;
+	min-height: auto;
+}
+.iab-adcontent.hideoverflow{
+	overflow: hidden;
+}
+.iab-adcontent.hideYoverflow{
+	overflow-y: hidden;
+}
+.iab-adcontent.hideYoverflow::-webkit-scrollbar { 
+    display: none; 
+}
+.iframe-flex1x3 iframe{
+	height: 300%;
+}
+
