@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
 <!-- ============================================================================
 # /*
 # * Copyright (c) 2017, Interactive Advertising Bureau
@@ -14,19 +11,15 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
 # ============================================================================ -->
+	<meta charset="utf-8">		
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+	<title>IAB New Ad Portfolio - Flexible Ad Units - Samples and Tests</title>
+		
+<link rel="stylesheet" href="../root.css">
 	
-<title>IAB: SDK sample for FlexAds</title>
-
-	<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
-<!-- Note - the SDK will inject these styles as well -->
-<link rel="stylesheet" href="pub-flex-styles.css">
 <style type="text/css">
 
-html, body{
-	margin: 0;
-	min-height: 100v;
-	font-family: Verdana, Arial;
-}
 
 p {
 	display: block;
@@ -36,52 +29,6 @@ p {
 	margin-bottom: 1.2em;
 }
 
-.teaserBar{
-	width: 100%;
-	margin-top:0;
-	margin-bottom: 10px;
-	background: #555;
-	color: white;	
-}
-
-.teaserBar>div.content{
-	display: flex;
-	max-width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 15px 20px;
-	font-size: .9rem;	
-}
-
-.teaserBar>div.content > .item {
-	flex: 1 1 auto;
-	margin-right: 5px;
-}
-
-.top-header{
-	height: 85px;
-	margin-bottom: 10px;
-	color: blue;
-	font-size: 1.25rem;
-}
-.top-header .content{
-	max-width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	display: flex;
-}
-.top-header .content .item {
-	padding: 10px;
-	flex: 1 1 auto;
-}
-
-.top-header img.logo{
-	width: auto;
-	height: 80px;
-	display: inline-block;
-	margin-top: -10px;
-}
 
 .sidebar .article{
 	font-size: 0.9em;
@@ -91,18 +38,6 @@ p {
 	font-weight: bold;
 	font-color: #444;
 	margin-bottom: 1em;
-}
-
-.footer{
-	position: fixed;
-	border-top-right-radius: 1em;
-	bottom: 0;
-	padding: 15px;
-	font-size: 0.8rem;
-	background: white;
-	border-top: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	border-radius-
 }
 
 .content-wrap{
@@ -167,77 +102,16 @@ img.scalewidth{
 
 }
 
-
-
-
-
-
-
-/* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
-
-.flex-ad-unit{
-	position:relative;
-}
-
-.flex-units-visible .flex-ad-unit{
-	background: #eee;
-	border: 1px solid orange;
-}
-
-
-.flex-ad-unit>.flex-spacer-image{
-	width:100%;
-	height:auto;
-	z-index:-1;
-	display:block;
-}
-.flex-ad-unit>div.flex-ad-content{
-	position:absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 10;
-}
-
 </style>
-
-<script>
-</script>
+		
 </head>
+<body>
+		<script type="text/javascript" src="../siteheader.js#root=../"></script>
 
-<body class="flex-units-visible">
-
-	<div class="teaserBar">
-		<div class="content">
-			<div class="item">
-				<b>IAB Flex Ads SDK</b>
-			</div>
-			<div class="item">
-				IAB
-			</div>
-			<div class="item">
-				
-			</div>
-		</div>
-	</div>
 	
-	<div class="top-header">
-		<div class="content">
-			<div class="item">
-				Flex Ads
-			</div>
-			
-			<div class="item">
-				<img src="./images/iab-techlab-logo.png" class="logo" />
-			</div>
-			
-			<div class="item">
-				Eliminate Page Stutter
-			</div>
-			
-		</div>
-	</div>
+	<div role="main" class="mainContent pageFullContentWidth">
+	
+<div class="contentGrid">
 	
 	<div class="content-wrap" >
 		<div id="top_billboard_wrap"></div>
@@ -349,27 +223,17 @@ It indicates a synchronic distortion in the areas emanating triolic waves. The c
 		
 	</div>
 
+</div>
+
+
+	
+	</div>
 
 	<div class="footer footer-fixed-bottom clearContent" role="footer">
 		<footer>
 		&copy; 2017 Interactive Advertising Bureau
 		</footer>
 	</div>
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 	
 <!-- ================= SOME TEXT CONTENT ================== -->
@@ -461,5 +325,5 @@ Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyfl
 	})()
 	</script>
 	
- </body>
-</html>
+</body>
+</html>		

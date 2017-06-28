@@ -19,11 +19,13 @@ div.topNavHeader{
 	width: 100%;
 	background-color: #fff;
 	box-shadow: 3px 2px 3px #777;
+	z-index: 50;
 }
 
 img.techlabLogo-sm{
 	width: auto;
 	height: 64px;
+	border: 0;
 }
 
 .pageFullContentWidth{
@@ -56,9 +58,18 @@ ul.nav li{
 }
 
 .mainContent{
-	margin-top: 76px;	
+	margin-top: 76px;
+	margin-bottom: 65px;
 }
 
+.externalLink {
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAQCAYAAAAiYZ4HAAAAZ0lEQVQ4T72SOw7AIAxDjcS9aS/eVokaKTIQPgMsLH7GDklYPGlRDwFegszkAlDYMAJEW0EeyAAeejEEuM8wkgdYfP9dio/UA0QsBtqpB1hhfysRATxRHf9ZYGpLWj8dglvLNxXFRB/GxxqH+ITtZwAAAABJRU5ErkJggg==");
+	width: 12px;
+	height: 16px;
+	display: inline-block;
+	margin-left: 4px;
+	vertical-align: bottom;
+}
 .centerContent p:first-child{
 	margin-top: 0;
 	-webkit-margin-before: 0;
@@ -74,6 +85,20 @@ ul.nav li{
 	padding: 8px;
 	border-radius: 4px;
 }
+
+
+.footer{
+	position: fixed;
+	border-top-right-radius: 1em;
+	bottom: 0;
+	padding: 15px;
+	font-size: 0.8rem;
+	background: white;
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	border-radius-
+}
+
 
 @media screen and (max-width: 767px ){
 	.contentGrid .cell{

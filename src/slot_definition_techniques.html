@@ -2,9 +2,6 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
 <!-- ============================================================================
 # /*
 # * Copyright (c) 2017, Interactive Advertising Bureau
@@ -14,18 +11,17 @@
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 # */
 # ============================================================================ -->
+	<meta charset="utf-8">		
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
+<title>Slot definition techniques - IAB New Ad Portfolio - Flexible Ad Units</title>
+		
+<link rel="stylesheet" href="../root.css">
 	
-<title>IAB: Slot definition techniques for Flex Ads</title>
 
-	<link rel="shortcut icon" href="//www.iab.net/media/image/iabnet.ico" />
 
 <style type="text/css">
 
-html, body{
-	margin: 0;
-	min-height: 100v;
-	font-family: Verdana, Arial;
-}
 
 em{
 	font-weight: bold;
@@ -36,66 +32,6 @@ em{
 	font-size: 0.9em;
 	font-style: italic;
 }
-
-.teaserBar{
-	width: 100%;
-	margin-top:0;
-	margin-bottom: 10px;
-	background: black;
-	color: white;	
-}
-
-.teaserBar>div.content{
-	display: flex;
-	max-width: 1000px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 15px 20px;
-	font-size: .9rem;	
-}
-
-.teaserBar>div.content > .item {
-	flex: 1 1 auto;
-	margin-right: 5px;
-}
-
-.top-header{
-	height: 85px;
-	margin-bottom: 10px;
-	color: blue;
-	font-size: 1.25rem;
-}
-.top-header .content{
-	max-width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-	display: flex;
-}
-.top-header .content .item {
-	padding: 10px;
-	flex: 1 1 auto;
-}
-
-.top-header img.logo{
-	width: auto;
-	height: 80px;
-	display: inline-block;
-	margin-top: -10px;
-}
-
-.footer{
-	position: fixed;
-	border-top-right-radius: 1em;
-	bottom: 0;
-	padding: 15px;
-	font-size: 0.8rem;
-	background: white;
-	border-top: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	border-radius-
-}
-
 .content-wrap{
 	max-width: 1000px;
 	margin-left: auto;
@@ -218,8 +154,8 @@ section.techniqueSection{
 	border-radius: 8px;
 }
 
-
 /* ================ STYLE DEFINITIONS FOR AD UNITS ================= */
+/* For illustrative purposes only. Use style sheet pub-flex-styles.css */
 
 .flex-ad-unit{
 	position:relative;
@@ -253,37 +189,7 @@ section.techniqueSection{
 </head>
 
 <body class="flex-units-visible">
-
-	<div class="teaserBar">
-		<div class="content">
-			<div class="item">
-				Slot Definition Techniques for Flex Ads
-			</div>
-			<div class="item">
-				IAB
-			</div>
-			<div class="item">
-				
-			</div>
-		</div>
-	</div>
-	
-	<div class="top-header">
-		<div class="content">
-			<div class="item">
-				Flex Ads
-			</div>
-			
-			<div class="item">
-				<img src="./images/iab-techlab-logo.png" class="logo" />
-			</div>
-			
-			<div class="item">
-				Eliminate Page Stutter
-			</div>
-			
-		</div>
-	</div>
+		<script type="text/javascript" src="../siteheader.js#root=../"></script>
 	
 	<div class="content-wrap"  role="main" >
 		<h1>Defining Flex Ad Containers</h1>
@@ -346,6 +252,11 @@ section.techniqueSection{
 			The first technique utilizes a full width div (width:100%) with top padding set to the
 			percentage required for the aspect ratio. Another absolutely positioned element is then
 			overlain on the aspect ratio div to the the injection target for the ad creative.
+			At time of writing this is the preferred technique for defining flexible ad unit containers.
+		</p>
+		<p>
+			<a href="pub-flex-styles.css" target="_blank">Ad unit stylesheet</a> available for usage. Below explanation
+			shows inline styles for illustrative purposes only.
 		</p>
 		
 		<div>
@@ -413,7 +324,7 @@ section.techniqueSection{
 		
 		
 		<br/>
-		
+		</section>
 
 			<!-- =========================================== SCALED IMAGE SECTION ======================================= -->
 		<section id="slotScaledImage" class="techniqueSection">
@@ -683,44 +594,6 @@ window.addEventListener('resize', setSize);
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-<!-- ================= SOME TEXT CONTENT ================== -->
-	
-	<div style="display:none;">
-	<section id="hiddenContent">
-		<div id="longArticleContent">
-			<p>Chicharrones vice locavore raclette.  Labore iPhone est  DIY, affogato in  cray put a bird on it fashion axe quis drinking vinegar et crucifix sint  fap.  Lyft lumbersexual delectus farm-to-table bitters.  Wolf veniam cillum, ramps pop-up coloring book jean shorts sed nisi next level gentrify authentic.  Distillery aesthetic nulla, knausgaard fam organic eiusmod minim kitsch franzen craft beer VHS put a bird on it single-origin coffee readymade.  Disrupt typewriter banjo labore, offal pour-over shoreditch gochujang freegan irony.  Tacos culpa  enamel pin, put a bird on it photo booth et coloring book vexillologist sustainable yr small batch tousled freegan next level hot chicken.</p><p>Consequat pug asymmetrical hoodie aesthetic.  Cornhole aute  exercitation quis direct trade.  Meditation laborum sustainable glossier venmo, you probably haven't heard of them helvetica live-edge migas ethical copper mug sed asymmetrical dreamcatcher exercitation.  Ex vegan cornhole humblebrag pabst, synth prism hell of beard knausgaard lyft.  Green juice hoodie tofu vegan meggings duis  cold-pressed.  Chartreuse distillery thundercats, sunt vegan chicharrones echo park.  Narwhal dolor  gochujang echo park, chia humblebrag kombucha consectetur vero laboris  selvage eu.</p><p>Dolore ad non, air plant edison bulb voluptate  odio chia readymade meditation put a bird on it jianbing tote bag forage.  Church-key commodo VHS, venmo sint  pickled nesciunt velit  green juice officia  tousled migas chia.  Pop-up tbh sint, flexitarian id  vero enamel pin four dollar toast roof party photo booth af next level raclette blog nostrud.  Franzen swag hoodie, vape cold-pressed bespoke mlkshk dolore dolor  anim.  Listicle sriracha man braid, +1 veniam hammock dolor  tilde messenger bag live-edge.  Meditation actually ad, cred PBR&amp;B sartorial minim raclette nisi chia.  Sriracha commodo blue bottle typewriter messenger bag fanny pack, roof party slow-carb.</p><p>Wayfarers labore affogato, mumblecore culpa  dreamcatcher hoodie tofu exercitation heirloom knausgaard nesciunt.  Do magna blue bottle flexitarian, vape chartreuse you probably haven't heard of them poke ramps master cleanse labore cold-pressed gluten-free.  Assumenda small batch snackwave, et elit tousled irure  ennui actually.  Pug irure  fingerstache, fashion axe tacos celiac small batch duis  squid listicle distillery incididunt food truck.  Ugh truffaut pariatur hexagon, vinyl aesthetic occupy synth crucifix tumblr snackwave wayfarers chambray church-key kale chips.  Quis viral bicycle rights small batch, literally ramps quinoa food truck veniam kickstarter.  Knausgaard mollit  tilde thundercats quinoa, irure  lumbersexual lyft esse  magna chartreuse schlitz.</p>
-		</div>
-		<div id="shortArticle">
-			Four dollar toast tumblr distillery farm-to-table lumbersexual franzen, flexitarian edison bulb artisan. Hot chicken lo-fi skateboard schlitz, tofu small batch kogi cardigan. Flexitarian health goth kombucha air plant, lomo truffaut pug prism plaid freegan chambray chillwave tilde. Hella mixtape vaporware, hoodie cold-pressed chambray fingerstache umami pug hexagon. Cardigan XOXO skateboard pickled chicharrones. Blog food truck aesthetic kombucha banjo. Next level tumeric plaid, semiotics direct trade williamsburg post-ironic cornhole blog pork belly cred vape pour-over swag.
-		</div>
-		
-		<div id="floralContent">
-<p>
-Florem ipsum mimosa, bell heather cornflower crocus, chincerinchee. Violet tansy buttercup windflower scots primrose bee orchid. Lobster claw, globe artichoke cloudberry love-in-a-mist queen Anne’s lace. Guelder rose rosemary jacob's ladder. Chickweed flame lily snowdrop poppy bogbean. Spotted orchid, acacia false goat’s beard begonia yarrow, glory lily.
-</p>
-<p>
-Floss flower moth orchid jacob's ladder painter’s palette evening primrose queen Fabiola lily snow berry. Mum, globeflower, michaelmas daisy columbine globe amarath wormwood september flower. Red rose guernsey lily glory lily tuberose. Slipper orchid ulster mary ox-eye daisy masterwort. Grape hyacinth, spiked speedwell cuban lily cornflower. Acacia peruvian lily snapdragon, feverfew tazetta forget-me-not. Waratah spray carnation, poppy.
-</p>
-<p>
-Painter’s palette obedient plant queen Fabiola lily goosefoot orchid. Monkeyflower, dune helleborine, round-leaved sundew cuckooflower houndstongue tulip lilac. Holy grass carnation tansy calla lily hop. Moth orchid begonia Kansas feather waratah mimosa sword lily masterwort. Bottlebrush marguerite.
-</p>
-
-		</div>
-		
-	</section>
-	</div>
 	
 	
 	<script
