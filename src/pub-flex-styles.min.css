@@ -4,13 +4,31 @@
 .iab-flexsizer.flex-4x1{width:100%;padding-top:25%;}
 .iab-flexsizer.flex-6x1{width:100%;padding-top:16.67%;}
 .iab-flexsizer.flex-8x1{width:100%;padding-top:12.5%;}
-.iab-flexsizer.flex-1x1{width:100%;padding-top:100%;min-width:300px;}
+.iab-flexsizer.flex-1x1{width:100%;padding-top:100%;}
 .iab-flexsizer.flex-1x2{width:100%;padding-top:200%;}
 .iab-flexsizer.flex-1x3{width:100%;padding-top:300%;}
 .iab-flexsizer.flex-1x4{width:100%;padding-top:400%;}
 .iab-flexsizer.flex-9x16{width:100%;padding-top:177.7%;}
+.iab-flexsizer.flex-2x1+div.iab-adcontent{min-width:300px;min-height:150px;max-width:1800px;max-height:900px;}
+.iab-flexsizer.flex-4x1+div.iab-adcontent{min-width:900px;min-height:225px;max-width:1800px;max-height:450px;}
+.iab-flexsizer.flex-6x1+div.iab-adcontent{min-width:300px;min-height:50px;max-width:450px;max-height:75px;}
+.iab-flexsizer.flex-8x1+div.iab-adcontent{min-width:600px;min-height:75px;max-width:1200px;max-height:150px;}
+.iab-flexsizer.flex-1x1+div.iab-adcontent{min-width:300px;min-height:300px;max-width:450px;max-height:450px;}
+.iab-flexsizer.flex-1x2+div.iab-adcontent{min-width:300px;min-height:600px;max-width:450px;max-height:900px;}
+.iab-flexsizer.flex-1x3+div.iab-adcontent{min-width:300px;min-height:900px;max-width:450px;max-height:1350px;}
+.iab-flexsizer.flex-1x4+div.iab-adcontent{min-width:160px;min-height:640px;max-width:240px;max-height:950px;}
+.iab-flexsizer.flex-9x16+div.iab-adcontent{min-width:300px;min-height:540px;max-width:450px;max-height:800px;}
 .iab-flexad img.iab-flexsizer{height:auto;width:100%;}
 .iab-flexad div.iab-adcontent{position:absolute;left:0;right:0;top:0;bottom:0;text-align:center;}
 .iab-flex-units-visible .iab-flexad{box-sizing:border-box;border:0.5px solid orange;}
 div.iab-adcontent iframe{min-width:100%;min-height:110px;}
+.flex-1x1+div.iab-adcontent iframe{min-width:300px;min-height:300px;}
+.flex-2x1+div.iab-adcontent iframe{min-width:300px;min-height:150px;}
+.flex-4x1+div.iab-adcontent iframe{min-width:900px;min-height:225px;}
+.flex-6x1+div.iab-adcontent iframe{min-width:300px;min-height:50px;}
+.flex-8x1+div.iab-adcontent iframe{min-width:600px;min-height:75px;}
+.flex-1x2+div.iab-adcontent iframe{min-width:300px;min-height:600px;}
+.flex-1x3+div.iab-adcontent iframe{min-width:300px;min-height:900px;}
+.flex-1x4+div.iab-adcontent iframe{min-width:160px;min-height:640px;}
+.flex-9x16+div.iab-adcontent iframe{min-width:300px;min-height:540px;}
 
