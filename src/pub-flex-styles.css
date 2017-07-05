@@ -73,6 +73,12 @@
 
 /* ====== min max heights ========= */
 
+.iab-flexsizer + div.iab-adcontent{
+	margin-left: auto;
+	margin-right: auto;
+}
+}
+
 .iab-flexsizer.flex-2x1 + div.iab-adcontent{
 	min-width: 300px;
 	min-height: 150px;
@@ -193,6 +199,50 @@ div.iab-adcontent iframe{
 	min-height: 540px;
 }
 
+@media (min-width: 745px){
+	.flex-8x1 + div.iab-adcontent iframe{
+		min-width: 728px;
+		min-height: 90px;
+	}
+	.iab-flexsizer.flex-6x1 + div.iab-adcontent{
+		min-width: 450px;
+		min-height: 75px;
+	}
+	.flex-6x1 + div.iab-adcontent iframe{
+		min-width: 450px;
+		min-height: 75px;
+	}
+}
 
+@media (min-width: 1000px){
+	.flex-8x1 + div.iab-adcontent iframe{
+		min-width: 1000px;
+		min-height: 125px;
+	}
+	.flex-4x1 + div.iab-adcontent iframe{
+		min-width: 970px;
+		min-height: 242px;
+	}
+}
 
-
+@media (min-width: 1200px){
+	.iab-flexsizer.flex-4x1 + div.iab-adcontent{
+		min-width: 1200px;
+		min-height: 168.75px;
+		max-width: 1800px;
+		max-height: 450px;
+	}
+	.iab-flexsizer.flex-6x1 + div.iab-adcontent{
+		min-width: 300px;
+		min-height: 50px;
+		max-width: 450px;
+		max-height: 75px;
+	}
+	.iab-flexsizer.flex-8x1 + div.iab-adcontent{
+		min-width: 1200px;
+		min-height: 150px;
+		max-width: 1200px;
+		max-height: 150px;
+	}
+}
+}

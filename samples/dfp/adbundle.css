@@ -4,8 +4,7 @@ html, body{
 	font-family: open sans, Arial;
 }
 body section.intro{
-	width: 70%;
-	max-width: 600px;
+	width: 95%;
 	margin-left:auto;
 	margin-right:auto;
 	font-size:1em;
@@ -35,6 +34,18 @@ hr {
 	width:20%;
 }
 
+@media (max-width: 800px){
+	.pageWrap.wd30 {
+		width: auto;
+	}
+	
+	.pageWrap h4{
+		margin-right: 5px;
+	}
+}
+
+
+
 .pageWrap .adWrap{
 	margin-bottom: 10px;
 	padding-bottom: 25px;
@@ -45,11 +56,12 @@ hr {
 	display: inline-block;
 	max-width: 22%;
 }
-
+/*
 .iab-adcontent.autoscale iframe{
 	min-width:auto;
 	min-height: auto;
 }
+*/
 .iab-adcontent.hideoverflow{
 	overflow: hidden;
 }
@@ -59,10 +71,20 @@ hr {
 .iab-adcontent.hideYoverflow::-webkit-scrollbar { 
     display: none; 
 }
-.iframe-flex1x3 iframe{
-	height: 300%;
-}
 
 .em{
 	font-weight: bold;
+}
+
+@media (min-width: 1000px){
+	.iab-flexsizer.flex-6x1 + div.iab-adcontent{
+		min-width: 450px;
+		min-height: 75px;
+		max-width: 600px;
+		max-height: 100px;
+	}
+	.flex-6x1 + div.iab-adcontent iframe{
+		min-width: 600px;
+		min-height: 100px;
+	}
 }
