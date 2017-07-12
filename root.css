@@ -46,7 +46,7 @@ ul.nav li{
 	margin-bottom: 10px;
 }
 
-.sidebar h3:first-child{
+.sidebar h2:first-child{
 	margin-top: 0px;
 }
 
@@ -54,7 +54,7 @@ ul.nav li{
 .sidebar h3{
 	margin-top: 12 	px;
 	margin-bottom: 5px;
-	font-size: 1.15em;
+	font-size: 1.05em;
 }
 
 .mainContent{

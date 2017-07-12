@@ -44,7 +44,13 @@ hr {
 	}
 }
 
+.clearfix{
+	clear: both;
+}
 
+.pageWrap.clearfix{
+	margin-top: 35px;
+}
 
 .pageWrap .adWrap{
 	margin-bottom: 10px;
@@ -54,8 +60,20 @@ hr {
 
 .pageWrap.linearLayout .adWrap{
 	display: inline-block;
-	max-width: 22%;
+	width: 25%;
+	margin-left: 10px;
+	margin-right: 10px;
+	max-width: 300px;
 }
+
+.justify{
+	margin-left: auto;
+	margin-right: auto;
+}
+.width70{
+	width: 70%;
+}
+
 /*
 .iab-adcontent.autoscale iframe{
 	min-width:auto;
