@@ -65,16 +65,13 @@
 	</p>
 	<!-- Common text encapsulation written from script -->
 	<script src="adbundle_intro_text.js"></script>
-	<p>
-		Please scroll down to see all four types of ad units working in the same flexible sized ad unit.
-	</p>
 </section>
 </div>
 	<div class="pageWrap">
 		
-		
-		
-<h4>6:1 Aspect ratio based flexible and responsive ad in flexible ad container</h4>
+	<script>
+	document.write(iabtxt.flex('6:1'));
+	</script>	
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-6x1" ></div>
@@ -94,8 +91,10 @@
 
 <hr>
 	
-<h4>Fixed (320 x 50) ad in flexible ad container</h4>
-
+	<script>
+	document.write(iabtxt.fixed('320x50'));
+	</script>
+	
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-6x1" ></div>
 	<div class="iab-adcontent">
@@ -113,9 +112,11 @@
 
 
 <hr>
-
-<h4>6:1 Aspect ratio based static image in flexible ad container</h4>
-
+	
+	<script>
+	document.write(iabtxt.aspectImg('6:1'));
+	</script>
+	
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-6x1" ></div>
 	<div class="iab-adcontent">
@@ -134,7 +135,9 @@
 
 <hr>
 
-<h4>Fixed (320 x 50) image ad in flexible container</h4>
+	<script>
+	document.write(iabtxt.aspectImg('320x50'));
+	</script>
 
 <div class="iab-flexad" >
 	<div class="iab-flexsizer flex-6x1" ></div>
